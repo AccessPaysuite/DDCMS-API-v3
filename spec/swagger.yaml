@@ -1367,32 +1367,20 @@ paths:
 
         ### Contract Statuses
 
-        Upon creation, a Contract Status will read “Pending to activate (0N in
-        queue to be send)” and it will remain in this state until approximately
-        8-9 working days before either (a) the start date provided in the create
-        contract call when creating an ad-hoc contract call or (b) the first
-        payment date in the case of scheduled/recurring payments.
+        Upon creation, a Contract Status will read ”Inactive” and it will remain in this state until approximately 8-9 working days before either (a) the start date provided in the create contract call when creating an ad-hoc contract call or (b) the first payment date in the case of scheduled/recurring payments.
 
-        When in this state, it is inadvisable to attempt to make changes to the
-        contract or to push ad-hoc payments to the contract as payments may be
-        missed or marked unpaid without an attempt to collect being made.
+        When in this state, it is inadvisable to attempt to make changes to the contract or to push ad-hoc payments to the contract as payments may be missed or marked unpaid without an attempt to collect being made.
 
-        We recommend waiting for the contract status to change to “Active”
-        (usually 8-9 working days before collection or the start date stated in
-        the create contract call) before making changes to the contract or
-        pushing payments ad-hoc payments into the system.
+        We recommend waiting for the contract status to change to “Active” (usually 8-9 working days before collection or the start date stated in the create contract call) before making changes to the contract or pushing payments ad-hoc payments into the system.
 
-        The other contract statuses are as follows:
+        A contract can be manifested in one of two ways:
 
         | Status | Description
         | ------ | ---------------------------------------------
         | **Active** | The contract is active and will either be producing payments if it is a scheduled contract, or able to accept ad-hoc payments if it is an ad-hoc contract.
-        | **Cancelled** | The Direct Debit has been cancelled at the bank by the customer or has been changed to “cancelled” in the UI. In the event that this is a scheduled contract, payments will continue to be created and marked as unpaid until the contract is archived or the scheduled payments come to a natural end.
-        | **Expired**  | Either a fixed-term schedule of payments has come to its natural end or the contract has been ended using a patch in the UI.
-        | **Suspended** | We were prevented from setting up the Direct Debit for some reason and the payments have been suspended. Refer to the UI or the contract StatusExpanation for details.
-        | **Creation Pending** | The set-up process for payments is in progress.
-        | **Cancellation Pending** | You are unlikely to encounter this status, however if you do, a message has been sent to the bank to end the Direct Debit and the “close-down” process is in progress.
-        | **Pause** | A user has paused the set-up of the Direct Debit using the UI.
+        | **Inactive** | The contract is inactive and cannot produce or accept payments, scheduled or otherwise.
+
+        For more information on why a contract may become “Inactive”, the StatusExplaination field can provide a more detailed explanation. This field is free text and recommend that it is stored and displayed to the end user as necessary.
 
         ### Timeframes
 
