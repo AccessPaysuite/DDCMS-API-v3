@@ -1380,7 +1380,7 @@ paths:
         | **Active** | The contract is active and will either be producing payments if it is a scheduled contract, or able to accept ad-hoc payments if it is an ad-hoc contract.
         | **Inactive** | The contract is inactive and cannot produce or accept payments, scheduled or otherwise.
 
-        For more information on why a contract may become “Inactive”, the `StatusExplaination` field can provide a more detailed explanation. This field is free text and recommend that it is stored and displayed to the end user as necessary.
+        For more information on why a contract may become “Inactive”, the `StatusExplaination` field can provide a more detailed explanation. This field is free text and we recommend that it is stored and displayed to the end user as necessary.
 
         ### Timeframes
 
