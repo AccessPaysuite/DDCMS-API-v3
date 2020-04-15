@@ -574,21 +574,20 @@ parameters:
       If the contract is for regular payments, then the day on which you wish
       the first payment should be passed with this parameter.  **NOTE:** *You
       may not* select days 29, 30 or 31 of the month; if you wish to select the
-      last day of the month; pass the string `Last day of the Month`.
+      last day of the month; pass the integer value 99 which represent `Last day of the Month`.
 
       This field is only mandatory if the contract is **not** an ad-hoc contract.
       This field is only mandatory if the contract is **annual** or **monthly**.
 
-      You may only select days 1 to 28 or “Last day of the month”.
+      You may only select days 1 to 28 or “Last day of the month” which is equal with value 99.
       Choosing 29, 30 or 31 will result in payments being skipped in
       months that do not contain that date.
     in: query
-    type: string
+    type: integer
     enum: [
-      '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-      '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-      '21', '22', '23', '24', '25', '26', '27', '28',
-      'Last Day of the Month'
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      21, 22, 23, 24, 25, 26, 27, 28, 99
     ]
   terminationType:
     name: terminationType
@@ -1464,19 +1463,21 @@ paths:
         - $ref: '#/parameters/paymentDayInMonth?'
         - name: paymentDayInWeek
           description: |
+            1 -> Monday                                                                     
+            2 -> Tuesday                                                                     
+            3 -> Wednesday                                                                     
+            4 -> Thursday                                                                     
+            5 -> Friday
+
             If the contract is for regular payments and has a weekly frequency, pass the
             day of the week that you wish payments to be collected via this parameter.
 
             This field is only mandatory if the contract is **not** an ad-hoc contract.
             This field is only mandatory if the contract is **weekly**.
           in: query
-          type: string
-          enum:
-            - Monday
-            - Tuesday
-            - Wednesday
-            - Thursday
-            - Friday
+          type: integer
+          minimum: 1
+          maximum: 5
         - $ref: '#/parameters/terminationType'
         - $ref: '#/parameters/atTheEnd'
         - name: terminationDate
