@@ -1,28 +1,6 @@
-swagger: '2.0'
-schemes:
-  - https
-host: ecm3.eazycollect.co.uk
-basePath: /api/v3
-consumes:
-  - x-www-form-urlencoded
-produces:
-  - application/xml
-  - application/json
-securityDefinitions:
-  apiKey:
-    type: apiKey
-    name: apiKey
-    in: header
-security:
-  - apiKey: []
+openapi: 3.0.1
 info:
   title: Eazy Collect
-  contact:
-    email: it.helpdesk@eazycollect.co.uk
-  x-logo:
-    backgroundColor: '#27618E'
-    url: 'https://www.eazycollect.co.uk/images/eazycollectdirectdebits.png'
-  version: '3.0.0'
   description: |
     Established in 2002, Eazy Collect Services Limited is a forward-thinking FinTech
     accredited as a BACS Approved Bureau and Payment Institution regulated by the FCA.
@@ -61,7 +39,7 @@ info:
     ### Example Headers for JSON Mode:
 
     ```
-    GET https://ecm3.eazycollect.co.uk/api/v3/client/LUISCT/BACS/callback
+    GET https://ecm3.eazycollect.co.uk/api/v3/client/LUISCT/BACS/customer/callback
 
     Accept: application/json
     apiKey: xAQdXTPtZPG3QqsUJw73wx1o
@@ -174,58 +152,20 @@ info:
       that have been represented via the UI.
 
     If you require any further assistance with using the API and UI
-    together, please contact the IT Helpdesk at it.helpdesk@eazycollect.co.uk
+    together, please contact the IT Helpdesk at help@eazycollect.co.uk
 
-    ## Error Handling
+    ## Errors
 
-    Errors are provided in JSON or XML format per the preference included
-    within the headers. Due to the complexity of the API and the Direct
-    Debit Scheme, we are unable to provide a definitive list of all the
-    errors that the system may generate, however we have attempted to make
-    the errors generated as clear as possible – i.e. Plain English. We
-    suggest that you take advantage of a test account and thoroughly test
-    your API integration via that, but also put procedures in place to catch
-    new errors that you encounter so that procedures can be but pin place to
-    handle them appropriately.
+    The API uses standard HTTP status codes to indicate the success or failure
+    of an API call. The error body provided will be either JSON or XML format 
+    per the preference included within the headers. Due to the complexity of the 
+    API and the Direct Debit Scheme, we are unable to provide a definitive list 
+    of all the  errors that the system may generate, however we have attempted 
+    to make the errors generated as clear as possible – i.e. Plain English. 
+    We also recommend using the panels on the right hand side to get aquainted
+    with the HTTP status codes the API may return. 
 
-    Two errors that frequently arise are:
-
-    **API NOT ENABLED:**
-
-    **JSON:**
-
-    ```json
-    {
-        "ErrorCode": 7,
-        "Detail": null,
-        "Message": "API not enabled"
-    }
-    ```
-
-    **XML:**
-    ```xml
-    <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <Message>API not enabled</Message>;
-        <ErrorCode>7</ErrorCode>
-    </ErrorAcknowledgement>
-    ```
-
-    **Explanation:**
-
-    In order to prevent client and API Key enumeration, this error will be
-    generated for any of the following three reasons:
-
-    - The CLIENT CODE in the URL is incorrect.
-    - The API KEY quoted is incorrect.
-    - The API has not been enabled by Eazy Collect.
-
-    Before raising a support ticket with our IT Helpdesk, please check
-    carefully that the API Key and Client Code being used are correct,
-    bearing in mind that both are case-sensitive.
-
-
-    **METHOD NOT SUPPORTED:**
+    **Examples:**
 
     **JSON:**
     ```json
@@ -240,591 +180,53 @@ info:
         <Message>The requested resource does not support http method 'POST'.</Message>
     </Error>
     ```
-
-    **Explanation:**
-
-    This error occurs for one of the following two reasons:
-    - You are using the incorrect HTTP method
-    - You are using the correct HTTP method, but have failed to include a
-      mandatory field.
-
-    Before raising a ticket with our IT Helpdesk, please check the
-    documentation to ensure that the method you are using is supported and
-    that all mandatory parameters have been included.
-parameters:
-  clientCode:
-    name: clientCode
-    description: The client code provided in your welcome email.
-    required: true
-    in: path
-    type: string
-    maxLength: 6
-  customerId:
-    name: customerId
-    description: The GUID of the  customer (if the customer already exists).
-    required: true
-    in: path
-    type: string
-    format: guid
-  email:
-    name: email
-    description: The customer’s contact email address.
-    required: true
-    in: query
-    type: string
-    maxLength: 255
-  email?:
-    name: email
-    description: The customer’s contact email address.
-    required: false
-    in: query
-    type: string
-    maxLength: 255
-  title:
-    name: title
-    description: The customer’s title (Mr/Mrs/Ms/Miss/Mx etc).
-    required: true
-    in: query
-    type: string
-    maxLength: 10
-  title?:
-    name: title
-    description: The customer’s title (Mr/Mrs/Ms/Miss/Mx etc).
-    required: false
-    in: query
-    type: string
-    maxLength: 10
-  dateOfBirth?:
-    name: dateOfBirth
-    description: |
-      The customer’s date of birth.
-
-      **Format: `YYYY-MM-DDT00:00:00.000`**
-    required: false
-    in: query
-    type: string
-    format: date-time
-  customerRef:
-    name: customerRef
-    description: A **unique** reference number allocated by the client for this customer.
-    required: true
-    in: query
-    type: string
-    maxLength: 255
-  customerRef?:
-    name: customerRef
-    description: A **unique** reference number allocated by the client for this customer.
-    required: false
-    in: query
-    type: string
-    maxLength: 255
-  firstName:
-    name: firstName
-    description: The customer's first name.
-    required: true
-    in: query
-    type: string
-    maxLength: 255
-  firstName?:
-    name: firstName
-    description: The customer's first name.
-    required: false
-    in: query
-    type: string
-    maxLength: 255
-  surname:
-    name: surname
-    description: The customer's surname.
-    required: true
-    in: query
-    type: string
-    maxLength: 255
-  surname?:
-    name: surname
-    description: The customer's surname.
-    required: false
-    in: query
-    type: string
-    maxLength: 255
-  companyName?:
-    name: companyName
-    description: The company name of the customer (if applicable).
-    required: false
-    in: query
-    type: string
-    maxLength: 255
-  postCode:
-    name: postCode
-    description: The customer's Post Code.
-    required: true
-    in: query
-    type: string
-    maxLength: 8
-  postCode?:
-    name: postCode
-    description: The customer's Post Code.
-    required: false
-    in: query
-    type: string
-    maxLength: 8
-  accountNumber:
-    name: accountNumber
-    description: |
-      The customer's bank account number.
-      This must be eight numerical characters with all leading zeros left intact.
-
-      Examples include: `01065284`, `00000000`, `26280464`.
-
-      Any non-numerical characters **must be removed** before passing the data to the API.
-    required: true
-    in: query
-    type: string
-    pattern: '[0-9]{8}'
-    minLength: 8
-    maxLength: 8
-  accountNumber?:
-    name: accountNumber
-    description: |
-      The customer's bank account number.
-      This must be eight numerical characters with all leading zeros left intact.
-
-      Examples include: `01065284`, `00000000`, `26280464`.
-
-      Any non-numerical characters **must be removed** before passing the data to the API.
-    required: false
-    in: query
-    type: string
-    pattern: '[0-9]{8}'
-    minLength: 8
-    maxLength: 8
-  bankSortCode:
-    name: bankSortCode
-    description: |
-      The customer's bank sort code.
-      This must be six numerical characters with all leading zeros left intact.
-
-      Examples include: `089286` `100000` `600000`, `230580`.
-
-      In the United Kingdom it is sometimes customary to insert dashes/hyphens
-      between groups of two characters (e.g. `08-92-86`, `23-05-80`). Any hyphens,
-      dashes or non-numerical characters **must be removed** before being passed
-      to the API.
-    required: true
-    in: query
-    type: string
-    pattern: '[0-9]{6}'
-    minLength: 6
-    maxLength: 6
-  bankSortCode?:
-    name: bankSortCode
-    description: |
-      The customer's bank sort code.
-      This must be six numerical characters with all leading zeros left intact.
-
-      Examples include: `089286` `100000` `600000`, `230580`.
-
-      In the United Kingdom it is sometimes customary to insert dashes/hyphens
-      between groups of two characters (e.g. `08-92-86`, `23-05-80`). Any hyphens,
-      dashes or non-numerical characters **must be removed** before being passed
-      to the API.
-    required: false
-    in: query
-    type: string
-    pattern: '[0-9]{6}'
-    minLength: 6
-    maxLength: 6
-  accountHolderName:
-    name: accountHolderName
-    description: |
-      The name of the customer's bank account.
-      This must be a maximum of eighteen alphanumeric characters `[0-9a-zA-Z ]`.
-      A space is also allowed. Any special characters or punctuation such as ampersands,
-      apostrophes, hyphens, slashes, backslashes, commas, full stops etc. **must be
-      removed** before passing to the API.
-    required: true
-    in: query
-    type: string
-    pattern: '[0-9a-zA-Z ]{0, 18}'
-    maxLength: 18
-  accountHolderName?:
-    name: accountHolderName
-    description: |
-      The name of the customer's bank account.
-      This must be a maximum of eighteen alphanumeric characters `[0-9a-zA-Z ]`.
-      A space is also allowed. Any special characters or punctuation such as ampersands,
-      apostrophes, hyphens, slashes, backslashes, commas, full stops etc. **must be
-      removed** before passing to the API.
-    required: false
-    in: query
-    type: string
-    pattern: '[0-9a-zA-Z ]{0, 18}'
-    maxLength: 18
-  homePhoneNumber?:
-    name: homePhoneNumber
-    description: The customer's home telephone number.
-    required: false
-    in: query
-    type: string
-    maxLength: 20
-  workPhoneNumber?:
-    name: workPhoneNumber
-    description: The customer's work telephone number.
-    required: false
-    in: query
-    type: string
-    maxLength: 18
-  mobilePhoneNumber?:
-    name: mobilePhoneNumber
-    description: The customer's mobile telephone number.
-    required: false
-    in: query
-    type: string
-    maxLength: 18
-  line1:
-    name: line1
-    description: Line one of the customer's postal address.
-    required: true
-    in: query
-    type: string
-    maxLength: 50
-  line1?:
-    name: line1
-    description: Line one of the customer's postal address.
-    required: false
-    in: query
-    type: string
-    maxLength: 50
-  line2:
-    name: line2
-    description: Line two of the customer's postal address.
-    required: true
-    in: query
-    type: string
-    maxLength: 30
-  line2?:
-    name: line2
-    description: Line two of the customer's postal address.
-    required: false
-    in: query
-    type: string
-    maxLength: 30
-  line3?:
-    name: line3
-    description: Line three of the customer's postal address.
-    required: false
-    in: query
-    type: string
-    maxLength: 30
-  line4?:
-    name: line4
-    description: Line four of the customer's postal address.
-    required: false
-    in: query
-    type: string
-    maxLength: 30
-  initials?:
-    name: initials
-    description: If the customer has provided any middle initials, they can be added in this field.
-    required: false
-    in: query
-    type: string
-    maxLength: 5
-  nextPaymentPatchAmount?:
-    name: nextPaymentPatchAmount
-    description: |
-      If you wish to take the next payment to be a different amount (e.g.
-      pro rata because the number of days between payments will deb different)
-      then pass the amount using this parameter. Ensure that `patchNextPayment`
-      is set to `true` if you are using this.
-    in: query
-    type: number
-    multipleOf: 0.01
-  patchNextPayment:
-    name: patchNextPayment
-    description: |
-      Set to `true` if using `nextPaymentPatchAmount` or `false` if not.
-    in: query
-    required: true
-    type: boolean
-  monthDay:
-    name: monthDay
-    description: |
-      The new day of the month on which payments are to be taken.
-
-      **NOTE:** *You may not* select days `29`, `30` or `31` of the month;
-      if you wish to select the last day of the month; pass the string
-      `Last day of the Month`.
-
-      Payments will be collected on the next available instance of the payment
-      day, which will be a **minimum** of 5 working days in the future.  Any
-      payment already scheduled in the next 5 working days *will still be
-      collected*.
-    required: true
-    in: query
-    type: string
-    enum: [
-      '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-      '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-      '21', '22', '23', '24', '25', '26', '27', '28',
-      'Last Day of the Month'
-    ]
-  paymentDayInMonth?:
-    name: paymentDayInMonth
-    description: |
-      If the contract is for regular payments, then the day on which you wish
-      the first payment should be passed with this parameter.  **NOTE:** *You
-      may not* select days 29, 30 or 31 of the month; if you wish to select the
-      last day of the month; pass the integer value 99 which represent `Last day of the Month`.
-
-      This field is only mandatory if the contract is **not** an ad-hoc contract.
-      This field is only mandatory if the contract is **annual** or **monthly**.
-
-      You may only select days 1 to 28 or “Last day of the month” which is equal with value 99.
-      Choosing 29, 30 or 31 will result in payments being skipped in
-      months that do not contain that date.
-    in: query
-    type: integer
-    enum: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 99
-    ]
-  terminationType:
-    name: terminationType
-    description: |
-      Pass the way in which the contract should end using this parameter.
-      If the contract is **ad-hoc,** *you must* pass `Until further notice`.
-    required: true
-    in: query
-    type: string
-    enum:
-      - Take certain number of debits
-      - Until further notice
-      - End on exact date
-  'numberOfDebits?':
-    name: numberOfDebits
-    description: |
-      If this is a “Take certain Number of Debits” contract then the number of
-      debits to be taken should be passed using this parameter.
-
-      This field is only mandatory if the termination type is “Take Certain
-      Number of Debits”.
-    required: false
-    in: query
-    type: integer
-    minimum: 0
-    maximum: 999
-  initialAmount?:
-    name: initialAmount
-    description: |
-      If this is a contract for regular payments **and** the first payment is
-      different to the regular payments, then pass the first payment amount
-      with this parameter.
-
-      **Do not** pass this parameter with ad-hoc contracts, or where the first
-      amount is the same as the regular amount.
-    required: false
-    in: query
-    type: number
-    multipleOf: 0.01
-  amount?:
-    name: amount
-    description: |
-      If the contract is for regular payments, then the regular payment
-      amount should be passed using this parameter. Do not pass this
-      parameter if the contract is an ad-hoc contract.
-
-      This field is only mandatory if the contract is **not** an ad-hoc contract.
-    required: false
-    in: query
-    type: number
-    multipleOf: 0.01
-  finalAmount?:
-    name: finalAmount
-    description: |
-      If this is a contract for regular payments **and** the final payment is
-      different to the regular payments, then pass the final payment amount
-      with this parameter. **Do not** pass this parameter with ad-hoc
-      contracts, or where the final amount is the same as the regular amount.
-    required: false
-    in: query
-    type: number
-    multipleOf: 0.01
-  atTheEnd:
-    name: atTheEnd
-    description: |
-      This parameter decides what will happen when the contract ends. If you have
-      selected a `terminationType` of `Until Further Notice` or the contract is an
-      ad-hoc contract, *you must* pass `Switch to Further Notice`.
-    required: true
-    in: query
-    type: string
-    enum:
-      - Expire
-      - Switch to Further Notice
-  additionalReference?:
-    name: additionalReference
-    description: |
-      If you wish to add an additional reference to the contract for you own use,
-      this can be passed to using the `additionalReference` parameter.
-    required: false
-    in: query
-    type: string
-    maxLength: 255
-definitions:
-  Payment:
-    type: object
-    properties:
-      Id:
-        description: |
-          The GUID of the payment. We suggest that you save this so that you can easily
-          change or query the payment in future. If you are using pushed return data,
-          this will be included in any payload delivered concerning the payment.
-        type: string
-        format: guid
-      Status:
-        description: |
-          The status of the payment. This can be:
-          - Paid - We have received the payment from the customer (\*\*see below)
-          - Pending – The payment has been queued to be sent to the bank for collection.
-          - Represented – The payment has been returned by the bank **unpaid**, and the
-            system has created a new transaction to try and collect the amount again.
-          - Unpaid – The payment has been returned by the bank unpaid and **will not**
-            be sent again to the bank for collection.
-          - Withdrawn – The payment was at the point of being sent to the bank for
-            collection, but was withdrawn by Eazy Collect at the last minute. The
-            payment has not been collected.
-          - Indemnity Claimed – The customer has approached their bank for a refund
-            which is being/has been processed.
-
-          \*\* BACS works by exception; that is to say that payments are assumed to be
-          paid unless we hear from the bank otherwise. As such, payments remain in the
-          `Pending` state up until the point they are submitted to the bank for
-          collection (3 – 4 working days before the collection date). Upon submission,
-          the payment status changes to `Paid` although the actual status of the payment
-          is not known until 1-2 working days after the due date.  Because of this, we
-          recommend that you do not update your system with the payment status until 
-          2-3 working days after the Due Date.
-
-          It is also important to note that BACS only works on banking days (Monday to
-          Friday excluding bank and public holidays). For that reason, if a payment
-          Due Date is on a weekend or a public holiday, the collection will take place
-          on the next banking day. For example, a payment due on Saturday, 15th April
-          2017 will actually collect on Tuesday 18th April 2017 (the Monday being Easter
-          Monday which is a bank holiday in the UK). Again, this needs to be factored in
-          to when you check the status of payments; in the above example, it would be
-          prudent to wait until late in the afternoon of 20th April 2017 or better 21st
-          April 2017 to ensure that all unpaid messages have been received from the bank
-          and processed.
-        type: string
-        enum:
-          - Paid
-          - Pending
-          - Represented
-          - Unpaid
-          - Withdrawn
-          - Indemnity Claimed
-      IsCredit:
-        description: |
-          If the payment is a credit to the customer, this will show as `true`, else it
-          will show as `false`.
-        type: boolean
-      IsAdhoc:
-        description: |
-          If this is an adhoc payment, this will show as `true`, else if it is a
-          scheduled payment, it will shows as `false`.
-        type: boolean
-      Amount:
-        description: The amount of the payment.
-        type: number
-      Date:
-        description: The due date of the payment.
-        type: string
-        format: date-time
-      ReasonCode:
-        description: |
-          The BACS reason code of the payment if the payment has been returned unpaid.
-          The possible reasons are:
-          - 0: Refer to payer.
-          - 1: Instruction cancelled.
-          - 2: Payer deceased.
-          - 3: Account transferred.
-          - 4: Advance notice disputed.
-          - 5: No account/Wrong account type.
-          - 6: No instruction.
-          - 7: Amount differs.
-          - 8: Amount not yet due.
-          For further details on the meanings of these codes, and the associated action
-          required, please see our separate booklet.
-        type: integer
-        minimum: 0
-        maximum: 8
-      ReasonMessage:
-        description: Plain text explanation of the ReasonCode.
-        type: string
-      Comment:
-        description: |
-          The comment passed when the payment was added; a ReasonMessage
-          may be appended to the end of this.
-        type: string
-      Type:
-        description: |
-          The type of payment (BACS being a bank processed payment,
-          Manual being something manually added via the UI.
-        type: string
-  Customer:
-    type: object
-    properties:
-      CustomerId:
-        description: The GUID of the customer record.
-        type: string
-        format: guid
-      Name:
-        description: The customer’s name.
-        type: string
-      PostCode:
-        description: The customer’s postcode.
-        type: string
-      Products:
-        type: array
-        items:
-          type: object
-          properties:
-            Title:
-              description: The “plain English” name of the schedule.
-              type: string
-            EndDate:
-              description: |
-                The end date of the schedule if of a fixed-term type. Otherwise
-                this will show “Infinite”.
-              type: string
-            ContractStatus:
-              description: The present status of the contract.
-              type: string
-      RejectionReason:
-        description: |
-          The reason why the customer should be denied membership (only if
-          Allow = false)
-      LastVisit:
-        description: The date and time of the last recorded visit.
-        type: string
-      Picture:
-        description: The URL of the customer’s picture (if held).
-        type: string
-      Allow:
-        description: |
-          Whether or not to allow the customer entry (true=yes, false=no).
-        type: boolean
-      CardNumber:
-        description: The customer’s membership card number.
-        type: string
+        
+    ## Environments
+    We offer two environments to developers, `sandbox` and `ecm3`. Our `sandbox` environment is designed
+    for all your testing needs. Our `ecm3` environment is our production environment and we strongly
+    recommend using the `sandbox` environment to get acquainted with how the API functions and returns
+    data. If you would like access to our `sandbox` environment, please contact our sales team at `sales@eazycollect.co.uk`. 
+    
+    The two environments behave identically, with the only difference being how you would access an environment. All requests to our production environment would go through `ecm3.eazycollect.co.uk` whereas requests for our sandbox environment would go through `sandbox.eazycollect.co.uk`.
+    
+    ## SDKs
+    To help improve speed and reliability when integrating into the EazyCustomerManager product, we have created open-sourced, MIT licensed SDKs for Python, C# and Java for our developers to use. You can view the documentation for all three below
+    
+    - [Python](https://github.com/EazyCollectServices/EazyCollectSDK-Python)
+    - [C#](https://github.com/EazyCollectServices/EazyCollectSDK-Dotnet)
+    - [Java](https://github.com/EazyCollectServices/EazyCollectSDK-Java)
+    
+    All three SDKs are free to use and no additional setup is required to begin using them. All code examples in this document will provide examples based on the above SDKs. 
+    
+    There are currently no plans to bring the SDKs to additional languages, though that may change in the future.
+    
+      contact:
+    email: help@eazycollect.co.uk
+  license:
+    name: MIT
+    url: 'https://github.com/EazyCollectServices/EazyCollectAPIv3/blob/master/LICENSE'
+  version: 3.0.0
+  x-logo:
+    backgroundColor: '#27618E'
+    url: 'https://www.eazycollect.co.uk/images/eazycollectdirectdebits.png'
+servers:
+  - url: 'https://{environment}.eazycollect.co.uk/api/v3'
+security:
+  - ApiKeyAuth: []
 tags:
-  - name: Return Endpoint
+  - name: Return Endpoints
     description: |
-      Return data is passed to an endpoint of your choice by setting the URL
-      that data should be posted to using the API. You should contact us at
-      it.helpdesk@eazycollect.co.uk to advise whether you require return
+
+      Return data is passed to endpoints of your choice by setting the URL
+      that data should be posted to using the API. Data is returned to three separate endpoints based on the entity described, as explained in the table below. Each callback can be set to pass data to the same endpoint. You should contact us at
+      help@eazycollect.co.uk to advise whether you require return
       information in XML or JSON format; the default is JSON.
+
+      | Entity | Payload | 
+      | ------ | ------- |
+      | customer | Notification of customer changes due to BACS notifications 
+      | contract | Notification of contract changes due to BACS notifications  
+      | payment | Payment data returned from a scheduled payment creation   
   - name: Customer Manipulation
     description: |
       A customer record captures the personal and banking details of the
@@ -832,7 +234,6 @@ tags:
       record needs to be created before a Direct Debit (contract) record can
       be created to collect payments. There can be multiple Direct Debits
       (contracts) attached to a customer record.
-
       **Important: You are required to perform a modulus check on bank account numbers
       and sort codes before they are passed to the API. We can offer a bank
       checking API on a pay-per-use basis – please contact our Sales
@@ -846,14 +247,12 @@ tags:
       -   **Ad-hoc:** This is where a Direct Debit is created at the bank for
           the customer, but no payments are requested unless you specifically
           input payments via the Payments or Bulk Payments API call.
-
       -   **Scheduled:** In this mode, a schedule for payments is stated at
           the outset and the system will create the relevant payments in the
           database approximately five working days before the payments become
           due. Schedules can usually be weekly or monthly, however the
           frequencies available will be communicated to you when the API
           details are provided.
-
       Customers can have multiple contracts attached to them in order that
       they may have multiple payment streams being collected simultaneously.
   - name: Contract Amendment
@@ -863,7 +262,6 @@ tags:
       the correct call for the type of contract that you are amending. For
       example, changing the date on a monthly contract will need a monthly
       call.
-
       We have only shown the responses from one of the calls as all of the
       calls respond in the same manner. One example of an error is shown,
       however you should be prepared to accept different errors and handle
@@ -877,7 +275,6 @@ tags:
       **scheduled** payments to the bank for collection. They will still be
       created within the system, however they will not be sent to the bank and
       will contribute to customer arrears.
-
       **NOTE:** This function will **not** affect ad-hoc payments which will
       be sent regardless of the direct debit status. To prevent ad-hoc
       payments from being sent to the bank, they must *be deleted
@@ -904,38 +301,25 @@ tags:
         as its “atTheEnd” parameter.
       - The payment schedule has come to a natural end **and** the contract
         status has changed to “Expired”.
-
       This call adds a new contract onto the end of the previous contract, in
       effect “recycling” the previous direct debit at the bank which can save
       on direct debit set up charges.
-
       This call cannot be used unless both of the two criteria above have been
       met, otherwise unexpected results may occur.
   - name: Adding/Querying Payments
   - name: Bulk Adding Payments
   - name: Payment Manipulation
   - name: Obtaining Available Schedules
-  - name: Eazy Entry
-    description: |
-      Eazy Entry is our simple to use access management system for gyms and
-      member clubs. Used in conjunction with a card reader, the system can
-      enquire upon the payment status of a member and be used as part of a
-      decision making process either allowing the member access to a
-      service/area or not.
-  - name: Return Information
+  - name: Return endpoints
     description: |
       If you have provided us with a return endpoint using the `Return
       Endpoint` call, data will be posted back to you either in XML or JSON as
       required. The default is JSON – if you need XML return information,
       please let us know.
-
       ### Object Change Return Information
-
       #### Example JSON Payload
-
       This is for an ADDACS change – where a customer has cancelled their
       Direct Debit with the bank.
-
       ```json
       {
         "NewStatus": "Cancelled",
@@ -949,12 +333,9 @@ tags:
         "Comment": "Auto-updated by BACS file"
       }
       ```
-
       #### Example XML Payload
-
       This is for an ARUDD change when a customer’s payment has been returned
       unpaid by the bank.
-
       ```xml
       <root>
           <NewStatus>Unpaid</NewStatus>
@@ -968,9 +349,7 @@ tags:
           <Comment>Auto-updated by BACS file</Comment>
       </root>
       ```
-
       #### Output Parameters:
-
       | **Parameter** | **Description**
       | ------------- | ---------------
       | AccountName | If the Entity type is customer, the customers name as it appears on their bank account.
@@ -985,11 +364,8 @@ tags:
       | ReportCode | If the change came from a BACS report (ADDACS, ARUDD or DDIC) the reason code will appear in this field. It will be null in the case of a manual change.
       | ReportMessage | Plain text explanation of the change. We recommend this is logged at your end for reference.
       | Comment | If any comment was input by a user during a manual change, it will appear here.
-
       ### Bulk Payment Insert Return Information
-
       #### Example XML Payload
-
       ```xml
       <root>
           <Contract>07024c7a-c31c-46c1-8e0e-8fcff640b35c</Contract>
@@ -1000,7 +376,6 @@ tags:
           <Message />
       </root>
       ```
-
       #### Example JSON Payload
       ```json
       {
@@ -1012,7 +387,6 @@ tags:
         "Message":null
       }
       ```
-
       #### Output Parameters:
       | Parameter | Description
       | --------- | -----------
@@ -1023,52 +397,154 @@ tags:
       | Error     | Any validation errors will appear here.
       | Message   | Any validation messages or warnings will appear here.
 paths:
-  '/client/{clientCode}/BACS/callback':
-    parameters:
-      - $ref: '#/parameters/clientCode'
+  '/client/{clientCode}/BACS/{entity}/callback':
     get:
-      summary: Outputs the current endpoint to which return data is being sent to.
-      responses:
-        '200':
-          description: OK
-          examples:
-            'application/json':
-              'Message': 'https://ecm3.eazycollect.co.uk/TestHandler.ashx'
       tags:
-        - 'Return Endpoint'
-    post:
-      summary: Updates or sets the endpoint to which return data should be sent to.
+        - Return Endpoints
+      summary: Get the callback URL for the given return endpoint
+      description: Returns the assigned callback URL for the specified entity.
       parameters:
-        - name: url
-          description: The URL to which return data should be sent.
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
           required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: entity
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/CallbackEntities'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                Message: 'https://my.website.com/webhook'
+            application/xml:
+              example: |-
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Message>https://my.website.com/webhook</Message></GeneralAcknowledgement>
+                  
+        '401':
+          description: Unauthorised - API not enabled or API key incorrect
+          content:
+            application/json:
+              example:
+                Message: API not enabled
+            application/xml:
+              example: |-
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Message>API
+                    not enabled</Message><ErrorCode>7</ErrorCode></ErrorAcknowledgement>
+        '404':
+          description: Not found - Client code incorrect
+          content:
+            application/json:
+              example:
+                ErrorCode: 7
+                Message: API not enabled
+            application/xml:
+              example: |-
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Message>API
+                  not enabled</Message><ErrorCode>7</ErrorCode></ErrorAcknowledgement>
+        '405':
+          description: API key not provided
+          content:
+            application/json:
+              example:
+                Message: The requested resource does not support http method 'POST'.
+            application/xml:
+              example: <Error><Message>The requested resource does not support http method 'POST'.</Message></Error>
+      x-codeSamples:
+        - lang: cURL
+          source: |
+            curl "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{enitity}/callback"
+    post:
+      tags:
+        - Return Endpoints
+      summary: Sets the callback URL for the given return endpoint
+      description: Sets the callback URL for the specified entity.
+      parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: entity
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/CallbackEntities'
+        - name: url
           in: query
-          type: string
-          maxLength: 300
+          description: New value for the callback URL.
+          required: true
+          schema:
+            type: string
+            format: url
       responses:
         '200':
           description: OK
-          examples:
-            'application/json':
-              'Message': 'Updated url'
-            'application/xml': |
-              <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Message>Updated url</Message>
-              </GeneralAcknowledgement>
-      tags:
-        - 'Return Endpoint'
+          content:
+            application/json:
+              example:
+                Message: Callback URL assigned.
+            application/xml:
+              example: |-
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Message>Callback
+                  URL assigned.</Message></GeneralAcknowledgement>
+      x-codeSamples:
+        - lang: cURL
+          source: |
+            curl -d "url=https://my.website.com/webhook" https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{enitity}/callback
     delete:
-      summary: Removes the current endpoint setting and disables the sending of return data.
+      tags:
+        - Return Endpoints
+      summary: Clears the set callback URL for the given return endpoint
+      description: Clears the set callback URL for the specified entity.
+      parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: entity
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/CallbackEntities'
       responses:
         '200':
           description: OK
-      tags:
-        - 'Return Endpoint'
+          content:
+            application/json:
+              example:
+                schema:
+                  type: string
+                  example:
+                    Message: Callback URL cleared.
+            application/xml:
+              example: |-
+                <GeneralAcknowledgement
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Callback URL cleared.</Message>
+                </GeneralAcknowledgement>
+      x-codeSamples:
+        - lang: cURL
+          source: |
+            curl --request DELETE "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{enitity}/callback"
   '/client/{clientCode}/customer':
-    parameters:
-      - $ref: '#/parameters/clientCode'
     get:
+      tags:
+        - Customer Manipulation
       summary: Queries the database for a customer or set of customers.
       description: |
         **NOTE:** The response from a GET method includes an `IsArchived` flag.
@@ -1076,324 +552,596 @@ paths:
         The record will automatically change to `false` when an associated live
         Direct Debit (contract) is attached to it.
       parameters:
-        - $ref: '#/parameters/email?'
-        - $ref: '#/parameters/title?'
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: email
+          in: query
+          description: The customer’s contact email address.
+          schema:
+            maxLength: 255
+            type: string
+        - name: title
+          in: query
+          description: The customer’s title (Mr/Mrs/Ms/Miss/Mx etc).
+          schema:
+            maxLength: 10
+            type: string
         - name: from
+          in: query
           description: |
             The date/time from which you want to find new customers added.
             **Format: `YYYY-MM-DDT00:00:00.000`**
-          in: query
-          type: string
-          format: date-time
+          schema:
+            type: string
+            format: date-time
         - name: to
+          in: query
           description: |
             The date/time to which you want to find new customers added.
             **Format: `YYYY-MM-DDT00:00:00.000`**
+          schema:
+            type: string
+            format: date-time
+        - name: dateOfBirth
           in: query
-          type: string
-          format: date-time
-        - $ref: '#/parameters/dateOfBirth?'
-        - $ref: '#/parameters/customerRef?'
-        - $ref: '#/parameters/firstName?'
-
-        - $ref: '#/parameters/surname?'
-        - $ref: '#/parameters/companyName?'
-        - $ref: '#/parameters/postCode?'
-        - $ref: '#/parameters/accountNumber?'
-        - $ref: '#/parameters/bankSortCode?'
-        - $ref: '#/parameters/accountHolderName?'
-        - $ref: '#/parameters/homePhoneNumber?'
-        - $ref: '#/parameters/workPhoneNumber?'
-        - $ref: '#/parameters/mobilePhoneNumber?'
+          description: |
+            The customer’s date of birth.
+            **Format: `YYYY-MM-DDT00:00:00.000`**
+          schema:
+            type: string
+            format: date-time
+        - name: customerRef
+          in: query
+          description: A **unique** reference number allocated by the client for this customer.
+          schema:
+            maxLength: 255
+            type: string
+        - name: firstName
+          in: query
+          description: The customer's first name.
+          schema:
+            maxLength: 255
+            type: string
+        - name: surname
+          in: query
+          description: The customer's surname.
+          schema:
+            maxLength: 255
+            type: string
+        - name: companyName
+          in: query
+          description: The company name of the customer (if applicable).
+          schema:
+            maxLength: 255
+            type: string
+        - name: postCode
+          in: query
+          description: The customer's Post Code.
+          schema:
+            maxLength: 8
+            type: string
+        - name: accountNumber
+          in: query
+          description: |
+            The customer's bank account number.
+            This must be eight numerical characters with all leading zeros left intact.
+            Examples include: `01065284`, `00000000`, `26280464`.
+            Any non-numerical characters **must be removed** before passing the data to the API.
+          schema:
+            maxLength: 8
+            minLength: 8
+            pattern: '[0-9]{8}'
+            type: string
+        - name: bankSortCode
+          in: query
+          description: |
+            The customer's bank sort code.
+            This must be six numerical characters with all leading zeros left intact.
+            Examples include: `089286` `100000` `600000`, `230580`.
+            In the United Kingdom it is sometimes customary to insert dashes/hyphens
+            between groups of two characters (e.g. `08-92-86`, `23-05-80`). Any hyphens,
+            dashes or non-numerical characters **must be removed** before being passed
+            to the API.
+          schema:
+            maxLength: 6
+            minLength: 6
+            pattern: '[0-9]{6}'
+            type: string
+        - name: accountHolderName
+          in: query
+          description: |
+            The name of the customer's bank account.
+            This must be a maximum of eighteen alphanumeric characters `[0-9a-zA-Z ]`.
+            A space is also allowed. Any special characters or punctuation such as ampersands,
+            apostrophes, hyphens, slashes, backslashes, commas, full stops etc. **must be
+            removed** before passing to the API.
+          schema:
+            maxLength: 18
+            pattern: '[0-9a-zA-Z ]{0, 18}'
+            type: string
+        - name: homePhoneNumber
+          in: query
+          description: The customer's home telephone number.
+          schema:
+            maxLength: 20
+            type: string
+        - name: workPhoneNumber
+          in: query
+          description: The customer's work telephone number.
+          schema:
+            maxLength: 18
+            type: string
+        - name: mobilePhoneNumber
+          in: query
+          description: The customer's mobile telephone number.
+          schema:
+            maxLength: 18
+            type: string
       responses:
         '200':
           description: OK
-          examples:
-            'application/json':
-              Id: c36ce83c-0064-4c1e-a157-cd4c70decf47
-              CustomerRef: AE102890
-              IsArchived: true
-              DateAdded": 2017-04-12T13:22:48.8
-              Title: Mr
-              FirstName: Matthew
-              Surname: Harris
-              CompanyName: Eazy Collect
-              Initials: null
-              DateOfBirth: 2017-01-01T00:00:00
-              HomePhoneNumber: '01234567890'
-              MobilePhoneNumber: null
-              WorkPhoneNumber: null
-              Email: spam@eazycollect.co.uk
-              AddressDetail:
-                Line1: 1 Tebbit Mews
-                Line2: Winchcombe Street
-                Line3: Cheltenham
-                Line4: null
-                PostCode: A1 1AA
-              BankDetail:
-                AccountHolderName: Eazy Collect
-                AccountNumber: '01065285'
-                BankSortCode: '309906'
-              Memos: []
-            'application/xml': |
-              <CustomerDetail xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Id>c36ce83c-0064-4c1e-a157-cd4c70decf47</Id>
-                  <CustomerRef>AE102890</CustomerRef>
-                  <IsArchived>true</IsArchived>
-                  <DateAdded>2017-04-12T13:22:48.8</DateAdded>
-                  <Title>Mr</Title>
-                  <FirstName>Matthew</FirstName>
-                  <Surname>Harris</Surname>
-                  <CompanyName>Eazy Collect</CompanyName>
-                  <DateOfBirth>2017-01-01T00:00:00</DateOfBirth>
-                  <HomePhoneNumber>01234567890</HomePhoneNumber>
-                  <Email>spam@eazycollect.co.uk</Email>
-                  <AddressDetail>
-                      <Line1>1 Tebbit Mews</Line1>
-                      <Line2>Winchcombe Street</Line2>
-                      <Line3>Cheltenham</Line3>
-                      <PostCode>A1 1AA</PostCode>
-                  </AddressDetail>
-                  <BankDetail>
-                      <AccountHolderName>Eazy Collect</AccountHolderName>
-                      <AccountNumber>01065285</AccountNumber>
-                      <BankSortCode>309906</BankSortCode>
-                  </BankDetail>
-                  <Memos />
-              </CustomerDetail>
-      tags:
-        - 'Customer Manipulation'
+          content:
+            application/json:
+              example:
+                Id: c36ce83c-0064-4c1e-a157-cd4c70decf47
+                CustomerRef: AE102890
+                IsArchived: true
+                DateAdded": '2017-04-12T13:22:48.800Z'
+                Title: Mr
+                FirstName: Matthew
+                Surname: Harris
+                CompanyName: Eazy Collect
+                DateOfBirth: '2017-01-01T00:00:00.000Z'
+                HomePhoneNumber: 01234567890
+                Email: spam@eazycollect.co.uk
+                AddressDetail:
+                  Line1: 1 Tebbit Mews
+                  Line2: Winchcombe Street
+                  Line3: Cheltenham
+                  PostCode: A1 1AA
+                BankDetail:
+                  AccountHolderName: Eazy Collect
+                  AccountNumber: 01065285
+                  BankSortCode: '309906'
+                Memos: []
+            application/xml:
+              example: |-
+                <CustomerDetail xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Id>c36ce83c-0064-4c1e-a157-cd4c70decf47</Id>
+                    <CustomerRef>AE102890</CustomerRef>
+                    <IsArchived>true</IsArchived>
+                    <DateAdded>2017-04-12T13:22:48.8</DateAdded>
+                    <Title>Mr</Title>
+                    <FirstName>Matthew</FirstName>
+                    <Surname>Harris</Surname>
+                    <CompanyName>Eazy Collect</CompanyName>
+                    <DateOfBirth>2017-01-01T00:00:00</DateOfBirth>
+                    <HomePhoneNumber>01234567890</HomePhoneNumber>
+                    <Email>spam@eazycollect.co.uk</Email>
+                    <AddressDetail>
+                        <Line1>1 Tebbit Mews</Line1>
+                        <Line2>Winchcombe Street</Line2>
+                        <Line3>Cheltenham</Line3>
+                        <PostCode>A1 1AA</PostCode>
+                    </AddressDetail>
+                    <BankDetail>
+                        <AccountHolderName>Eazy Collect</AccountHolderName>
+                        <AccountNumber>01065285</AccountNumber>
+                        <BankSortCode>309906</BankSortCode>
+                    </BankDetail>
+                    <Memos />
+                </CustomerDetail>
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              example:
+                Message: API not enabled
+            application/xml:
+              example: |-
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Message>API
+                  not enabled</Message><ErrorCode>7</ErrorCode></ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var get = new Get(settings);
+            string response = get.Customers();
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            response = client.get.customers()
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Get get = new Get(settings);
+            String response = get.customers();
+        - lang: cURL
+          source: |
+            curl "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer"
     post:
+      tags:
+        - Customer Manipulation
       summary: Creates a customer in the database.
       description: |
         ### Error Handling
-
         Errors are presented back in the JSON or XML response in human readable
         form.
-
         **Common Errors:**
-
         *Error:*
-
         “There is an existing Customer with the same Client and Customer ref in
         the database already.”
-
         *Explanation:*
-
         The customer reference must be unique; this indicates that a customer
         with the customerRef provided in the API call already exists
-
         *Resolution:*
-
         Check that the customer does not already exist; if not, you must use
         another unique customerRef.
-
         *Error:*
-
         Invalid Postcode. The postcode must have 5, 6 or 7 characters only
-
         *Explanation:*
-
         The postcode supplied is not in a correct UK format.
-
         *Resolution:*
-
         UK postcodes can be formed in the following ways:
         - A99 9AA
         - AA99 9AA
         - AA9A 9AA
-
         Where A is a capital letter \[A-Z\] and 9 is a number \[0-9\]. Please
         provide the postcode in one of the recognised formats.
       parameters:
-        - $ref: '#/parameters/email'
-        - $ref: '#/parameters/title'
-        - $ref: '#/parameters/dateOfBirth?'
-        - $ref: '#/parameters/customerRef'
-        - $ref: '#/parameters/firstName'
-        - $ref: '#/parameters/surname'
-        - $ref: '#/parameters/companyName?'
-        - $ref: '#/parameters/postCode'
-        - $ref: '#/parameters/accountNumber'
-        - $ref: '#/parameters/bankSortCode'
-        - $ref: '#/parameters/accountHolderName'
-        - $ref: '#/parameters/homePhoneNumber?'
-        - $ref: '#/parameters/workPhoneNumber?'
-        - $ref: '#/parameters/mobilePhoneNumber?'
-        - $ref: '#/parameters/line1'
-        - $ref: '#/parameters/line2'
-        - $ref: '#/parameters/line3?'
-        - $ref: '#/parameters/line4?'
-        - $ref: '#/parameters/initials?'
-      responses:
-        '200':
-          description: OK
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
           schema:
-            type: object
-            properties:
-              customerRef:
-                type: string
-                description: |
-                  The customer reference that you passed via the API into the system.
-              Id:
-                type: string
-                description: |
-                  The GUID of the customer record. You must save this to your database
-                  as it will be needed should you wish to update the customer record
-                  or create a Direct Debit (Contract).
-              Message:
-                type: string
-                description: |
-                  If there are any problems with the record, these will be shown in
-                  the message field.
-          examples:
-            'application/json':
-              CustomerRef: AE102888
-              Id: '12f5734a-bfc3-45f2-9edd-44d4a05cf751'
-              Message: null
-            'application/xml': |
-              <CustomerAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <CustomerRef>AE102889</CustomerRef>
-                  <Id>a1d86a0a-6806-408b-b5ce-1fae797cc142</Id>
-              </CustomerAcknowledgement>
-      tags:
-        - 'Customer Manipulation'
-  '/client/{clientCode}/customer/{customerId}':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - $ref: '#/parameters/customerId'
-    patch:
-      summary: Updates (or partially updates) an existing customer in the database.
-      parameters:
-        - $ref: '#/parameters/email'
-        - $ref: '#/parameters/title'
-        - $ref: '#/parameters/dateOfBirth?'
-        - $ref: '#/parameters/firstName?'
-        - $ref: '#/parameters/surname?'
-        - $ref: '#/parameters/companyName?'
-        - $ref: '#/parameters/postCode?'
-        - $ref: '#/parameters/accountNumber?'
-        - $ref: '#/parameters/bankSortCode?'
-        - $ref: '#/parameters/accountHolderName?'
-        - $ref: '#/parameters/homePhoneNumber?'
-        - $ref: '#/parameters/workPhoneNumber?'
-        - $ref: '#/parameters/mobilePhoneNumber?'
-        - $ref: '#/parameters/line1?'
-        - $ref: '#/parameters/line2?'
-        - $ref: '#/parameters/line3?'
-        - $ref: '#/parameters/line4?'
-        - $ref: '#/parameters/initials?'
+            maxLength: 6
+            type: string
+        - name: email
+          in: query
+          description: The customer’s contact email address.
+          required: true
+          schema:
+            maxLength: 255
+            type: string
+        - name: title
+          in: query
+          description: The customer’s title (Mr/Mrs/Ms/Miss/Mx etc).
+          required: true
+          schema:
+            maxLength: 10
+            type: string
+        - name: dateOfBirth
+          in: query
+          description: |
+            The customer’s date of birth.
+            **Format: `YYYY-MM-DDT00:00:00.000`**
+          schema:
+            type: string
+            format: date-time
+        - name: customerRef
+          in: query
+          description: A **unique** reference number allocated by the client for this customer.
+          required: true
+          schema:
+            maxLength: 255
+            type: string
+        - name: firstName
+          in: query
+          description: The customer's first name.
+          required: true
+          schema:
+            maxLength: 255
+            type: string
+        - name: surname
+          in: query
+          description: The customer's surname.
+          required: true
+          schema:
+            maxLength: 255
+            type: string
+        - name: companyName
+          in: query
+          description: The company name of the customer (if applicable).
+          schema:
+            maxLength: 255
+            type: string
+        - name: postCode
+          in: query
+          description: The customer's Post Code.
+          required: true
+          schema:
+            maxLength: 8
+            type: string
+        - name: accountNumber
+          in: query
+          description: |
+            The customer's bank account number.
+            This must be eight numerical characters with all leading zeros left intact.
+            Examples include: `01065284`, `00000000`, `26280464`.
+            Any non-numerical characters **must be removed** before passing the data to the API.
+          required: true
+          schema:
+            maxLength: 8
+            minLength: 8
+            pattern: '[0-9]{8}'
+            type: string
+        - name: bankSortCode
+          in: query
+          description: |
+            The customer's bank sort code.
+            This must be six numerical characters with all leading zeros left intact.
+            Examples include: `089286` `100000` `600000`, `230580`.
+            In the United Kingdom it is sometimes customary to insert dashes/hyphens
+            between groups of two characters (e.g. `08-92-86`, `23-05-80`). Any hyphens,
+            dashes or non-numerical characters **must be removed** before being passed
+            to the API.
+          required: true
+          schema:
+            maxLength: 6
+            minLength: 6
+            pattern: '[0-9]{6}'
+            type: string
+        - name: accountHolderName
+          in: query
+          description: |
+            The name of the customer's bank account.
+            This must be a maximum of eighteen alphanumeric characters `[0-9a-zA-Z ]`.
+            A space is also allowed. Any special characters or punctuation such as ampersands,
+            apostrophes, hyphens, slashes, backslashes, commas, full stops etc. **must be
+            removed** before passing to the API.
+          required: true
+          schema:
+            maxLength: 18
+            pattern: '[0-9a-zA-Z ]{0, 18}'
+            type: string
+        - name: homePhoneNumber
+          in: query
+          description: The customer's home telephone number.
+          schema:
+            maxLength: 20
+            type: string
+        - name: workPhoneNumber
+          in: query
+          description: The customer's work telephone number.
+          schema:
+            maxLength: 18
+            type: string
+        - name: mobilePhoneNumber
+          in: query
+          description: The customer's mobile telephone number.
+          schema:
+            maxLength: 18
+            type: string
+        - name: line1
+          in: query
+          description: Line one of the customer's postal address.
+          required: true
+          schema:
+            maxLength: 50
+            type: string
+        - name: line2
+          in: query
+          description: Line two of the customer's postal address.
+          required: true
+          schema:
+            maxLength: 30
+            type: string
+        - name: line3
+          in: query
+          description: Line three of the customer's postal address.
+          schema:
+            maxLength: 30
+            type: string
+        - name: line4
+          in: query
+          description: Line four of the customer's postal address.
+          schema:
+            maxLength: 30
+            type: string
+        - name: initials
+          in: query
+          description: 'If the customer has provided any middle initials, they can be added in this field.'
+          schema:
+            maxLength: 5
+            type: string
       responses:
         '200':
           description: OK
-      tags:
-        - 'Customer Manipulation'
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  customerRef:
+                    type: string
+                    description: |
+                      The customer reference that you passed via the API into the system.
+                  Id:
+                    type: string
+                    description: |
+                      The GUID of the customer record. You must save this to your database
+                      as it will be needed should you wish to update the customer record
+                      or create a Direct Debit (Contract).
+                  Message:
+                    type: string
+                    description: |
+                      If there are any problems with the record, these will be shown in
+                      the message field.
+            application/json:
+              example:
+                CustomerRef: AE102888
+                Id: 12f5734a-bfc3-45f2-9edd-44d4a05cf751
+            application/xml:
+              example: |
+                <CustomerAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <CustomerRef>AE102889</CustomerRef>
+                    <Id>a1d86a0a-6806-408b-b5ce-1fae797cc142</Id>
+                </CustomerAcknowledgement>
+        '400':
+          description: Bad request - email mandatory
+          content:
+            application/json:
+              example:
+                ErrorCode: 2
+                Message: Customer email is mandatory for this client
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <ErrorCode>2</ErrorCode>
+                    <Message>Customer email is mandatory for this client</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var post = new Post(settings);
+            string request = post.Customer("john.doe@test.com", "Mr", "999999", "John", "Doe", "1 Tebbit Mews", "GL52 2NF", "12345678", "123456", "Mr John Doe");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.post.customer(email="john.doe@test.com", title="Mr", customer_reference="999999", first_name="John", surname="Doe", line1="1 Tebbit Mews", post_code="GL52 2NF", account_number="12345678", sort_code="123456", account_holder_name="Mr John Doe")
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Post post = new Post(settings);
+            String request = post.customer().email("john.doe@test.com").title("Mr").customerReference("999999")
+                  .firstName("John").surname("Doe").line1("1 Tebbit Mews").postCode("GL52 2NF").accountNumber("12345678")
+                  .sortCode("123456").accountHolderName("Mr John Doe").query();
+        - lang: cURL
+          source: |
+            curl -d "email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1%20Tebbit%20Mews&postCode=GL52%202NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr%20John%20Doe" https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer
   '/client/{clientCode}/customer/{customerId}/contract':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - $ref: '#/parameters/customerId'
     get:
+      tags:
+        - Contract Querying and Creation
       summary: Queries the database for a contract or set of contracts.
+      parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: customerId
+          in: path
+          description: The GUID of the  customer (if the customer already exists).
+          required: true
+          schema:
+            type: string
+            format: guid
       responses:
         '200':
           description: OK
-          examples:
-            'application/json':
-              CustomerId: '19283a22-7442-4c92-b035-8fa7f5e6a9a0'
-              Contracts:
-                - Id: '7aa8cef6-ec95-47a7-9ced-4aa0938559ab'
-                  DirectDebitReference: 'LUISCT-MT000325'
-                  ScheduleName: 'DD Dates 1/15 - Fixed'
-                  Description: |
-                    Collect an initial £1.00 followed by 9 payments of
-                    £1.00 on 15th of the month ending on 25th April 2017
-                  PaymentMonthInYear: 7
-                  PaymentDayInMonth: '15'
-                  PaymentDayInWeek: null
-                  Start: '2016-07-15T00:00:00'
-                  TerminationDate: null
-                  TerminationType: 'Take certain number of debits'
-                  NumberOfDebits: 10
-                  InitialAmount: 1.00
-                  ExtraInitialAmounts: ''
-                  Amount: 1.00
-                  FinalAmount: null
-                  Every: 1
-                  IsGiftAid: true
-                  AtTheEnd: 'Expire'
-                  Status: 'Active'
-                  StatusExplanation: 'N/A'
-            'application/xml': |
-              <ContractsResponse xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <CustomerId>19283a22-7442-4c92-b035-8fa7f5e6a9a0</CustomerId>
-                  <Contracts>
-                      <ContractDetail>
-                          <Id>7aa8cef6-ec95-47a7-9ced-4aa0938559ab</Id>
-                          <DirectDebitReference>LUISCT-MT000325</DirectDebitReference>
-                          <ScheduleName>DD Dates 1/15 - Fixed</ScheduleName>
-                          <Description>Collect an initial £1.00 followed by 9 payments of
-                          £1.00 on 15th of the month ending on 25th April
-                          2017</Description>
-                          <PaymentMonthInYear>7</PaymentMonthInYear>
-                          <PaymentDayInMonth>15</PaymentDayInMonth>
-                          <Start>2016-07-15T00:00:00</Start>
-                          <TerminationDate xsi:nil="true" />
-                          <TerminationType>Take certain number of
-                          debits</TerminationType>
-                          <NumberOfDebits>10</NumberOfDebits>
-                          <InitialAmount>1.00</InitialAmount>
-                          <ExtraInitialAmounts />
-                          <Amount>1.00</Amount>
-                          <FinalAmount xsi:nil="true" />
-                          <Every>1</Every>
-                          <IsGiftAid>true</IsGiftAid>
-                          <AtTheEnd>Expire</AtTheEnd>
-                          <Status>Active</Status>
-                          <StatusExplanation>N/A</StatusExplanation>
-                      </ContractDetail>
-                  </Contracts>
-              </ContractsResponse>
-      tags:
-        - 'Contract Querying and Creation'
+          content:
+            application/json:
+              example:
+                CustomerId: 19283a22-7442-4c92-b035-8fa7f5e6a9a0
+                Contracts:
+                  - Id: 7aa8cef6-ec95-47a7-9ced-4aa0938559ab
+                    DirectDebitReference: LUISCT-MT000325
+                    ScheduleName: DD Dates 1/15 - Fixed
+                    Description: |
+                      Collect an initial £1.00 followed by 9 payments of
+                      £1.00 on 15th of the month ending on 25th April 2017
+                    PaymentMonthInYear: 7
+                    PaymentDayInMonth: '15'
+                    Start: '2016-07-15T00:00:00.000Z'
+                    TerminationType: Take certain number of debits
+                    NumberOfDebits: 10
+                    InitialAmount: 1
+                    ExtraInitialAmounts: ''
+                    Amount: 1
+                    Every: 1
+                    IsGiftAid: true
+                    AtTheEnd: Expire
+                    Status: Active
+                    StatusExplanation: N/A
+            application/xml:
+              example: |
+                <ContractsResponse xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <CustomerId>19283a22-7442-4c92-b035-8fa7f5e6a9a0</CustomerId>
+                    <Contracts>
+                        <ContractDetail>
+                            <Id>7aa8cef6-ec95-47a7-9ced-4aa0938559ab</Id>
+                            <DirectDebitReference>LUISCT-MT000325</DirectDebitReference>
+                            <ScheduleName>DD Dates 1/15 - Fixed</ScheduleName>
+                            <Description>Collect an initial £1.00 followed by 9 payments of
+                            £1.00 on 15th of the month ending on 25th April
+                            2017</Description>
+                            <PaymentMonthInYear>7</PaymentMonthInYear>
+                            <PaymentDayInMonth>15</PaymentDayInMonth>
+                            <Start>2016-07-15T00:00:00</Start>
+                            <TerminationDate xsi:nil="true" />
+                            <TerminationType>Take certain number of
+                            debits</TerminationType>
+                            <NumberOfDebits>10</NumberOfDebits>
+                            <InitialAmount>1.00</InitialAmount>
+                            <ExtraInitialAmounts />
+                            <Amount>1.00</Amount>
+                            <FinalAmount xsi:nil="true" />
+                            <Every>1</Every>
+                            <IsGiftAid>true</IsGiftAid>
+                            <AtTheEnd>Expire</AtTheEnd>
+                            <Status>Active</Status>
+                            <StatusExplanation>N/A</StatusExplanation>
+                        </ContractDetail>
+                    </Contracts>
+                </ContractsResponse>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var get = new Get(settings);
+            string response = get.Contracts("310a826b-d095-48e7-a55a-19dba82c566f");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            response = client.get.contracts("310a826b-d095-48e7-a55a-19dba82c566f")
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Get get = new Get(settings);
+            String response = get.contracts("310a826b-d095-48e7-a55a-19dba82c566f");
+        - lang: cURL
+          source: |
+            curl "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract"
     post:
+      tags:
+        - Contract Querying and Creation
       summary: Creates a contract in the database.
       description: |
         For ad-hoc contracts, you will only need to pass `scheduleName`, `start`,
         `terminationType`, `atTheEnd` and `isGiftAid`.
-
         ### Contract Statuses
-
         Upon creation, a Contract Status will read ”Inactive” and it will remain in this state until approximately 8-9 working days before either (a) the start date provided in the create contract call when creating an ad-hoc contract call or (b) the first payment date in the case of scheduled/recurring payments.
-
         When in this state, it is inadvisable to attempt to make changes to the contract or to push ad-hoc payments to the contract as payments may be missed or marked unpaid without an attempt to collect being made.
-
         We recommend waiting for the contract status to change to “Active” (usually 8-9 working days before collection or the start date stated in the create contract call) before making changes to the contract or pushing payments ad-hoc payments into the system.
-
         A contract can be manifested in one of two ways:
-
         | Status | Description
         | ------ | ---------------------------------------------
         | **Active** | The contract is active and will either be producing payments if it is a scheduled contract, or able to accept ad-hoc payments if it is an ad-hoc contract.
         | **Inactive** | The contract is inactive and cannot produce or accept payments, scheduled or otherwise.
-
         For more information on why a contract may become “Inactive”, the `StatusExplaination` field can provide a more detailed explanation. This field is free text and we recommend that it is stored and displayed to the end user as necessary.
-
         ### Timeframes
-
         You should also be aware that you must allow a **minimum** of 10 clear
         working days between setting up a contract and collecting the first
         payment and 5 clear working days between pushing a second or subsequent
         ad-hoc payment and its collection date on an active contract.
-
         A working day means a banking day in the United Kingdom which is Mondays
         to Fridays and excludes public and bank holidays. A list of public and
         bank holidays can be found here: <https://www.gov.uk/bank-holidays>. A
         date checker is also provided on our website:
         <https://www.eazycollect.co.uk/date>.
-
         While the above timeframes are the minimum required, we strongly
         recommend building yourself a day or two of contingency into your
         processes so that you have time to rectify any problems that may be
@@ -1401,310 +1149,773 @@ paths:
         instructions for payments or new contracts after the appropriate cut off
         dates.
       parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: customerId
+          in: path
+          description: The GUID of the  customer (if the customer already exists).
+          required: true
+          schema:
+            type: string
+            format: guid
         - name: scheduleName
+          in: query
           description: The name of the schedule to be used when creating a contract.
           required: true
-          in: query
-          type: string
-          maxLength: 255
+          schema:
+            maxLength: 255
+            type: string
         - name: start
+          in: query
           description: |
             The start date of the contract. This **must** be at least 10 **working**
             days in the future, on a permitted date and not after the anticipated
             first payment date. If this is a regular schedule, use the same date as
             the first payment date.
-
             Only up to 364 days in advance.
             **Format: `YYYY-MM-DDT00:00:00.000`**
           required: true
+          schema:
+            type: string
+            format: date-time
+        - name: numberOfDebits
           in: query
-          type: string
-          format: date-time
-        - $ref: '#/parameters/numberOfDebits?'
+          description: |
+            If this is a “Take certain Number of Debits” contract then the number of
+            debits to be taken should be passed using this parameter.
+            This field is only mandatory if the termination type is “Take Certain
+            Number of Debits”.
+          schema:
+            maximum: 999
+            minimum: 0
+            type: integer
         - name: every
+          in: query
           description: |
             If the contract is set to take regular payments, this parameter allows you
             to skip periods (e.g. every 2 months, every 4 weeks etc).
-
             This field is only mandatory if the contract is **not** an ad-hoc contract.
-          in: query
-          type: integer
+          schema:
+            type: integer
         - name: isGiftAid
+          in: query
           description: |
             Pass true if the payments to be collected are to be subject to a gift aid
             claim, false if not (pass false if the client is not a charity).
           required: true
+          schema:
+            type: boolean
+        - name: initialAmount
           in: query
-          type: boolean
-        - $ref: '#/parameters/initialAmount?'
+          description: |
+            If this is a contract for regular payments **and** the first payment is
+            different to the regular payments, then pass the first payment amount
+            with this parameter.
+            **Do not** pass this parameter with ad-hoc contracts, or where the first
+            amount is the same as the regular amount.
+          schema:
+            multipleOf: 0.01
+            type: number
         - name: extraInitialAmounts
+          in: query
           description: |
             If there are extra charges to be collected with the first payment
             (e.g. a gym joining fee/registration fee) then these can be added
             separately with this parameter. Do not pass the parameter if there
             are no extra amounts, and this must not be used if the contract is
             an ad-hoc payment contract.
+          schema:
+            multipleOf: 0.01
+            type: number
+        - name: amount
           in: query
-          type: number
-          multipleOf: 0.01
-        - $ref: '#/parameters/amount?'
-        - $ref: '#/parameters/finalAmount?'
+          description: |
+            If the contract is for regular payments, then the regular payment
+            amount should be passed using this parameter. Do not pass this
+            parameter if the contract is an ad-hoc contract.
+            This field is only mandatory if the contract is **not** an ad-hoc contract.
+          schema:
+            multipleOf: 0.01
+            type: number
+        - name: finalAmount
+          in: query
+          description: |
+            If this is a contract for regular payments **and** the final payment is
+            different to the regular payments, then pass the final payment amount
+            with this parameter. **Do not** pass this parameter with ad-hoc
+            contracts, or where the final amount is the same as the regular amount.
+          schema:
+            multipleOf: 0.01
+            type: number
         - name: paymentMonthInYear
+          in: query
           description: |
             If the contract is for regular payments then the month in which you
             wish the first payment should be passed with this parameter.
-
             This field is only mandatory if the contract is **not** an ad-hoc contract.
             This field is only mandatory if the contract is **annual** or **monthly**.
+          schema:
+            maximum: 12
+            minimum: 1
+            type: integer
+        - name: paymentDayInMonth
           in: query
-          type: integer
-          minimum: 1
-          maximum: 12
-        - $ref: '#/parameters/paymentDayInMonth?'
+          description: |
+            If the contract is for regular payments, then the day on which you wish
+            the first payment should be passed with this parameter.  **NOTE:** *You
+            may not* select days 29, 30 or 31 of the month; if you wish to select the
+            last day of the month; pass the integer value 99 which represent `Last day of the Month`.
+            This field is only mandatory if the contract is **not** an ad-hoc contract.
+            This field is only mandatory if the contract is **annual** or **monthly**.
+            You may only select days 1 to 28 or “Last day of the month” which is equal with value 99.
+            Choosing 29, 30 or 31 will result in payments being skipped in
+            months that do not contain that date.
+          schema:
+            type: integer
+            enum:
+              - 1
+              - 2
+              - 3
+              - 4
+              - 5
+              - 6
+              - 7
+              - 8
+              - 9
+              - 10
+              - 11
+              - 12
+              - 13
+              - 14
+              - 15
+              - 16
+              - 17
+              - 18
+              - 19
+              - 20
+              - 21
+              - 22
+              - 23
+              - 24
+              - 25
+              - 26
+              - 27
+              - 28
+              - 99
         - name: paymentDayInWeek
+          in: query
           description: |
             1 -> Monday                                                                     
             2 -> Tuesday                                                                     
             3 -> Wednesday                                                                     
             4 -> Thursday                                                                     
             5 -> Friday
-
             If the contract is for regular payments and has a weekly frequency, pass the
             day of the week that you wish payments to be collected via this parameter.
-
             This field is only mandatory if the contract is **not** an ad-hoc contract.
             This field is only mandatory if the contract is **weekly**.
+          schema:
+            maximum: 5
+            minimum: 1
+            type: integer
+        - name: terminationType
           in: query
-          type: integer
-          minimum: 1
-          maximum: 5
-        - $ref: '#/parameters/terminationType'
-        - $ref: '#/parameters/atTheEnd'
+          description: |
+            Pass the way in which the contract should end using this parameter.
+            If the contract is **ad-hoc,** *you must* pass `Until further notice`.
+          required: true
+          schema:
+            type: string
+            enum:
+              - Take certain number of debits
+              - Until further notice
+              - End on exact date
+        - name: atTheEnd
+          in: query
+          description: |
+            This parameter decides what will happen when the contract ends. If you have
+            selected a `terminationType` of `Until Further Notice` or the contract is an
+            ad-hoc contract, *you must* pass `Switch to Further Notice`.
+          required: true
+          schema:
+            type: string
+            enum:
+              - Expire
+              - Switch to Further Notice
         - name: terminationDate
+          in: query
           description: |
             If the `terminationType` is `End on Exact Date` then the termination date
             should be passed using this.
-
             **Format: `YYYY-MM-DDT00:00:00.000`**
+          schema:
+            type: string
+            format: date-time
+        - name: additionalReference
           in: query
-          type: string
-          format: date-time
-        - $ref: '#/parameters/additionalReference?'
+          description: |
+            If you wish to add an additional reference to the contract for you own use,
+            this can be passed to using the `additionalReference` parameter.
+          schema:
+            maxLength: 255
+            type: string
         - name: customDirectDebitRef
+          in: query
           description: |
             **THIS PARAMETER SHOULD ONLY BE USED IF YOU HAVE BEEN INSTRUCTED TO DO SO** 
-
             If you have made arrangements with us to use a custom direct debit
             referencing scheme, pass the custom direct debit using this parameter.
-
             The field may only contain alphanumeric data (`a-z`, `A-Z`, `0-9`) and
             certain special characters (hyphen `-` or solidus `/`).
-          in: query
-          type: string
-          maxLength: 18
+          schema:
+            maxLength: 18
+            type: string
       responses:
         '200':
           description: OK
-          schema:
-            type: object
-            properties:
-              directDebitRef:
-                type: string
-                description: |
-                  This is the Direct Debit Reference that will be quoted to the
-                  customer’s bank when collecting funds. Some banks will show this
-                  reference on the customer’s statement, although this is not
-                  guaranteed.
-              Id:
-                type: string
-                description: |
-                  The GUID of the contract record. You must save this to your database
-                  as it will be needed should you wish to update the contract or create
-                  ad-hoc payments using the payments or bulk payments call.
-              Message:
-                description: This will be `null`.
-                enum:
-                  - null
-          examples:
-            'application/json':
-              DirectDebitRef: 'LUISCT-MT000341'
-              Id: 'e39940cc-9917-4b9e-8da4-5da4866862f1'
-              Message: null
-            'application/xml': |
-              <ContractAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <DirectDebitRef>LUISCT-MT000340</DirectDebitRef>
-                  <Id>f98c6339-6cdf-4ea6-8523-ea2bd17aedb7</Id>
-              </ContractAcknowledgement>
-      tags:
-        - 'Contract Querying and Creation'
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  directDebitRef:
+                    type: string
+                    description: |
+                      This is the Direct Debit Reference that will be quoted to the
+                      customer’s bank when collecting funds. Some banks will show this
+                      reference on the customer’s statement, although this is not
+                      guaranteed.
+                  Id:
+                    type: string
+                    description: |
+                      The GUID of the contract record. You must save this to your database
+                      as it will be needed should you wish to update the contract or create
+                      ad-hoc payments using the payments or bulk payments call.
+                  Message:
+                    type: object
+                    description: This will be `null`.
+            application/json:
+              example:
+                DirectDebitRef: LUISCT-MT000341
+                Id: e39940cc-9917-4b9e-8da4-5da4866862f1
+            application/xml:
+              example: |
+                <ContractAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <DirectDebitRef>LUISCT-MT000340</DirectDebitRef>
+                    <Id>f98c6339-6cdf-4ea6-8523-ea2bd17aedb7</Id>
+                </ContractAcknowledgement>
+        '400':
+          description: Bad request - invalid schedule name
+          content:
+            application/json:
+              example:
+                Message: |
+                  {scheduleName} is not given to any schedule of any service as a name
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                      <Message>{scheduleName} is not given to any schedule of any service as a name</Message>
+                  </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var post = new Post(settings);
+            string request = post.contract("310a826b-d095-48e7-a55a-19dba82c566f", "adhoc_monthly_free", "2019-08-01", false, "Until further notice", "Switch to further notice");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.post.contract('42217d45-cf22-4430-ab02-acc1f8a2d020',
+            'test_schedule', '2019-05-07', False, 'Until further notice',
+            'Switch to further notice', additional_reference='test_123')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Post post = new Post(settings);
+            String request = post.contract().customer("310a826b-d095-48e7-a55a-19dba82c566f")
+                  .scheduleName("adhoc_monthly_free").startDate("2019-08-01").giftAid(false)
+                  .terminationType("Until further notice").atTheEnd("Switch to further notice").query();
+        - lang: cURL
+          source: |
+            curl -d "scheduleName=adhoc_monthly_free&start=2019-08-01&isGiftAid=false&terminationType=Until%20further%20notice&atTheEnd=Switch%20to%20further%20notice" https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract
   '/client/{clientCode}/contract/{contractId}/amount':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to amend.
-        required: true
-        in: path
-        type: string
-        format: guid
     patch:
+      tags:
+        - Contract Amendment
       summary: Changing the Amount
       description: Amends an existing contract amount in the database.
       parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to amend.
+          required: true
+          schema:
+            type: string
+            format: guid
         - name: amount
+          in: query
           description: The new amount to be taken.
           required: true
-          in: query
-          type: number
-          multipleOf: 0.01
+          schema:
+            multipleOf: 0.01
+            type: number
         - name: comment
+          in: query
           description: A comment to explain the reason for the change of amount.
           required: true
-          in: query
-          type: string
-          maxLength: 255
+          schema:
+            maxLength: 255
+            type: string
       responses:
         '200':
           description: OK
-          examples:
-            'application/json':
-              Message: Contract updated
-            'application/xml': |
-               <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                   <Message>Contract updated</Message>
-               </GeneralAcknowledgement>
+          content:
+            application/json:
+              example:
+                Message: Contract updated
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract updated</Message>
+                </GeneralAcknowledgement>
         '400':
           description: Bad Request
-          examples:
-            'application/json':
-              ErrorCode: 3
-              Detail: Amount should be different than old contract amount
-              Message: Validation error
-            'application/xml': |
-              <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Message>Validation error</Message>
-                  <ErrorCode>3</ErrorCode>
-                  <Detail>Amount should be different than old contract
-                  amount</Detail>
-              </ErrorAcknowledgement>
-      tags:
-        - 'Contract Amendment'
+          content:
+            application/json:
+              example:
+                ErrorCode: 3
+                Detail: Amount should be different than old contract amount
+                Message: Validation error
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Validation error</Message>
+                    <ErrorCode>3</ErrorCode>
+                    <Detail>Amount should be different than old contract amount</Detail>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var patch = new Patch(settings);
+            string request = patch.ContractAmount("1802e1dd-a657-428c-b8d0-ba162fc76203", "9.99", "Change contract amount");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.patch.contract_amount('36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b', 10.50,
+            'A comment')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Patch patch = new Patch(settings);
+            String request = patch.contractAmount("1802e1dd-a657-428c-b8d0-ba162fc76203", "9.99", "Change contract amount");
+        - lang: cURL
+          source: |
+            curl --request PATCH "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/amount?amount=9.99&comment=Change%20contract%20amount"
   '/client/{clientCode}/contract/{contractId}/weekly':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to amend.
-        required: true
-        in: path
-        type: string
-        format: guid
     patch:
+      tags:
+        - Contract Amendment
       summary: Changing the Day (Weekly Schedules)
       description: Amends an existing contract payment date in the database.
       parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to amend.
+          required: true
+          schema:
+            type: string
+            format: guid
         - name: day
+          in: query
           description: |
             The new day on which payments are to be taken.
-
             Payments will be collected on the next available instance of the payment
             day, which will be a **minimum** of 5 working days in the future. Any
             payment already scheduled in the next 5 working days <u>will still be
             collected</u>.
           required: true
-          in: query
-          type: string
-          enum:
-            - Monday
-            - Tuesday
-            - Wednesday
-            - Thursday
-            - Friday
+          schema:
+            type: string
+            enum:
+              - Monday
+              - Tuesday
+              - Wednesday
+              - Thursday
+              - Friday
         - name: comment
+          in: query
           description: A comment to explain the reason for the change of day.
           required: true
+          schema:
+            maxLength: 255
+            type: string
+        - name: nextPaymentPatchAmount
           in: query
-          type: string
-          maxLength: 255
-        - $ref: '#/parameters/nextPaymentPatchAmount?'
-        - $ref: '#/parameters/patchNextPayment'
+          description: |
+            If you wish to take the next payment to be a different amount (e.g.
+            pro rata because the number of days between payments will deb different)
+            then pass the amount using this parameter. Ensure that `patchNextPayment`
+            is set to `true` if you are using this.
+          schema:
+            multipleOf: 0.01
+            type: number
+        - name: patchNextPayment
+          in: query
+          description: |
+            Set to `true` if using `nextPaymentPatchAmount` or `false` if not.
+          required: true
+          schema:
+            type: boolean
       responses:
         '200':
           description: OK
-      tags:
-        - 'Contract Amendment'
+          content:
+            application/json:
+              example:
+                Message: Contract updated
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract updated</Message>
+                </GeneralAcknowledgement>
+        '400':
+          description: Bad request - invalid day
+          content:
+            application/json:
+              example:
+                Message: Day is invalid for this contract
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Day is invalid for this contract</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var patch = new Patch(settings);
+            string request = patch.ContractDayWeekly("1802e1dd-a657-428c-b8d0-ba162fc76203", "15", "Change day", false);
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.patch.contract_day_weekly('36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b', 15,
+            'A comment', False)
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Patch patch = new Patch(settings);
+            String request = patch.contractDayWeekly("1802e1dd-a657-428c-b8d0-ba162fc76203", "15", "Change day", false);
+        - lang: cURL
+          source: |
+            curl --request PATCH "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=15&comment=Change%20day&patchNextPayment=false"
   '/client/{clientCode}/contract/{contractId}/monthly':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to amend.
-        required: true
-        in: path
-        type: string
-        format: guid
     patch:
+      tags:
+        - Contract Amendment
       summary: Changing the Date (Monthly Schedules)
       description: Amends an existing contract payment date in the database.
       parameters:
-        - $ref: '#/parameters/monthDay'
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to amend.
+          required: true
+          schema:
+            type: string
+            format: guid
+        - name: monthDay
+          in: query
+          description: |
+            The new day of the month on which payments are to be taken.
+            **NOTE:** *You may not* select days `29`, `30` or `31` of the month;
+            if you wish to select the last day of the month; pass the string
+            `Last day of the Month`.
+            Payments will be collected on the next available instance of the payment
+            day, which will be a **minimum** of 5 working days in the future.  Any
+            payment already scheduled in the next 5 working days *will still be
+            collected*.
+          required: true
+          schema:
+            type: string
+            enum:
+              - '1'
+              - '2'
+              - '3'
+              - '4'
+              - '5'
+              - '6'
+              - '7'
+              - '8'
+              - '9'
+              - '10'
+              - '11'
+              - '12'
+              - '13'
+              - '14'
+              - '15'
+              - '16'
+              - '17'
+              - '18'
+              - '19'
+              - '20'
+              - '21'
+              - '22'
+              - '23'
+              - '24'
+              - '25'
+              - '26'
+              - '27'
+              - '28'
+              - Last Day of the Month
         - name: comment
+          in: query
           description: A comment to explain the reason for the change of day.
           required: true
+          schema:
+            maxLength: 255
+            type: string
+        - name: nextPaymentPatchAmount
           in: query
-          type: string
-          maxLength: 255
-        - $ref: '#/parameters/nextPaymentPatchAmount?'
-        - $ref: '#/parameters/patchNextPayment'
+          description: |
+            If you wish to take the next payment to be a different amount (e.g.
+            pro rata because the number of days between payments will deb different)
+            then pass the amount using this parameter. Ensure that `patchNextPayment`
+            is set to `true` if you are using this.
+          schema:
+            multipleOf: 0.01
+            type: number
+        - name: patchNextPayment
+          in: query
+          description: |
+            Set to `true` if using `nextPaymentPatchAmount` or `false` if not.
+          required: true
+          schema:
+            type: boolean
       responses:
         '200':
           description: OK
-      tags:
-        - 'Contract Amendment'
+          content:
+            application/json:
+              example:
+                Message: Contract updated
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract updated</Message>
+                </GeneralAcknowledgement>
+        '400':
+          description: Bad request - invalid day
+          content:
+            application/json:
+              example:
+                Message: Month day is invalid for this contract
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Month day is invalid for this contract</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var patch = new Patch(settings);
+            string request = patch.ContractDayMonthly("1802e1dd-a657-428c-b8d0-ba162fc76203", "15", "Change day", false);
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.patch.contract_date_monthly('36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b',
+            15, 'A comment', False)
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Patch patch = new Patch(settings);
+            String request = patch.contractDayMonthly("1802e1dd-a657-428c-b8d0-ba162fc76203", "15", "Change day", false);
+        - lang: cURL
+          source: |
+            curl --request PATCH "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/monthly?day=15&comment=Change%20day&patchNextPayment=false"
   '/client/{clientCode}/contract/{contractId}/annual':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to amend.
-        required: true
-        in: path
-        type: string
-        format: guid
     patch:
+      tags:
+        - Contract Amendment
       summary: Changing the Date (Annual Schedules)
       description: Amends an existing contract payment date in the database.
       parameters:
-        - $ref: '#/parameters/monthDay'
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to amend.
+          required: true
+          schema:
+            type: string
+            format: guid
+        - name: monthDay
+          in: query
+          description: |
+            The new day of the month on which payments are to be taken.
+            **NOTE:** *You may not* select days `29`, `30` or `31` of the month;
+            if you wish to select the last day of the month; pass the string
+            `Last day of the Month`.
+            Payments will be collected on the next available instance of the payment
+            day, which will be a **minimum** of 5 working days in the future.  Any
+            payment already scheduled in the next 5 working days *will still be
+            collected*.
+          required: true
+          schema:
+            type: string
+            enum:
+              - '1'
+              - '2'
+              - '3'
+              - '4'
+              - '5'
+              - '6'
+              - '7'
+              - '8'
+              - '9'
+              - '10'
+              - '11'
+              - '12'
+              - '13'
+              - '14'
+              - '15'
+              - '16'
+              - '17'
+              - '18'
+              - '19'
+              - '20'
+              - '21'
+              - '22'
+              - '23'
+              - '24'
+              - '25'
+              - '26'
+              - '27'
+              - '28'
+              - Last Day of the Month
         - name: month
+          in: query
           description: The new month in the year on which the payments are to be taken.
           required: true
-          in: query
-          type: integer
-          minimum: 1
-          maximum: 12
+          schema:
+            maximum: 12
+            minimum: 1
+            type: integer
         - name: comment
+          in: query
           description: A comment to explain the reason for the change of day.
           required: true
+          schema:
+            maxLength: 255
+            type: string
+        - name: nextPaymentPatchAmount
           in: query
-          type: string
-          maxLength: 255
-        - $ref: '#/parameters/nextPaymentPatchAmount?'
-        - $ref: '#/parameters/patchNextPayment'
+          description: |
+            If you wish to take the next payment to be a different amount (e.g.
+            pro rata because the number of days between payments will deb different)
+            then pass the amount using this parameter. Ensure that `patchNextPayment`
+            is set to `true` if you are using this.
+          schema:
+            multipleOf: 0.01
+            type: number
+        - name: patchNextPayment
+          in: query
+          description: |
+            Set to `true` if using `nextPaymentPatchAmount` or `false` if not.
+          required: true
+          schema:
+            type: boolean
       responses:
         '200':
           description: OK
-      tags:
-        - 'Contract Amendment'
+          content:
+            application/json:
+              example:
+                Message: Contract updated
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract updated</Message>
+                </GeneralAcknowledgement>
+        '400':
+          description: Bad request - invalid day
+          content:
+            application/json:
+              example:
+                Message: Month day is invalid for this contract
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Month day is invalid for this contract</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var patch = new Patch(settings);
+            string request = patch.ContractDayAnnually("1802e1dd-a657-428c-b8d0-ba162fc76203", "15", "1", "Change day", false);
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            contract_date_annually('36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b',
+            15, 6, 'A comment', False)
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Patch patch = new Patch(settings);
+            String request = patch.contractDayAnnually("1802e1dd-a657-428c-b8d0-ba162fc76203", "15", "1", "Change day", false);
+        - lang: cURL
+          source: |
+            curl --request PATCH "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/annual?monthDay=15&month=1&comment=Change%20day&patchNextPayment=false"
   '/client/{clientCode}/contract/{contractId}/reference':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to amend.
-        required: true
-        in: path
-        type: string
-        format: guid
     patch:
+      tags:
+        - Contract Amendment
       summary: Changing the Direct Debit Reference (for authorised users only)
       description: |
         In general, our software will allocate a unique direct debit reference
@@ -1714,186 +1925,588 @@ paths:
         note that using this facility will incur extra charges as new
         instructions will need to be sent to the bank via BACS.
       parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to amend.
+          required: true
+          schema:
+            type: string
+            format: guid
         - name: newDDRef
+          in: query
           description: |
             If you have made arrangements with us to use a custom direct debit 
             referencing scheme, pass the new custom direct debit using this parameter.
-
             The field may only contain alphanumeric data (`a-z`, `A-Z`, `0-9`) and
             certain special characters (hyphen `-` or solidus `/`).
           required: true
-          in: query
-          type: string
-          maxLength: 18
+          schema:
+            maxLength: 18
+            type: string
       responses:
         '200':
           description: OK
-          examples:
-            'application/json':
-              Message: Contract reference updated
-            'application/xml': |
-              <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Message>Contract reference updated</Message>
-              </GeneralAcknowledgement>
-      tags:
-        - 'Contract Amendment'
+          content:
+            application/json:
+              example:
+                Message: Contract reference updated
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract reference updated</Message>
+                </GeneralAcknowledgement>
+        '403':
+          description: Forbidden - account not authorised
+          content:
+            application/json:
+              example:
+                Message: API not enabled
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>API not enabled</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              example:
+                Message: Contract not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: cURL
+          source: |
+            curl --request PATCH "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reference?newDDRef=TEST-MT012345"
   '/client/{clientCode}/contract/{contractId}/cancel':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to cancel the direct debit on.
-        required: true
-        in: path
-        type: string
-        format: guid
     post:
+      tags:
+        - Cancelling the Direct Debit (Does not cancel payment creation)
       summary: Changes the status of the Direct Debit to “Cancelled”.
       description: |
         Future payments will be created within our system, but automatically marked
         as unpaid.
+      parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to cancel the direct debit on.
+          required: true
+          schema:
+            type: string
+            format: guid
       responses:
         '200':
           description: OK
-          examples:
-            'application/json':
-              Message: 'Contract cancelled'
-            'application/xml': |
-               <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                   <Message>Contract cancelled</Message>
-               </GeneralAcknowledgement>
-      tags:
-        - 'Cancelling the Direct Debit (Does not cancel payment creation)'
+          content:
+            application/json:
+              example:
+                Message: Contract cancelled
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract cancelled</Message>
+                </GeneralAcknowledgement>
+        '403':
+          description: Forbidden - contract is protected
+          content:
+            application/json:
+              example:
+                Message: Contract cannot be accessed
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract cannot be accessed</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              example:
+                Message: Contract not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var post = new Post(settings);
+            string request = post.CancelDirectDebit("1802e1dd-a657-428c-b8d0-ba162fc76203");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.post.cancel_direct_debit('42217d45-cf22-4430-ab02-acc1f8a2d020')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Post post = new Post(settings);
+            String request = post.cancelDirectDebit("1802e1dd-a657-428c-b8d0-ba162fc76203");
+        - lang: cURL
+          source: |
+            curl -d "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/cancel"
   '/client/{clientCode}/contract/{contractId}/archive':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to archive.
-        required: true
-        in: path
-        type: string
-        format: guid
     post:
+      tags:
+        - Archiving a Contract
       summary: |
         Cancels the direct debit, writes off any outstanding arrears balance, cancels
         future payments and sets the contract status to “archived”.
       description: |
         **NOTE:** It <u>is not</u> possible to “unarchive” a contract once the archive
         process has been initiated.
+      parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to archive.
+          required: true
+          schema:
+            type: string
+            format: guid
       responses:
         '200':
           description: OK
-      tags:
-        - 'Archiving a Contract'
+          content:
+            application/json:
+              example:
+                Message: Contract archived
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract archived</Message>
+                </GeneralAcknowledgement>
+        '403':
+          description: Forbidden - contract is protected
+          content:
+            application/json:
+              example:
+                Message: API not enabled
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>API not enabled</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              example:
+                Message: Contract not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var post = new Post(settings);
+            string request = post.ArchiveContract("1802e1dd-a657-428c-b8d0-ba162fc76203");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.post.archive_contract('42217d45-cf22-4430-ab02-acc1f8a2d020')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Post post = new Post(settings);
+            String request = post.archiveContract("1802e1dd-a657-428c-b8d0-ba162fc76203");
+        - lang: cURL
+          source: |
+            curl -d "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/archive"
   '/client/{clientCode}/contract/{contractId}/reactivate':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to reactivate.
-        required: true
-        in: path
-        type: string
-        format: guid
     post:
+      tags:
+        - Reactivating a Direct Debit
       summary: Reactivates the Direct Debit if it is in the ***Cancelled*** state.
+      parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to reactivate.
+          required: true
+          schema:
+            type: string
+            format: guid
       responses:
         '200':
           description: OK
-      tags:
-        - 'Reactivating a Direct Debit'
+          content:
+            application/json:
+              example:
+                Message: Contract reactivated
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract reactivated</Message>
+                </GeneralAcknowledgement>
+        '403':
+          description: Forbidden - contract is protected
+          content:
+            application/json:
+              example:
+                Message: Contract cannot be accessed
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract cannot be accessed</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              example:
+                Message: Contract not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var post = new Post(settings);
+            string request = post.ReactivateDirectDebit("1802e1dd-a657-428c-b8d0-ba162fc76203");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.post.reactivate_direct_debit('42217d45-cf22-4430-ab02-acc1f8a2d020')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Post post = new Post(settings);
+            String request = post.reactivateDirectDebit("1802e1dd-a657-428c-b8d0-ba162fc76203");
+        - lang: cURL
+          source: |
+            curl -d "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reactivate"
   '/client/{clientCode}/contract/{contractId}/restart':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to restart.
-        required: true
-        in: path
-        type: string
-        format: guid
     post:
+      tags:
+        - Restart a Contract
       summary: |
         Reactivates the Direct Debit if it is in the ***Expired*** state and payments
         have already come to an end.
       parameters:
-        - $ref: '#/parameters/paymentDayInMonth?'
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to restart.
+          required: true
+          schema:
+            type: string
+            format: guid
+        - name: paymentDayInMonth
+          in: query
+          description: |
+            If the contract is for regular payments, then the day on which you wish
+            the first payment should be passed with this parameter.  **NOTE:** *You
+            may not* select days 29, 30 or 31 of the month; if you wish to select the
+            last day of the month; pass the integer value 99 which represent `Last day of the Month`.
+            This field is only mandatory if the contract is **not** an ad-hoc contract.
+            This field is only mandatory if the contract is **annual** or **monthly**.
+            You may only select days 1 to 28 or “Last day of the month” which is equal with value 99.
+            Choosing 29, 30 or 31 will result in payments being skipped in
+            months that do not contain that date.
+          schema:
+            type: integer
+            enum:
+              - 1
+              - 2
+              - 3
+              - 4
+              - 5
+              - 6
+              - 7
+              - 8
+              - 9
+              - 10
+              - 11
+              - 12
+              - 13
+              - 14
+              - 15
+              - 16
+              - 17
+              - 18
+              - 19
+              - 20
+              - 21
+              - 22
+              - 23
+              - 24
+              - 25
+              - 26
+              - 27
+              - 28
+              - 99
         - name: paymentMonthInYear
+          in: query
           description: |
             If the contract is for regular payments then the month in which you
             wish the first payment should be passed with this parameter.
-
             This field is only mandatory if the contract is **not** an ad-hoc contract.
             This field is only mandatory if the contract is **annual** or **monthly**.
+          schema:
+            maximum: 12
+            minimum: 1
+            type: integer
+        - name: terminationType
           in: query
-          type: integer
-          minimum: 1
-          maximum: 12
-        - $ref: '#/parameters/terminationType'
-        - $ref: '#/parameters/numberOfDebits?'
-        - $ref: '#/parameters/initialAmount?'
-        - $ref: '#/parameters/amount?'
-        - $ref: '#/parameters/finalAmount?'
-        - $ref: '#/parameters/atTheEnd'
-        - $ref: '#/parameters/additionalReference?'
+          description: |
+            Pass the way in which the contract should end using this parameter.
+            If the contract is **ad-hoc,** *you must* pass `Until further notice`.
+          required: true
+          schema:
+            type: string
+            enum:
+              - Take certain number of debits
+              - Until further notice
+              - End on exact date
+        - name: numberOfDebits
+          in: query
+          description: |
+            If this is a “Take certain Number of Debits” contract then the number of
+            debits to be taken should be passed using this parameter.
+            This field is only mandatory if the termination type is “Take Certain
+            Number of Debits”.
+          schema:
+            maximum: 999
+            minimum: 0
+            type: integer
+        - name: initialAmount
+          in: query
+          description: |
+            If this is a contract for regular payments **and** the first payment is
+            different to the regular payments, then pass the first payment amount
+            with this parameter.
+            **Do not** pass this parameter with ad-hoc contracts, or where the first
+            amount is the same as the regular amount.
+          schema:
+            multipleOf: 0.01
+            type: number
+        - name: amount
+          in: query
+          description: |
+            If the contract is for regular payments, then the regular payment
+            amount should be passed using this parameter. Do not pass this
+            parameter if the contract is an ad-hoc contract.
+            This field is only mandatory if the contract is **not** an ad-hoc contract.
+          schema:
+            multipleOf: 0.01
+            type: number
+        - name: finalAmount
+          in: query
+          description: |
+            If this is a contract for regular payments **and** the final payment is
+            different to the regular payments, then pass the final payment amount
+            with this parameter. **Do not** pass this parameter with ad-hoc
+            contracts, or where the final amount is the same as the regular amount.
+          schema:
+            multipleOf: 0.01
+            type: number
+        - name: atTheEnd
+          in: query
+          description: |
+            This parameter decides what will happen when the contract ends. If you have
+            selected a `terminationType` of `Until Further Notice` or the contract is an
+            ad-hoc contract, *you must* pass `Switch to Further Notice`.
+          required: true
+          schema:
+            type: string
+            enum:
+              - Expire
+              - Switch to Further Notice
+        - name: additionalReference
+          in: query
+          description: |
+            If you wish to add an additional reference to the contract for you own use,
+            this can be passed to using the `additionalReference` parameter.
+          schema:
+            maxLength: 255
+            type: string
       responses:
         '200':
           description: OK
-          examples:
-            'application/json':
-              Message: 'Contract restarted'
-            'application/xml': |
-              <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Message>Contract restarted</Message>
-              </GeneralAcknowledgement>
-      tags:
-        - 'Restart a Contract'
+          content:
+            application/json:
+              example:
+                Message: Contract restarted
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract restarted</Message>
+                </GeneralAcknowledgement>
+        '400':
+          description: Bad request - invalid restart date
+          content:
+            application/json:
+              example:
+                Message: |
+                  Start date must be greater than {minStartDate}
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Start date must be greater than {minStartDate}</Message>
+                </ErrorAcknowledgement>
+        '403':
+          description: Forbidden - contract is protected
+          content:
+            application/json:
+              example:
+                Message: Contract cannot be accessed
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract cannot be accessed</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              example:
+                Message: Contract not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var post = new Post(settings);
+            string request = post.RestartContract("1802e1dd-a657-428c-b8d0-ba162fc76203", "Until further notice", "Switch to further notice");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.post.restart_contract(
+              '42217d45-cf22-4430-ab02-acc1f8a2d020',
+              'Until further notice', 'Switch to further notice'
+            )
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Post post = new Post(settings);
+            String request = post.restartContract().contract("1802e1dd-a657-428c-b8d0-ba162fc76203").terminationType("Until further notice").atTheEnd("Switch to further notice").query();
+        - lang: cURL
+          source: |
+            curl -d "terminationType=Until%20further%20notice&atTheEnd=Switch%20to%20further%20notice" https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/restart
   '/client/{clientCode}/contract/{contractId}/payment':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: The contract GUID that you wish to query.
-        required: true
-        in: path
-        type: string
-        format: guid
     get:
+      tags:
+        - Adding/Querying Payments
       summary: |
         Queries the database and returns details of payments related to the
         specified contract.
       parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to query.
+          required: true
+          schema:
+            type: string
+            format: guid
         - name: rows
+          in: query
           description: |
             The number of payments (rows) you wish to be returned in the response.
           required: true
-          in: query
-          type: integer
-          minimum: 1
-          maximum: 100
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
       responses:
         '200':
           description: OK
-          schema:
-            type: object
-            properties:
-              Payments:
-                type: array
-                items:
-                  $ref: '#/definitions/Payment'
-          examples:
-            'application/json':
-              Payments:
-                - Id: '36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b'
-                  Status: 'Pending'
-                  IsCredit: false
-                  IsAdhoc: true
-                  Amount: 15.99
-                  Date: '2017-05-15T00:00:00'
-                  ReasonCode: 0
-                  ReasonMessage: null
-                  Comment: 'This is a test'
-                  Type: 'BACS'
-            'application/xml': |
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  Payments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Payment'
+            application/json:
+              example:
+                Payments:
+                  - Id: 36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b
+                    Status: Pending
+                    IsCredit: false
+                    IsAdhoc: true
+                    Amount: 15.99
+                    Date: '2017-05-15T00:00:00.000Z'
+                    ReasonCode: 0
+                    Comment: This is a test
+                    Type: BACS
+            application/xml:
+              example: |
                 <PaymentsResponse xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                     <Payments>
@@ -1910,291 +2523,705 @@ paths:
                         </PaymentDetail>
                     </Payments>
                 </PaymentsResponse>
-      tags:
-        - 'Adding/Querying Payments'
+        '403':
+          description: Forbidden - contract is protected
+          content:
+            application/json:
+              example:
+                Message: Contract cannot be accessed
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract cannot be accessed</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              example:
+                Message: Contract not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var get = new Get(settings);
+            string response = get.Payments("2b62a358-9a1a-4c71-9450-e419e393dcd1");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            response = client.get.payments('ab09362d-f88e-4ee8-be85-e27e1a6ce06a')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Get get = new Get(settings);
+            String response = get.payments("2b62a358-9a1a-4c71-9450-e419e393dcd1");
+        - lang: cURL
+          source: |
+            curl "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment"
     post:
+      tags:
+        - Adding/Querying Payments
       summary: Adds a payment to the database to the contract specified in the URL.
       parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: The contract GUID that you wish to query.
+          required: true
+          schema:
+            type: string
+            format: guid
         - name: amount
-          description: The amount to be collected.
           in: query
-          type: number
-          multipleOf: 0.01
+          description: The amount to be collected.
+          schema:
+            multipleOf: 0.01
+            type: number
         - name: date
+          in: query
           description: |
             The date on which the payment should be collected.
-
             This **must** be at least 5 **working** days in the future, on a permitted
             date and not before the start date set when creating the contract.
-
             **Format: `YYYY-MM-DDT00:00:00.000`**
-          in: query
-          type: string
-          format: date-time
+          schema:
+            type: string
+            format: date-time
         - name: comment
+          in: query
           description: |
             A comment relating to the payment (which can be recalled using the GET
             method).
-          in: query
-          type: string
-          maxLength: 255
+          schema:
+            maxLength: 255
+            type: string
         - name: isCredit
+          in: query
           description: |
             If you have an own SUN and you have agreed by prior arrangement with your
             account manager that you may issue credits, pass `true` with this parameter
             to issue a credit to the customer.
-          in: query
-          type: boolean
+          schema:
+            type: boolean
       responses:
         '200':
           description: OK
-          schema:
-            type: object
-            properties:
-              Contract:
-                description: |
-                  The GUID of the contract to which the payment has been applied.
-                type: string
-                format: guid
-              Amount:
-                description: The amount of the payment.
-                type: number
-                multipleOf: 0.01
-              DueDate:
-                description: The due date (date of collection) of the payment.
-                type: string
-                format: date-time
-              Id:
-                description: |
-                  The GUID of the payment. We suggest that you save this so that you
-                  can easily change or query the payment in future. If you are using
-                  pushed return data, this will be included in any payload delivered
-                  concerning the payment.
-                type: string
-                format: guid
-              Error:
-                description: If any error occurs, a message will appear here.
-                type: string
-              Message:
-                description: |
-                  If any additional message from the system is generated, it will
-                  appear here (usually null).
-                type: string
-          examples:
-            'application/json':
-              Contract: 'b3c17b6f-9ad2-4fa3-9a33-8a8f6813ab1f'
-              Amount: 15.99
-              DueDate: '2017-05-15T00:00:00'
-              Id: '1b2ac277-5f1f-424a-b55f-323d5bcef8f6'
-              Error: null
-              Message: null
-            'application/xml': |
-              <PaymentAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Contract>b3c17b6f-9ad2-4fa3-9a33-8a8f6813ab1f</Contract>
-                  <Amount>15.99</Amount>
-                  <DueDate>2017-05-15T00:00:00</DueDate>
-                  <Id>36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b</Id>
-              </PaymentAcknowledgement>
-      tags:
-        - 'Adding/Querying Payments'
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  Contract:
+                    type: string
+                    description: |
+                      The GUID of the contract to which the payment has been applied.
+                    format: guid
+                  Amount:
+                    multipleOf: 0.01
+                    type: number
+                    description: The amount of the payment.
+                  DueDate:
+                    type: string
+                    description: The due date (date of collection) of the payment.
+                    format: date-time
+                  Id:
+                    type: string
+                    description: |
+                      The GUID of the payment. We suggest that you save this so that you
+                      can easily change or query the payment in future. If you are using
+                      pushed return data, this will be included in any payload delivered
+                      concerning the payment.
+                    format: guid
+                  Error:
+                    type: string
+                    description: 'If any error occurs, a message will appear here.'
+                  Message:
+                    type: string
+                    description: |
+                      If any additional message from the system is generated, it will
+                      appear here (usually null).
+            application/json:
+              example:
+                Contract: b3c17b6f-9ad2-4fa3-9a33-8a8f6813ab1f
+                Amount: 15.99
+                DueDate: '2017-05-15T00:00:00.000Z'
+                Id: 1b2ac277-5f1f-424a-b55f-323d5bcef8f6
+            application/xml:
+              example: |
+                <PaymentAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Contract>b3c17b6f-9ad2-4fa3-9a33-8a8f6813ab1f</Contract>
+                    <Amount>15.99</Amount>
+                    <DueDate>2017-05-15T00:00:00</DueDate>
+                    <Id>36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b</Id>
+                </PaymentAcknowledgement>
+        '400':
+          description: Bad request - invalid payment amount
+          content:
+            application/json:
+              example:
+                Message: Amount must be greater than zero
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Amount must be greater than zero</Message>
+                </ErrorAcknowledgement>
+        '403':
+          description: Forbidden - contract is protected
+          content:
+            application/json:
+              example:
+                Message: Contract cannot be accessed
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract cannot be accessed</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              example:
+                Message: Contract not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Contract not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var post = new Post(settings);
+            string request = post.Payment("1802e1dd-a657-428c-b8d0-ba162fc76203", "10.00", "2019-08-01", "A comment");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.post.payment('42217d45-cf22-4430-ab02-acc1f8a2d020', '10.00',
+                  '2019-05-07', 'A new payment')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Post post = new Post(settings);
+            String request = post.payment("1802e1dd-a657-428c-b8d0-ba162fc76203", "10.00", "2019-08-01", "A comment");
+        - lang: cURL
+          source: |
+            curl -d "amount=10.00&dueDate=2019-08-01&comment=A%20comment" https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment
   '/client/{clientCode}/bulk/payments':
-    parameters:
-      - $ref: '#/parameters/clientCode'
     post:
+      tags:
+        - Bulk Adding Payments
       summary: Adds a payment to the database to the contract specified in the URL.
-      consumes:
-        - 'application/json'
-        - 'application/xml'
       parameters:
-        - name: body
-          description: |
-            Payments should be submitted in the body of the POST request in the format
-            detailed below.
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
           required: true
-          in: body
           schema:
-            type: object
-            properties:
-              Payments:
-                type: array
-                items:
-                  type: object
-                  required:
-                    - amount
-                    - date
-                    - contract
-                  properties:
-                    contract:
-                      description: The contract GUID that you wish to collect a payment against. 
-                      type: string
-                      format: guid
-                    amount:
-                      description: The amount to be collected.
-                      type: number
-                      multipleOf: 0.01
-                    date:
-                      description: |
-                        The date on which the payment should be collected.
-
-                        This **must** be at least 5 **working** days in the future,
-                        on a permitted date and not before the start date set when
-                        creating the contract.
-
-                        **Format: `YYYY-MM-DDT00:00:00.000`**
-                      type: string
-                      format: date-time
-                    comment:
-                      description: |
-                        A comment relating to the payment (which can be recalled using
-                        the GET method).
-                      type: string
-                      maxLength: 255
-                    isCredit:
-                      description: |
-                        If you have an own SUN and you have agreed by prior arrangement
-                        with your account manager that you may issue credits, pass
-                        `true` with this parameter to issue a credit to the customer.
-
-                        If omitted, this will be a debit.
-                      type: boolean
-            example:
-              Payments:
-                - contract: 'GUID'
-                  amount: 1.1
-                  date: 'YYYY-MM-DDT00:00:00.000'
-                  comment: 'Up to 256 characters, optional'
-                  isCredit: false
-                - contract: 'GUID'
-                  amount: 1.1
-                  date: 'YYYY-MM-DDT00:00:00.000'
-                  comment: 'Up to 256 characters, optional'
-                  isCredit: false
+            maxLength: 6
+            type: string
+      requestBody:
+        description: |
+          Payments should be submitted in the body of the POST request in the format
+          detailed below.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Payments:
+                  type: array
+                  items:
+                    required:
+                      - amount
+                      - contract
+                      - date
+                    type: object
+                    properties:
+                      contract:
+                        type: string
+                        description: The contract GUID that you wish to collect a payment against.
+                        format: guid
+                      amount:
+                        multipleOf: 0.01
+                        type: number
+                        description: The amount to be collected.
+                      date:
+                        type: string
+                        description: |
+                          The date on which the payment should be collected.
+                          This **must** be at least 5 **working** days in the future,
+                          on a permitted date and not before the start date set when
+                          creating the contract.
+                          **Format: `YYYY-MM-DDT00:00:00.000`**
+                        format: date-time
+                      comment:
+                        maxLength: 255
+                        type: string
+                        description: |
+                          A comment relating to the payment (which can be recalled using
+                          the GET method).
+                      isCredit:
+                        type: boolean
+                        description: |
+                          If you have an own SUN and you have agreed by prior arrangement
+                          with your account manager that you may issue credits, pass
+                          `true` with this parameter to issue a credit to the customer.
+                          If omitted, this will be a debit.
+              example:
+                Payments:
+                  - contract: GUID
+                    amount: 1.1
+                    date: 'YYYY-MM-DDT00:00:00.000'
+                    comment: 'Up to 256 characters, optional'
+                    isCredit: false
+                  - contract: GUID
+                    amount: 1.1
+                    date: 'YYYY-MM-DDT00:00:00.000'
+                    comment: 'Up to 256 characters, optional'
+                    isCredit: false
+          application/xml:
+            schema:
+              type: object
+              properties:
+                Payments:
+                  type: array
+                  items:
+                    required:
+                      - amount
+                      - contract
+                      - date
+                    type: object
+                    properties:
+                      contract:
+                        type: string
+                        description: The contract GUID that you wish to collect a payment against.
+                        format: guid
+                      amount:
+                        multipleOf: 0.01
+                        type: number
+                        description: The amount to be collected.
+                      date:
+                        type: string
+                        description: |
+                          The date on which the payment should be collected.
+                          This **must** be at least 5 **working** days in the future,
+                          on a permitted date and not before the start date set when
+                          creating the contract.
+                          **Format: `YYYY-MM-DDT00:00:00.000`**
+                        format: date-time
+                      comment:
+                        maxLength: 255
+                        type: string
+                        description: |
+                          A comment relating to the payment (which can be recalled using
+                          the GET method).
+                      isCredit:
+                        type: boolean
+                        description: |
+                          If you have an own SUN and you have agreed by prior arrangement
+                          with your account manager that you may issue credits, pass
+                          `true` with this parameter to issue a credit to the customer.
+                          If omitted, this will be a debit.
+              example:
+                Payments:
+                  - contract: GUID
+                    amount: 1.1
+                    date: 'YYYY-MM-DDT00:00:00.000'
+                    comment: 'Up to 256 characters, optional'
+                    isCredit: false
+                  - contract: GUID
+                    amount: 1.1
+                    date: 'YYYY-MM-DDT00:00:00.000'
+                    comment: 'Up to 256 characters, optional'
+                    isCredit: false
+        required: true
       responses:
         '200':
           description: OK
-          examples:
-            'application/json':
-              Failures: []
-              FailureCount: 0
-              IsSuccessfull: true
-              Message: 'All payments are in queue for process'
-      tags:
-        - 'Bulk Adding Payments'
+          content:
+            application/json:
+              example:
+                Failures: []
+                FailureCount: 0
+                IsSuccessfull: true
+                Message: All payments are in queue for process
+            application/xml:
+              example: |
+                <BulkPaymentAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Failures></Failures>
+                    <FailureCount>0</FailureCount>
+                    <IsSuccessfull>true</IsSuccessfull>
+                    <Message>All payments are in queue for process</Message>
+                </BulkPaymentAcknowledgement>
+        '400':
+          description: Bad request - no payments
+          content:
+            application/json:
+              example:
+                Message: No payments found in request
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>No payments found in request</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: cURL
+          sample: |
+            curl -H "Content-Type: application/json" -d "{'Payments':[{'contract':'1802e1dd-a657-428c-b8d0-ba162fc76203','amount':9.99,'date':'2019-08-01T00:00:00.000','comment':'New payment','isCredit':false}]}" https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/bulk/payments
   '/client/{clientCode}/contract/{contractId}/payment/{paymentId}':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - name: contractId
-        description: |
-          The contract GUID on which the payment you are amending has been lodged.
-        required: true
-        in: path
-        type: string
-        format: guid
-      - name: paymentId
-        description: |
-          The payment GUID of the payment you wish to amend.
-        required: true
-        in: path
-        type: string
-        format: guid
     get:
+      tags:
+        - Payment Manipulation
       summary: Queries the database for details of an existing payment.
-      responses:
-        '200':
-          description: OK
-          examples:
-            'application/json':
-              Id: '36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b'
-              Status: 'Pending'
-              IsCredit: false
-              IsAdhoc: true
-              Amount: 15.99
-              Date: '2017-05-15T00:00:00'
-              ReasonCode: 0,
-              ReasonMessage: null
-              Comment: 'This is a test'
-              Type: 'BACS'
-            'application/xml': |
-              <PaymentDetail xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Id>36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b</Id>
-                  <Status>Pending</Status>
-                  <IsCredit>false</IsCredit>
-                  <IsAdhoc>true</IsAdhoc>
-                  <Amount>15.99</Amount>
-                  <Date>2017-05-15T00:00:00</Date>
-                  <ReasonCode>0</ReasonCode>
-                  <Comment>This is a test</Comment>
-                  <Type>BACS</Type>
-              </PaymentDetail>
-      tags:
-        - 'Payment Manipulation'
-    patch:
-      summary: Amends an existing payment in the database.
       parameters:
-        - name: comment
-          description: A comment that can be returned when querying the payment.
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
           required: true
-          in: query
-          type: string
-          maxLength: 255
-        - name: amount
-          description: The amount you wish to change the payment to.
-          required: true
-          in: query
-          type: number
-          multipleOf: 0.01
-        - name: date
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
           description: |
-            The date on which you require the payment to be taken.
-
-            **Format: `YYYY-MM-DDT00:00:00.000`**
+            The contract GUID on which the payment you are amending has been lodged.
           required: true
-          in: query
-          type: string
-          format: date-time
+          schema:
+            type: string
+            format: guid
+        - name: paymentId
+          in: path
+          description: |
+            The payment GUID of the payment you wish to amend.
+          required: true
+          schema:
+            type: string
+            format: guid
       responses:
         '200':
           description: OK
-          schema:
-            $ref: '#/definitions/Payment'
-          examples:
-            'application/json':
-              Message: 'Payment updated'
-            'application/xml': |
-              <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Message>Payment updated</Message>
-              </GeneralAcknowledgement>
-      tags:
-        - 'Payment Manipulation'
+          content:
+            application/json:
+              example:
+                Id: 36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b
+                Status: Pending
+                IsCredit: false
+                IsAdhoc: true
+                Amount: 15.99
+                Date: '2017-05-15T00:00:00.000Z'
+                ReasonCode: '0,'
+                Comment: This is a test
+                Type: BACS
+            application/xml:
+              example: |
+                <PaymentDetail xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Id>36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b</Id>
+                    <Status>Pending</Status>
+                    <IsCredit>false</IsCredit>
+                    <IsAdhoc>true</IsAdhoc>
+                    <Amount>15.99</Amount>
+                    <Date>2017-05-15T00:00:00</Date>
+                    <ReasonCode>0</ReasonCode>
+                    <Comment>This is a test</Comment>
+                    <Type>BACS</Type>
+                </PaymentDetail>
+        '403':
+          description: Forbidden - payment contract is protected
+          content:
+            application/json:
+              example:
+                Message: Payment cannot be accessed
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Payment cannot be accessed</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Payment not found
+          content:
+            application/json:
+              example:
+                Message: Payment not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Payment not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var get = new Get(settings);
+            string response = get.PaymentsSingle("2b62a358-9a1a-4c71-9450-e419e393dcd1", "6917d51a-be83-424f-b0a6-31fbf9574a79");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            response = client.get.payments_single('ab09362d-f88e-4ee8-be85-e27e1a6ce06a',
+                          '36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Get get = new Get(settings);
+            String response = get.paymentsSingle("2b62a358-9a1a-4c71-9450-e419e393dcd1", "6917d51a-be83-424f-b0a6-31fbf9574a79");
+        - lang: cURL
+          source: |
+            curl "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}"
     delete:
+      tags:
+        - Payment Manipulation
       summary: Deletes an existing payment from the database (providing it has not yet been submitted to BACS).
       parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: |
+            The contract GUID on which the payment you are amending has been lodged.
+          required: true
+          schema:
+            type: string
+            format: guid
+        - name: paymentId
+          in: path
+          description: |
+            The payment GUID of the payment you wish to amend.
+          required: true
+          schema:
+            type: string
+            format: guid
         - name: comment
+          in: query
           description: A comment that can be returned when querying the payment.
           required: true
-          in: query
-          type: string
-          maxLength: 255
+          schema:
+            maxLength: 255
+            type: string
       responses:
         '200':
           description: OK
-          examples:
-            'application/json':
-              Message: 'Payment deleted'
-            'application/xml': |
-              <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Message>Payment deleted</Message>
-              </GeneralAcknowledgement>
+          content:
+            application/json:
+              example:
+                Message: Payment deleted
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Payment deleted</Message>
+                </GeneralAcknowledgement>
+        '400':
+          description: Bad request - missing comment
+          content:
+            application/json:
+              example:
+                Message: Comment must not be empty
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Comment must not be empty</Message>
+                </ErrorAcknowledgement>
+        '403':
+          description: Forbidden - payment contract is protected
+          content:
+            application/json:
+              example:
+                Message: Payment cannot be accessed
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Payment cannot be accessed</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Payment not found
+          content:
+            application/json:
+              example:
+                Message: Payment not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Payment not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var delete = new Delete(settings);
+            string request = delete.Payment("2b62a358-9a1a-4c71-9450-e419e393dcd1", "750f142f-1608-464a-8e34-4b322e703c2c", "A comment");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            request = client.delete.payment('2b62a358-9a1a-4c71-9450-e419e393dcd1', '750f142f-1608-464a-8e34-4b322e703c2c', 'A comment')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Delete delete = new Delete(settings);
+            String request = delete.payment("2b62a358-9a1a-4c71-9450-e419e393dcd1", "750f142f-1608-464a-8e34-4b322e703c2c", "A comment");
+        - lang: cURL
+          source: |
+            curl --request DELETE "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?comment=A%20comment"
+    patch:
       tags:
-        - 'Payment Manipulation'
+        - Payment Manipulation
+      summary: Amends an existing payment in the database.
+      parameters:
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
+          required: true
+          schema:
+            maxLength: 6
+            type: string
+        - name: contractId
+          in: path
+          description: |
+            The contract GUID on which the payment you are amending has been lodged.
+          required: true
+          schema:
+            type: string
+            format: guid
+        - name: paymentId
+          in: path
+          description: |
+            The payment GUID of the payment you wish to amend.
+          required: true
+          schema:
+            type: string
+            format: guid
+        - name: comment
+          in: query
+          description: A comment that can be returned when querying the payment.
+          required: true
+          schema:
+            maxLength: 255
+            type: string
+        - name: amount
+          in: query
+          description: The amount you wish to change the payment to.
+          required: true
+          schema:
+            multipleOf: 0.01
+            type: number
+        - name: date
+          in: query
+          description: |
+            The date on which you require the payment to be taken.
+            **Format: `YYYY-MM-DDT00:00:00.000`**
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Payment'
+            application/json:
+              example:
+                Message: Payment updated
+            application/xml:
+              example: |
+                <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Payment updated</Message>
+                </GeneralAcknowledgement>
+        '400':
+          description: Bad request - invalid arguments
+          content:
+            application/json:
+              example:
+                Message: 'An amount, comment or date must be passed'
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>An amount, comment or date must be passed</Message>
+                </ErrorAcknowledgement>
+        '403':
+          description: Forbidden - payment contract is protected
+          content:
+            application/json:
+              example:
+                Message: Payment cannot be accessed
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Payment cannot be accessed</Message>
+                </ErrorAcknowledgement>
+        '404':
+          description: Payment not found
+          content:
+            application/json:
+              example:
+                Message: Payment not found
+            application/xml:
+              example: |
+                <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <Message>Payment not found</Message>
+                </ErrorAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var patch = new Patch(settings);
+            string request = patch.Payment("2b62a358-9a1a-4c71-9450-e419e393dcd1", "a75f9829-2753-4f67-aafb-bb24aba27dd1", "10.00", "2019-08-01", "test comment");
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            response = client.patch.payment('36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b',
+            '36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b', 10.50, '2019-06-04',
+            'A comment')
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Patch patch = new Patch(settings);
+            String request = patch.payment("2b62a358-9a1a-4c71-9450-e419e393dcd1", "a75f9829-2753-4f67-aafb-bb24aba27dd1", "10.00", "2019-08-01", "test comment");
+        - lang: cURL
+          source: |
+            curl --request PATCH "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?amount=10.00&date=2019-08-01&comment=test%20comment"
   '/client/{clientCode}/schedules':
-    parameters:
-      - $ref: '#/parameters/clientCode'
     get:
+      tags:
+        - Obtaining Available Schedules
       summary: Queries the database for details of existing schedules.
       description: |
         The response is split into two parts as follows:
@@ -2206,7 +3233,6 @@ paths:
             - RefPrefix
             - RefFrom
             - RefTo
-
         2. Schedules sit underneath Services and these are allocated to the customer
             in order to collect payments. The parameters returned are as
             follows:
@@ -2237,196 +3263,218 @@ paths:
             - StartType
             - TerminationDate
             - TerminationType
-      responses:
-        '200':
-          description: OK
-          examples:
-            'application/json':
-              Services:
-                - Title: 'Annual Membership'
-                  RefProtocol: 'Auto-number'
-                  RefPrefix: 'AN'
-                  RefFrom: null
-                  RefTo: null,
-                  Schedules:
-                    - ScheduleId: '7663e3a0-514c-4ec7-808e-05d27a85fa98'
-                      Name: 'AN Dates 15/24 - Rolling'
-                      Description: |
-                        Annually > Every 1 year > 15th, 24th of any month
-                        customer's choice) > First , then on a regular basis
-                      AllowDifferentFirstPayment: true
-                      AllowDifferentLastPayment: false
-                      AllowFreeMonthDaySelection: false
-                      AllowFreeMonthSelection: true
-                      AllowFreeWeekDaySelection: true
-                      Amount: null
-                      AtTheEnd: 'Switch to further notice'
-                      DayOfWeek: 'Free'
-                      DaysOfMonth: '15,24'
-                      Every: 1
-                      ExpectedNumberOfPayments: null
-                      ExtraInitialPayments: ''
-                      FinalAmount: null
-                      Frequency: 'Annually'
-                      InitialAmount: null
-                      IsExpiryDateReached: false
-                      IsNotScheduled: false
-                      IsSuspended: false
-                      MonthOfYear: 'Free'
-                      RegistrationCharge: 0
-                      Start: null
-                      StartType: 'As soon as possible'
-                      TerminationDate: null
-                      TerminationType: 'Until further notice'
-      tags:
-        - 'Obtaining Available Schedules'
-  '/eazyentry/client/{clientCode}':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-    get:
-      summary: Search Customer by Card Number
-      description: |
-        Queries the database for details of customers that match the card number quoted.
       parameters:
-        - name: cardNumber
-          description: The customer’s membership card number.
+        - name: clientCode
+          in: path
+          description: The client code provided in your welcome email.
           required: true
-          in: query
-          type: string
-          maxLength: 255
-      responses:
-        '200':
-          description: OK
           schema:
-            $ref: '#/definitions/Customer'
-          examples:
-            'application/json':
-              CustomerId: '6c42c07e-93a0-4c8c-a0ae-450b597fbbca'
-              Name: 'Steven Smith'
-              PostCode: 'BX11 1AX'
-              Products:
-                - Title: 'No Frequency - AD-HOC Payments'
-                  EndDate: 'Infinite'
-                  ContractStatus: 'Active'
-              RejectionReason: ''
-              LastVisit: 'First time'
-              Picture: '/s3?Customer.Picture/6c42c07e-93a0-4c8c-a0ae-450b597fbbca.PNG?Capture.PNG'
-              Allow: false
-              CardNumber: '?123456789;'
-            'application/xml': |
-              <EzEntryDetail xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <CustomerId>6c42c07e-93a0-4c8c-a0ae-450b597fbbca</CustomerId>
-                  <Name>Steven Smith</Name>
-                  <PostCode>BT41 2AX</PostCode>
-                  <Products>
-                      <EzEntryProduct>
-                          <Title>No Frequency - AD-HOC Payments</Title>
-                          <EndDate>Infinite</EndDate>
-                          <ContractStatus>Active</ContractStatus>
-                      </EzEntryProduct><EzEntryProduct>
-                  </Products>
-                  <RejectionReason />
-                  <LastVisit>First time</LastVisit>
-                  <Picture>/s3?Customer.Picture/6c42c07e-93a0-4c8c-a0ae-450b597fbbca.PNG?Capture.PNG</Picture>
-                  <Allow>false</Allow>
-                  <CardNumber>?123456789;</CardNumber>
-              </EzEntryDetail>
-      tags:
-        - 'Eazy Entry'
-  '/eazyentry/client/{clientCode}/surname_postcode':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-    get:
-      summary: Search Customer by Surname and Postcode
-      description: |
-        Queries the database for details of customers that match the surname and
-        postcode quoted.
-      parameters:
-        - name: surname
-          description: The customer’s surname.
-          required: true
-          in: query
-          type: string
-          maxLength: 255
-        - name: postCode
-          description: The customer’s post code.
-          required: true
-          in: query
-          type: string
-          maxLength: 255
+            maxLength: 6
+            type: string
       responses:
         '200':
           description: OK
-          schema:
-            type: object
-            properties:
-              Found:
-                description: The number of matching records found by the system.
-                type: integer
-              Customers:
-                type: array
-                items:
-                  $ref: '#/definitions/Customer'
-          examples:
-            'application/json':
-              Found: 1
-              Customers:
-                - CustomerId: '6c42c07e-93a0-4c8c-a0ae-450b597fbbca'
-                  Name: 'Steven Smith'
-                  PostCode: 'BT41 2AX'
-                  Products:
-                    - Title: 'No Frequency - AD-HOC Payments'
-                      EndDate: 'Infinite'
-                      ContractStatus: 'Active'
-                  RejectionReason: ''
-                  LastVisit: 'First time'
-                  Picture: '/s3?Customer.Picture/6c42c07e-93a0-4c8c-a0ae-450b597fbbca.PNG?Capture.PNG'
-                  Allow: false
-                  CardNumber: '?123456789;'
-            'application/xml': |
-              <EzEntriesResponse xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Found>1</Found>
-                  <Customers>
-                      <EzEntryDetail>
-                          <CustomerId>6c42c07e-93a0-4c8c-a0ae-450b597fbbca</CustomerId>
-                          <Name>Steven Smith</Name>
-                          <PostCode>BT41 2AX</PostCode>
-                          <Products>
-                              <EzEntryProduct>
-                                  <Title>No Frequency - AD-HOC Payments</Title>
-                                  <EndDate>Infinite</EndDate>
-                                  <ContractStatus>Active</ContractStatus>
-                              </EzEntryProduct>
-                          </Products>
-                          <RejectionReason />
-                          <LastVisit>First time</LastVisit>
-                          <Picture>/s3?Customer.Picture/6c42c07e-93a0-4c8c-a0ae-450b597fbbca.PNG?Capture.PNG</Picture>
-                          <Allow>false</Allow>
-                          <CardNumber>?123456789;</CardNumber>
-                      </EzEntryDetail>
-                  </Customers>
-              </EzEntriesResponse>
-      tags:
-        - 'Eazy Entry'
-  '/eazyentry/client/{clientCode}/customer/{customerId}':
-    parameters:
-      - $ref: '#/parameters/clientCode'
-      - $ref: '#/parameters/customerId'
-    post:
-      summary: Register a Visit
-      description: Records a visit against the customer in the database.
-      responses:
-        '200':
-          description: OK
-          examples:
-            'application/json':
-              Message: 'Visit recorded'
-            'application/xml': |
-              <GeneralAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                <Message>Visit recorded</Message>
-              </GeneralAcknowledgement>
-      tags:
-        - 'Eazy Entry'
+          content:
+            application/json:
+              example:
+                Services:
+                  - Title: Annual Membership
+                    RefProtocol: Auto-number
+                    RefPrefix: AN
+                    RefTo: 'null,'
+                    Schedules:
+                      - ScheduleId: 7663e3a0-514c-4ec7-808e-05d27a85fa98
+                        Name: AN Dates 15/24 - Rolling
+                        Description: |
+                          Annually > Every 1 year > 15th, 24th of any month
+                          customer's choice) > First , then on a regular basis
+                        AllowDifferentFirstPayment: true
+                        AllowDifferentLastPayment: false
+                        AllowFreeMonthDaySelection: false
+                        AllowFreeMonthSelection: true
+                        AllowFreeWeekDaySelection: true
+                        AtTheEnd: Switch to further notice
+                        DayOfWeek: Free
+                        DaysOfMonth: '15,24'
+                        Every: 1
+                        ExtraInitialPayments: ''
+                        Frequency: Annually
+                        IsExpiryDateReached: false
+                        IsNotScheduled: false
+                        IsSuspended: false
+                        MonthOfYear: Free
+                        RegistrationCharge: 0
+                        StartType: As soon as possible
+                        TerminationType: Until further notice
+            application/xml:
+              example: |
+                <SchedulesAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                  <Services>
+                    <Service>
+                      <Title>Annual Membership</Title>
+                      <RefProtocol>Auto-number</RefProtocol>
+                      <RefPrefix>AN</RefPrefix>
+                      <RefTo>null</RefTo>
+                      <Schedules>
+                        <Schedule>
+                          <ScheduleId>7663e3a0-514c-4ec7-808e-05d27a85fa98</ScheduleId>
+                          <Name>AN Dates 15/24 - Rolling</Name>
+                          <Description>
+                            Annually > Every 1 year > 15th, 24th of any month
+                            customer's choice) > First , then on a regular basis
+                          </Description>
+                          <AllowDifferentFirstPayment>true</AllowDifferentFirstPayment>
+                          <AllowDifferentLastPayment>false</AllowDifferentLastPayment>
+                          <AllowFreeMonthDaySelection>false</AllowFreeMonthDaySelection>
+                          <AllowFreeMonthSelection>true</AllowFreeMonthSelection>
+                          <AllowFreeWeekDaySelection>true</AllowFreeWeekDaySelection>
+                          <AtTheEnd>Switch to further notice</AtTheEnd>
+                          <DayOfWeek>Free</DayOfWeek>
+                          <DaysOfMonth>15,24</DaysOfMonth>
+                          <Every>1</Every>
+                          <ExtraInitialPayments></ExtraInitialPayments>
+                          <Frequency>Annually</Frequency>
+                          <IsExpiryDateReached>false</IsExpiryDateReached>
+                          <IsNotScheduled>false</IsNotScheduled>
+                          <IsSuspended>false</IsSuspended>
+                          <MonthOfYear>Free</MonthOfYear>
+                          <RegistrationCharge>0</RegistrationCharge>
+                          <StartType>As soon as possible</StartType>
+                          <TerminationType>Until further notice</TerminationType>
+                        </Schedule>
+                      </Schedules>
+                    </Service>
+                  </Services>
+                </SchedulesAcknowledgement>
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var get = new Get(settings);
+            string response = get.Schedules();
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            response = client.get.schedules()
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Get get = new Get();
+            String response = get.schedules();
+        - lang: cURL
+          source: |
+            curl "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules"
+components:
+  schemas:
+    CallbackEntities:
+      type: string
+      description: The entity for which to receive callback BACS messages.
+      enum:
+        - customer
+        - contract
+        - payment
+    Payment:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: |
+            The GUID of the payment. We suggest that you save this so that you can easily
+            change or query the payment in future. If you are using pushed return data,
+            this will be included in any payload delivered concerning the payment.
+          format: guid
+        Status:
+          type: string
+          description: |
+            The status of the payment. This can be:
+            - Paid - We have received the payment from the customer (\*\*see below)
+            - Pending – The payment has been queued to be sent to the bank for collection.
+            - Represented – The payment has been returned by the bank **unpaid**, and the
+              system has created a new transaction to try and collect the amount again.
+            - Unpaid – The payment has been returned by the bank unpaid and **will not**
+              be sent again to the bank for collection.
+            - Withdrawn – The payment was at the point of being sent to the bank for
+              collection, but was withdrawn by Eazy Collect at the last minute. The
+              payment has not been collected.
+            - Indemnity Claimed – The customer has approached their bank for a refund
+              which is being/has been processed.
+            \*\* BACS works by exception; that is to say that payments are assumed to be
+            paid unless we hear from the bank otherwise. As such, payments remain in the
+            `Pending` state up until the point they are submitted to the bank for
+            collection (3 – 4 working days before the collection date). Upon submission,
+            the payment status changes to `Paid` although the actual status of the payment
+            is not known until 1-2 working days after the due date.  Because of this, we
+            recommend that you do not update your system with the payment status until 
+            2-3 working days after the Due Date.
+            It is also important to note that BACS only works on banking days (Monday to
+            Friday excluding bank and public holidays). For that reason, if a payment
+            Due Date is on a weekend or a public holiday, the collection will take place
+            on the next banking day. For example, a payment due on Saturday, 15th April
+            2017 will actually collect on Tuesday 18th April 2017 (the Monday being Easter
+            Monday which is a bank holiday in the UK). Again, this needs to be factored in
+            to when you check the status of payments; in the above example, it would be
+            prudent to wait until late in the afternoon of 20th April 2017 or better 21st
+            April 2017 to ensure that all unpaid messages have been received from the bank
+            and processed.
+          enum:
+            - Paid
+            - Pending
+            - Represented
+            - Unpaid
+            - Withdrawn
+            - Indemnity Claimed
+        IsCredit:
+          type: boolean
+          description: |
+            If the payment is a credit to the customer, this will show as `true`, else it
+            will show as `false`.
+        IsAdhoc:
+          type: boolean
+          description: |
+            If this is an adhoc payment, this will show as `true`, else if it is a
+            scheduled payment, it will shows as `false`.
+        Amount:
+          type: number
+          description: The amount of the payment.
+        Date:
+          type: string
+          description: The due date of the payment.
+          format: date-time
+        ReasonCode:
+          maximum: 8
+          minimum: 0
+          type: integer
+          description: |
+            The BACS reason code of the payment if the payment has been returned unpaid.
+            The possible reasons are:
+            - 0: Refer to payer.
+            - 1: Instruction cancelled.
+            - 2: Payer deceased.
+            - 3: Account transferred.
+            - 4: Advance notice disputed.
+            - 5: No account/Wrong account type.
+            - 6: No instruction.
+            - 7: Amount differs.
+            - 8: Amount not yet due.
+            For further details on the meanings of these codes, and the associated action
+            required, please see our separate booklet.
+        ReasonMessage:
+          type: string
+          description: Plain text explanation of the ReasonCode.
+        Comment:
+          type: string
+          description: |
+            The comment passed when the payment was added; a ReasonMessage
+            may be appended to the end of this.
+        Type:
+          type: string
+          description: |
+            The type of payment (BACS being a bank processed payment,
+            Manual being something manually added via the UI.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: apiKey
+      in: header
