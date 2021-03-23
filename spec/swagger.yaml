@@ -360,8 +360,8 @@ info:
   x-logo:
     backgroundColor: '#27618E'
     url: 'https://www.eazycollect.co.uk/images/eazycollectdirectdebits.png'
-host: ''
-basePath: '%7Benvironment%7D.eazycollect.co.uk/api/v3'
+host: '{environment}.eazycollect.co.uk'
+basePath: '/api/v3'
 schemes:
   - https
 paths:
