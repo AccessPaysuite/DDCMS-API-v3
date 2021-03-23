@@ -13,7 +13,7 @@
       "url": "https://www.eazycollect.co.uk/images/eazycollectdirectdebits.png"
     }
   },
-  "host": "{environment}.eazycollect.co.uk",
+  "host": "ecm3.eazycollect.co.uk",
   "basePath": "/api/v3",
   "schemes": [
     "https"
