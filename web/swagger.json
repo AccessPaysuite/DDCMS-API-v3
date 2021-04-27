@@ -70,6 +70,18 @@
         "summary": "Clears the set callback URL for the given return endpoint",
         "x-codeSamples": [
           {
+            "lang": "C#",
+            "source": "var delete = new Delete(settings); string request = delete.CallbackUrl(\"contract\");\n"
+          },
+          {
+            "lang": "Python",
+            "source": "client = eazysdk.EazySDK() request = client.delete.callback_url(\"contract\")\n"
+          },
+          {
+            "lang": "Java",
+            "source": "Delete delete = new Delete(settings); String request = delete.callbackUrl(\"contract\");\n"
+          },
+          {
             "lang": "cURL",
             "source": "curl --request DELETE \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{enitity}/callback\"\n"
           }
@@ -148,6 +160,18 @@
         "summary": "Get the callback URL for the given return endpoint",
         "x-codeSamples": [
           {
+            "lang": "C#",
+            "source": "var get = new Get(settings); string response = get.CallbackUrl(\"contract\");\n"
+          },
+          {
+            "lang": "Python",
+            "source": "client = eazysdk.EazySDK() response = client.get.callback_url(\"contract\")\n"
+          },
+          {
+            "lang": "Java",
+            "source": "Get get = new Get(settings); String response = get.callbackUrl(\"contract\");\n"
+          },
+          {
             "lang": "cURL",
             "source": "curl \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{enitity}/callback\"\n"
           }
@@ -205,6 +229,18 @@
         "description": "Sets the callback URL for the specified entity.",
         "summary": "Sets the callback URL for the given return endpoint",
         "x-codeSamples": [
+          {
+            "lang": "C#",
+            "source": "var post = new Post(settings); string request = post.CallbackUrl(\"contract\", \"https://my.website.com/webhook\");\n"
+          },
+          {
+            "lang": "Python",
+            "source": "client = eazysdk.EazySDK() request = client.post.callback_url(entity=\"contract\", callback_url=\"https://my.website.com/webhook\")\n"
+          },
+          {
+            "lang": "Java",
+            "source": "Post post = new Post(settings); String request = post.callbackUrl(\"contract\", \"https://my.website.com/webhook\");\n"
+          },
           {
             "lang": "cURL",
             "source": "curl -d \"url=https://my.website.com/webhook\" https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{enitity}/callback\n"
@@ -2282,10 +2318,6 @@
                   "description": "The GUID of the customer record. You must save this to your database\nas it will be needed should you wish to update the customer record\nor create a Direct Debit (Contract).\n",
                   "type": "string"
                 },
-                "Message": {
-                  "description": "If there are any problems with the record, these will be shown in\nthe message field.\n",
-                  "type": "string"
-                },
                 "customerRef": {
                   "description": "The customer reference that you passed via the API into the system.\n",
                   "type": "string"
@@ -2302,6 +2334,14 @@
                 "Message": "Customer email is mandatory for this client"
               },
               "application/xml": "<ErrorAcknowledgement xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n    <ErrorCode>2</ErrorCode>\n    <Message>Customer email is mandatory for this client</Message>\n</ErrorAcknowledgement>\n"
+            },
+            "schema": {
+              "properties": {
+                "Message": {
+                  "description": "If there are any problems with the record, these will be shown in\nthe message field.\n",
+                  "type": "string"
+                }
+              }
             }
           }
         },

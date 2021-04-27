@@ -406,6 +406,18 @@ paths:
       description: Clears the set callback URL for the specified entity.
       summary: Clears the set callback URL for the given return endpoint
       x-codeSamples:
+        - lang: C#
+          source: >
+            var delete = new Delete(settings);
+            string request = delete.CallbackUrl("contract");
+        - lang: Python
+          source: >
+            client = eazysdk.EazySDK()
+            request = client.delete.callback_url("contract")
+        - lang: Java
+          source: >
+            Delete delete = new Delete(settings);
+            String request = delete.callbackUrl("contract");
         - lang: cURL
           source: >
             curl --request DELETE
@@ -473,6 +485,18 @@ paths:
       description: Returns the assigned callback URL for the specified entity.
       summary: Get the callback URL for the given return endpoint
       x-codeSamples:
+        - lang: C#
+          source: >
+            var get = new Get(settings);
+            string response = get.CallbackUrl("contract");
+        - lang: Python
+          source: >
+            client = eazysdk.EazySDK()
+            response = client.get.callback_url("contract")
+        - lang: Java
+          source: >
+            Get get = new Get(settings);
+            String response = get.callbackUrl("contract");
         - lang: cURL
           source: >
             curl
@@ -519,6 +543,18 @@ paths:
       description: Sets the callback URL for the specified entity.
       summary: Sets the callback URL for the given return endpoint
       x-codeSamples:
+        - lang: C#
+          source: >
+            var post = new Post(settings);
+            string request = post.CallbackUrl("contract", "https://my.website.com/webhook");
+        - lang: Python
+          source: >
+            client = eazysdk.EazySDK()
+            request = client.post.callback_url(entity="contract", callback_url="https://my.website.com/webhook")
+        - lang: Java
+          source: >
+            Post post = new Post(settings);
+            String request = post.callbackUrl("contract", "https://my.website.com/webhook");
         - lang: cURL
           source: >
             curl -d "url=https://my.website.com/webhook"
@@ -2851,13 +2887,6 @@ paths:
 
                   or create a Direct Debit (Contract).
                 type: string
-              Message:
-                description: >
-                  If there are any problems with the record, these will be shown
-                  in
-
-                  the message field.
-                type: string
               customerRef:
                 description: >
                   The customer reference that you passed via the API into the
@@ -2876,6 +2905,15 @@ paths:
                   <ErrorCode>2</ErrorCode>
                   <Message>Customer email is mandatory for this client</Message>
               </ErrorAcknowledgement>
+          schema:
+            properties:
+              Message:
+                description: >
+                  If there are any problems with the record, these will be shown
+                  in
+
+                  the message field.
+                type: string
       tags:
         - Customer Manipulation
       description: |
