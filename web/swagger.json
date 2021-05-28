@@ -83,7 +83,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl --request DELETE \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{enitity}/callback\"\n"
+            "source": "curl --request DELETE \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{entity}/callback\"\n"
           }
         ]
       },

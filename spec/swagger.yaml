@@ -421,7 +421,7 @@ paths:
         - lang: cURL
           source: >
             curl --request DELETE
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{enitity}/callback"
+            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{entity}/callback"
     get:
       produces:
         - application/json
