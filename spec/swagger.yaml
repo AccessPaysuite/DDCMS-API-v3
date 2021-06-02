@@ -2973,6 +2973,247 @@ paths:
           source: >
             curl -H "apiKey: {apiKey}" --request POST
             https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer?email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1%20Tebbit%20Mews&postCode=GL52%202NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr%20John%20Doe
+  '/client/{clientCode}/customer/{customerId}':
+    patch:
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The GUID of the customer.
+          in: path
+          name: customerId
+          required: true
+          type: string
+        - description: The customer’s contact email address.
+          in: query
+          maxLength: 255
+          name: email
+          required: false
+          type: string
+        - description: The customer’s title (Mr/Mrs/Ms/Miss/Mx etc).
+          in: query
+          maxLength: 10
+          name: title
+          required: false
+          type: string
+        - description: |
+            The customer’s date of birth.
+            **Format: `YYYY-MM-DDT00:00:00.000`**
+          format: date-time
+          in: query
+          name: dateOfBirth
+          type: string
+        - description: >-
+            A **unique** reference number allocated by the client for this
+            customer.
+          in: query
+          maxLength: 255
+          name: customerRef
+          required: false
+          type: string
+        - description: The customer's first name.
+          in: query
+          maxLength: 255
+          name: firstName
+          required: false
+          type: string
+        - description: The customer's surname.
+          in: query
+          maxLength: 255
+          name: surname
+          required: false
+          type: string
+        - description: The company name of the customer (if applicable).
+          in: query
+          maxLength: 255
+          name: companyName
+          type: string
+        - description: The customer's Post Code.
+          in: query
+          maxLength: 8
+          name: postCode
+          required: false
+          type: string
+        - description: >
+            The customer's bank account number.
+
+            This must be eight numerical characters with all leading zeros left
+            intact.
+
+            Examples include: `01065284`, `00000000`, `26280464`.
+
+            Any non-numerical characters **must be removed** before passing the
+            data to the API.
+          in: query
+          maxLength: 8
+          minLength: 8
+          name: accountNumber
+          pattern: '[0-9]{8}'
+          required: false
+          type: string
+        - description: >
+            The customer's bank sort code.
+
+            This must be six numerical characters with all leading zeros left
+            intact.
+
+            Examples include: `089286` `100000` `600000`, `230580`.
+
+            In the United Kingdom it is sometimes customary to insert
+            dashes/hyphens
+
+            between groups of two characters (e.g. `08-92-86`, `23-05-80`). Any
+            hyphens,
+
+            dashes or non-numerical characters **must be removed** before being
+            passed
+
+            to the API.
+          in: query
+          maxLength: 6
+          minLength: 6
+          name: bankSortCode
+          pattern: '[0-9]{6}'
+          required: false
+          type: string
+        - description: >
+            The name of the customer's bank account.
+
+            This must be a maximum of eighteen alphanumeric characters
+            `[0-9a-zA-Z ]`.
+
+            A space is also allowed. Any special characters or punctuation such
+            as ampersands,
+
+            apostrophes, hyphens, slashes, backslashes, commas, full stops etc.
+            **must be
+
+            removed** before passing to the API.
+          in: query
+          maxLength: 18
+          name: accountHolderName
+          pattern: '[0-9a-zA-Z ]{0, 18}'
+          required: false
+          type: string
+        - description: The customer's home telephone number.
+          in: query
+          maxLength: 20
+          name: homePhoneNumber
+          type: string
+        - description: The customer's work telephone number.
+          in: query
+          maxLength: 18
+          name: workPhoneNumber
+          type: string
+        - description: The customer's mobile telephone number.
+          in: query
+          maxLength: 18
+          name: mobilePhoneNumber
+          type: string
+        - description: Line one of the customer's postal address.
+          in: query
+          maxLength: 50
+          name: line1
+          required: false
+          type: string
+        - description: Line two of the customer's postal address.
+          in: query
+          maxLength: 30
+          name: line2
+          required: false
+          type: string
+        - description: Line three of the customer's postal address.
+          in: query
+          maxLength: 30
+          name: line3
+          type: string
+        - description: Line four of the customer's postal address.
+          in: query
+          maxLength: 30
+          name: line4
+          type: string
+        - description: >-
+            If the customer has provided any middle initials, they can be added
+            in this field.
+          in: query
+          maxLength: 5
+          name: initials
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              Message: Customer updated
+            application/xml: >
+              <CustomerAcknowledgement
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                  <Message>Customer updated</Message>
+              </CustomerAcknowledgement>
+          schema:
+            properties:
+              Message:
+                type: string
+            type: object
+      tags:
+        - Customer Manipulation
+      description: |
+        ### Error Handling
+        Errors are presented back in the JSON or XML response in human readable
+        form.
+        **Common Errors:**
+        *Error:*
+        “There is an existing Customer with the same Client and Customer ref in
+        the database already.”
+        *Explanation:*
+        The customer reference must be unique; this indicates that a customer
+        with the customerRef provided in the API call already exists
+        *Resolution:*
+        Check that the customer does not already exist; if not, you must use
+        another unique customerRef.
+        *Error:*
+        Invalid Postcode. The postcode must have 5, 6 or 7 characters only
+        *Explanation:*
+        The postcode supplied is not in a correct UK format.
+        *Resolution:*
+        UK postcodes can be formed in the following ways:
+        - A99 9AA
+        - AA99 9AA
+        - AA9A 9AA
+        Where A is a capital letter \[A-Z\] and 9 is a number \[0-9\]. Please
+        provide the postcode in one of the recognised formats.
+      summary: Updates (or partially updates) an existing customer in the database.
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: >
+            var patch = new Patch(settings);
+
+            string request = patch.Customer("dfca6da1-2490-4607-a256-c5799d2584e9", Email: "john.doe@test.com");
+        - lang: Python
+          name: Python (EazySDK)
+          source: >
+            client = eazysdk.EazySDK()
+
+            request = client.patch.customer("dfca6da1-2490-4607-a256-c5799d2584e9", email="john.doe@test.com")
+        - lang: Java
+          name: Java (EazySDK)
+          source: >
+            Post patch = new Patch(settings);
+
+            String request =
+            patch.customer("dfca6da1-2490-4607-a256-c5799d2584e9").email("john.doe@test.com").query();
+        - lang: cURL
+          source: >
+            curl -H "apiKey: {apiKey}" --request PATCH
+            https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com
   '/client/{clientCode}/customer/{customerId}/contract':
     get:
       produces:
