@@ -358,8 +358,8 @@ info:
   title: Eazy Collect
   version: 3.0.0
   x-logo:
-    backgroundColor: '#27618E'
-    url: 'https://www.eazycollect.co.uk/images/eazycollectdirectdebits.png'
+    backgroundColor: '#4b112c'
+    url: 'https://www.accesspaysuite.com/media/iwwhai0a/paysuite-logo.png'
 host: 'ecm3.eazycollect.co.uk'
 basePath: '/api/v3'
 schemes:
