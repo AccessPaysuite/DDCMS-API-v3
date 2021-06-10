@@ -1,28 +1,10 @@
 swagger: '2.0'
 info:
   description: >
-    Established in 2002, Eazy Collect Services Limited is a forward-thinking
-    FinTech
-
-    accredited as a BACS Approved Bureau and Payment Institution regulated by
-    the FCA.
-
-    We provide a range of Direct Debit Processing and Management services to
-    businesses,
-
-    NFP, member organisations and public sector. Clients typically include those
-    who are
-
-    unable to access the Direct Debit Scheme with their own resources, or who
-    already
-
-    have access to the Scheme but wish to make cost savings and achieve seamless
-
-    automation by outsourcing and/or integrating the processing of payments and
-    return
-
-    reconciliation via our two-way API.
-
+    ## About Access Paysuite
+    
+    Access PaySuite is a leading provider of payment solutions to mid-sized UK organisations. Part of The Access Group, it combines payments expertise with unparalleled SaaS experience to help customers across commercial and not for profit sectors improve their payment solutions, providing organisations with the freedom to accelerate their innovation and growth. For more information about Access PaySuite, visit www.accesspaysuite.com
+    
 
     Our Collection Services are based around our Eazy Customer Manager™
     application
@@ -118,7 +100,7 @@ info:
           dates in a month, or days in a week as per your instructions.
         - A schedule where the collection amounts and or dates are fixed.
 
-        Eazy Collect creates the schedules as part of the set-up process and
+        Access Paysuite creates the schedules as part of the set-up process and
         the available schedules can be listed by using the ‘schedules’ call.
 
     2. As soon as a schedule is applied to a customer record, we send an
@@ -237,7 +219,7 @@ info:
     the following anomalies will be present within the UI:
 
 
-    - The account and arrears balances shown in the Eazy Collect UI
+    - The account and arrears balances shown in the Access Paysuite UI
       against each customer will not reflect manual payments made in your
       CRM/Accounts package unless they are also (double) keyed as manual
       payments onto the Eazy Customer Manager UI.
@@ -355,7 +337,7 @@ info:
     name: MIT
     url: >-
       https://github.com/EazyCollectServices/EazyCollectAPIv3/blob/master/LICENSE
-  title: Eazy Collect
+  title: Access Paysuite
   version: 3.0.0
   x-logo:
     backgroundColor: '#4b112c'
@@ -2614,10 +2596,10 @@ paths:
                 Line3: Cheltenham
                 PostCode: A1 1AA
               BankDetail:
-                AccountHolderName: Eazy Collect
+                AccountHolderName: Access Paysuite
                 AccountNumber: 01065285
                 BankSortCode: '309906'
-              CompanyName: Eazy Collect
+              CompanyName: Access Paysuite
               CustomerRef: AE102890
               DateAdded": '2017-04-12T13:22:48.800Z'
               DateOfBirth: '2017-01-01T00:00:00.000Z'
@@ -2639,7 +2621,7 @@ paths:
                   <Title>Mr</Title>
                   <FirstName>Matthew</FirstName>
                   <Surname>Harris</Surname>
-                  <CompanyName>Eazy Collect</CompanyName>
+                  <CompanyName>Access Paysuite</CompanyName>
                   <DateOfBirth>2017-01-01T00:00:00</DateOfBirth>
                   <HomePhoneNumber>01234567890</HomePhoneNumber>
                   <Email>spam@eazycollect.co.uk</Email>
@@ -2650,7 +2632,7 @@ paths:
                       <PostCode>A1 1AA</PostCode>
                   </AddressDetail>
                   <BankDetail>
-                      <AccountHolderName>Eazy Collect</AccountHolderName>
+                      <AccountHolderName>Access Paysuite</AccountHolderName>
                       <AccountNumber>01065285</AccountNumber>
                       <BankSortCode>309906</BankSortCode>
                   </BankDetail>
@@ -4034,7 +4016,7 @@ definitions:
             be sent again to the bank for collection.
           - Withdrawn – The payment was at the point of being sent to the bank
           for
-            collection, but was withdrawn by Eazy Collect at the last minute. The
+            collection, but was withdrawn by Access Paysuite at the last minute. The
             payment has not been collected.
           - Indemnity Claimed – The customer has approached their bank for a
           refund
