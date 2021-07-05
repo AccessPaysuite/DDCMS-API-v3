@@ -1,5 +1,5 @@
 # EazyCollect OpenAPI Specification
-[![Build Status](https://travis-ci.com/EazyCollectServices/EazyCollectAPIv3.svg?branch=master)](https://travis-ci.org/EazyCollectServices/EazyCollectAPIv3)
+[![Build Status](https://travis-ci.com/EazyCollectServices/EazyCollectAPIv3.svg?branch=master)](https://travis-ci.org/EazyCollectServices/EazyCollectAPIv3) 
 
 ## Links
 
