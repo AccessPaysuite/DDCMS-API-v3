@@ -239,7 +239,7 @@ info:
 
     If you require any further assistance with using the API and UI
 
-    together, please contact the IT Helpdesk at help@eazycollect.co.uk
+    together, please contact the IT Helpdesk at support@accesspaysuite.com
 
 
     ## Errors
@@ -332,7 +332,7 @@ info:
     though that may change in the future.
 
       contact:
-    email: help@eazycollect.co.uk
+    email: support@accesspaysuite.com
   license:
     name: MIT
     url: >-
@@ -1367,6 +1367,9 @@ paths:
             curl -H "apiKey: {apiKey}"
             "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment"
     post:
+      consumes:
+        - application/json
+        - application/xml
       produces:
         - application/octet-stream
         - application/json
@@ -1422,6 +1425,19 @@ paths:
           in: query
           name: isCredit
           type: boolean
+        - description: >
+            Example JSON/XML payload format.
+          in: body
+          name: body
+          schema:
+            example:
+              Amount: 10.00
+              Comment: 'A comment.'
+              Date: '2019-08-01T00:00:00.000'
+              IsCredit: false
+            type: object
+            xml:
+              name: 'PaymentRequest'
       responses:
         '200':
           description: OK
@@ -2676,6 +2692,9 @@ paths:
             curl -H "apiKey: {apiKey}"
             "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer"
     post:
+      consumes:
+        - application/json
+        - application/xml
       produces:
         - application/octet-stream
         - application/json
@@ -2842,6 +2861,25 @@ paths:
           maxLength: 5
           name: initials
           type: string
+        - description: Example JSON/XML payload.
+          in: body
+          name: body
+          schema:
+            example:
+              Email: john.doe@test.com
+              Title: Mr
+              CustomerRef: "999999"
+              FirstName: John
+              Surname: Doe
+              Line1: 1 Tebbit Mews
+              Line2: Winchcombe Street
+              PostCode: GL52 2NF
+              AccountNumber: "12345678"
+              BankSortCode: "123456"
+              AccountHolderName: Mr John Doe
+            xml:
+              name: CustomerRequestDto
+            type: object
       responses:
         '200':
           description: OK
@@ -3301,6 +3339,9 @@ paths:
             curl -H "apiKey: {apiKey}"
             "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract"
     post:
+      consumes:
+        - application/json
+        - application/xml
       produces:
         - application/octet-stream
         - application/json
@@ -3602,6 +3643,20 @@ paths:
           maxLength: 18
           name: customDirectDebitRef
           type: string
+        - description: >
+            Example JSON/XML payload.
+          in: body
+          name: body
+          schema:
+            example:
+              ScheduleName: adhoc_monthly_free
+              Start: "2019-08-01T00:00:00.000"
+              IsGiftAid: false
+              TerminationType: Until further notice
+              AtTheEnd: Switch to further notice
+            type: object
+            xml:
+              name: ContractRequestDto
       responses:
         '200':
           description: OK
@@ -3683,6 +3738,7 @@ paths:
 
         A contract can be manifested in one of two ways:
 
+
         | Status | Description
 
         | ------ | ---------------------------------------------
@@ -3693,6 +3749,7 @@ paths:
 
         | **Inactive** | The contract is inactive and cannot produce or accept
         payments, scheduled or otherwise.
+
 
         For more information on why a contract may become “Inactive”, the
         `StatusExplaination` field can provide a more detailed explanation. This
@@ -3717,7 +3774,7 @@ paths:
 
         date checker is also provided on our website:
 
-        <https://www.eazycollect.co.uk/date>.
+        <https://www.accesspaysuite.com/date>.
 
         While the above timeframes are the minimum required, we strongly
 
@@ -4102,7 +4159,7 @@ tags:
       table below. Each callback can be set to pass data to the same endpoint.
       You should contact us at
 
-      help@eazycollect.co.uk to advise whether you require return
+      support@accesspaysuite.com to advise whether you require return
 
       information in XML or JSON format; the default is JSON.
 
@@ -4135,7 +4192,7 @@ tags:
 
       checking API on a pay-per-use basis – please contact our Sales
 
-      Department on `01242 650052`for further details on pricing. Failure to
+      Department on `01206 675847` for further details on pricing. Failure to
 
       modulus check data is likely to cause problems in processing your
 
