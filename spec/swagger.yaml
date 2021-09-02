@@ -4368,6 +4368,10 @@ tags:
       
       ### New Payment Generated Notification Information
       
+      This notification is submitted to your payments webhook whenever DDCMS generates
+      a new payment on either a fixed or rolling regular schedule.
+      This does *NOT* send information on payments submitted on an adhoc schedule.
+      
       #### Example JSON Payload
       
       ```json
@@ -4390,6 +4394,9 @@ tags:
       ```
 
       ### Bulk Payment Insert Return Information
+      
+      This is what the API returns from a bulk payment insert - see the *Bulk Adding
+      Payments* section for more info.
 
       #### Example XML Payload
 
