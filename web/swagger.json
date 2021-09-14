@@ -2694,6 +2694,23 @@
                 "CustomerId": "19283a22-7442-4c92-b035-8fa7f5e6a9a0"
               },
               "application/xml": "<ContractsResponse xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\nxmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n    <CustomerId>19283a22-7442-4c92-b035-8fa7f5e6a9a0</CustomerId>\n    <Contracts>\n        <ContractDetail>\n            <Id>7aa8cef6-ec95-47a7-9ced-4aa0938559ab</Id>\n            <DirectDebitReference>LUISCT-MT000325</DirectDebitReference>\n            <ScheduleName>DD Dates 1/15 - Fixed</ScheduleName>\n            <Description>Collect an initial £1.00 followed by 9 payments of\n            £1.00 on 15th of the month ending on 25th April\n            2017</Description>\n            <PaymentMonthInYear>7</PaymentMonthInYear>\n            <PaymentDayInMonth>15</PaymentDayInMonth>\n            <Start>2016-07-15T00:00:00</Start>\n            <TerminationDate xsi:nil=\"true\" />\n            <TerminationType>Take certain number of\n            debits</TerminationType>\n            <NumberOfDebits>10</NumberOfDebits>\n            <InitialAmount>1.00</InitialAmount>\n            <ExtraInitialAmounts />\n            <Amount>1.00</Amount>\n            <FinalAmount xsi:nil=\"true\" />\n            <Every>1</Every>\n            <IsGiftAid>true</IsGiftAid>\n            <AtTheEnd>Expire</AtTheEnd>\n            <Status>Active</Status>\n            <StatusExplanation>N/A</StatusExplanation>\n        </ContractDetail>\n    </Contracts>\n</ContractsResponse>\n"
+            },
+            "schema": {
+              "properties": {
+                "Contracts": {
+                  "description": "Array of contracts for the given customer.",
+                  "items": {
+                    "$ref": "#/definitions/Contract"
+                  },
+                  "type": "array"
+                },
+                "CustomerId": {
+                  "description": "Database GUID for the given customer.",
+                  "type": "string",
+                  "format": "guid"
+                }
+              },
+              "type": "object"
             }
           }
         },
@@ -3094,6 +3111,131 @@
         "payment"
       ],
       "type": "string"
+    },
+    "Contract": {
+      "properties": {
+        "Amount": {
+          "description": "If the contract is for regular payments, then the regular payment amount is returned in this parameter.",
+          "type": "number"
+        },
+        "AtTheEnd": {
+          "description": "This parameter decides what will happen when the contract ends.",
+          "enum": [
+            "Expire",
+            "Switch to Further Notice"
+          ],
+          "type": "string"
+        },
+        "Description": {
+          "description": "A description of the contract. This can include number of payments, payment amount, end date etc.",
+          "type": "string"
+        },
+        "DirectDebitReference": {
+          "description": "The bank reference for the contract.",
+          "type": "string"
+        },
+        "Every": {
+          "description": "If the contract is set to take regular payments, this parameter shows the frequency of payments generated (e.g. every 2 months, every 4 weeks etc).",
+          "type": "integer"
+        },
+        "ExtraInitialAmounts": {
+          "description": "If there are extra charges to be collected with the first payment (e.g. a gym joining fee/registration fee) then these are shown separately with this parameter.",
+          "type": "number"
+        },
+        "Id": {
+          "description": "The DDCMS database GUID for this contract.",
+          "format": "guid",
+          "type": "string"
+        },
+        "InitialAmount": {
+          "description": "If this is a contract for regular payments and the first payment is different to the regular payments, then the first payment amount is passed with this parameter.",
+          "type": "number"
+        },
+        "IsGiftAid": {
+          "description": "Whether or not payments for the contract are subject to a gift aid claim.",
+          "type": "boolean"
+        },
+        "NumberOfDebits": {
+          "description": "If this is a “Take Certain Number of Debits” contract then the number of debits to be taken are returned in this parameter.",
+          "type": "integer"
+        },
+        "PaymentDayInMonth": {
+          "description": "If the contract is for regular payments, then the day on which the first payment is taken  is returned with this parameter.",
+          "type": "string",
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            "Last Day of the Month"
+          ]
+        },
+        "PaymentMonthInYear": {
+          "description": "If the contract is for regular payments then the month in which the first payment is taken is returned with this parameter.",
+          "maximum": 12,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "ScheduleName": {
+          "description": "The name of the schedule the contract was setup against.",
+          "type": "string"
+        },
+        "Start": {
+          "description": "The start date of the contact.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "Status": {
+          "description": "The current status of the contract.",
+          "type": "string",
+          "enum": [
+            "Expired",
+            "Cancelled",
+            "Pause",
+            "Suspended",
+            "Cancellation Pending",
+            "Active",
+            "Creation Pending"
+          ]
+        },
+        "StatusExplanation": {
+          "description": "Provides an explanation for the most recent status update for the contract.",
+          "type": "string"
+        },
+        "TerminationType": {
+          "description": "How this contract will end.",
+          "type": "string",
+          "enum": [
+            "Take certain number of debits",
+            "Until further notice",
+            "End of exact date"
+          ]
+        }
+      }
     },
     "Payment": {
       "properties": {
