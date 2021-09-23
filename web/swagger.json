@@ -3213,6 +3213,7 @@
           "description": "The current status of the contract.",
           "type": "string",
           "enum": [
+		    "Inactive",
             "Expired",
             "Cancelled",
             "Pause",
