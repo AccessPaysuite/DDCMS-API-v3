@@ -4560,6 +4560,94 @@ tags:
       | Error     | Any validation errors will appear here.
 
       | Message   | Any validation messages or warnings will appear here.
+      
+      
+      ### Schedule Change Return Information
+      
+      The payload is sent to the configured 'Schedule Change' callback URL when a schedule's settings are changed, a new schedule is created or a schedule is completely deleted.
+      
+      #### Example JSON Payload
+      
+      ```json
+      
+      {
+        "Entity": "schedule",
+        "Id": "94821c14-8ba3-483f-a9db-02af004d9938",
+        "Schedule": {
+            "ScheduleId": "94821c14-8ba3-483f-a9db-02af004d9938",
+            "Name": "yyy",
+            "Description": "Weekly > Every 1 week > Week day chosen by customer starting on any month (customer's choice) > First , then on a regular basis",
+            "AllowDifferentFirstPayment": false,
+            "AllowDifferentLastPayment": false,
+            "AllowFreeMonthDaySelection": true,
+            "AllowFreeMonthSelection": true,
+            "AllowFreeWeekDaySelection": true,
+            "Amount": null,
+            "AtTheEnd": "Expire",
+            "DayOfWeek": "Free",
+            "DaysOfMonth": "Free",
+            "Every": 1,
+            "ExpectedNumberOfPayments": null,
+            "ExtraInitialPayments": "",
+            "FinalAmount": null,
+            "Frequency": "Weekly",
+            "InitialAmount": null,
+            "IsExpiryDateReached": false,
+            "IsNotScheduled": false,
+            "IsSuspended": false,
+            "MonthOfYear": "Free",
+            "RegistrationCharge": 0.0,
+            "Start": null,
+            "StartType": "As soon as possible",
+            "TerminationDate": null,
+            "TerminationType": "Until further notice"
+        },
+        "ParentService": {
+          "Title": "Default Service",
+          "RefProtocol": "Auto-number",
+          "RefPrefix": "DEF",
+          "RefFrom": null,
+          "RefTo": null,
+          "Schedules": null
+        },
+        "ParentClient": {
+          "Id": "da550c70-b879-4e89-b918-00f8ecb4d703",
+          "Name": "The Waffle Factory",
+          "ClientPrefix": "WF"
+        },
+        "ChangeDate": "2021-08-12T08:04:38",
+        "OperationTypeVal": 1,
+        "OperationType": "Create"
+      }
+      
+      ```
+      
+      #### Output Parameters:
+      
+      | Parameter | Description
+
+      | --------- | -----------
+
+      | Entity    | Returns 'schedule'.
+
+      | Id        | The schedule's database GUID.
+
+      | Schedule  | Details of the affected schedule - see the *Obtaining Available Schedules* section for more info.
+
+      | Parent Service        | Details of the service which the schedule belongs to - see the *Obtaining Available Schedules* section for more info.
+
+      | Parent Client     | Details of the client account the schedule belongs to.
+      <br />**Id** - GUID of the client account.
+      <br />**Name** - The client's name
+      <br />**Client Prefix** - The client code used for API operations.
+      
+      | Change Date       | Date-time for when the action took place.
+
+      | Operation Type Val   | Integer value for the OperationType enum.
+      
+      | Operation Type | Action performed on the schedule - can be **Create**, **Update** or **Delete**.
+      
+      
     name: Return endpoints
 x-components: {}
 
