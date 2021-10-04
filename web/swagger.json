@@ -39,7 +39,8 @@
             "enum": [
               "customer",
               "contract",
-              "payment"
+              "payment",
+              "schedule"
             ],
             "in": "path",
             "name": "entity",
@@ -106,7 +107,8 @@
             "enum": [
               "customer",
               "contract",
-              "payment"
+              "payment",
+              "schedule"
             ],
             "in": "path",
             "name": "entity",
@@ -196,7 +198,8 @@
             "enum": [
               "customer",
               "contract",
-              "payment"
+              "payment",
+              "schedule"
             ],
             "in": "path",
             "name": "entity",
