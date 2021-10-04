@@ -3358,7 +3358,6 @@ paths:
         - application/json
         - application/xml
       produces:
-        - application/octet-stream
         - application/json
         - application/xml
       parameters:
@@ -3368,16 +3367,22 @@ paths:
           name: clientCode
           required: true
           type: string
-        - description: The GUID of the  customer (if the customer already exists).
+        - description: The GUID of the customer (if the customer already exists).
           format: guid
           in: path
           name: customerId
           required: true
           type: string
-        - description: The name of the schedule to be used when creating a contract.
+        - description: The name of the schedule to be used when creating a contract. You must include either this or the `scheduleId` parameter.
           in: query
           maxLength: 255
           name: scheduleName
+          required: true
+          type: string
+        - description: The database GUID to be used when creating a contract. You must include either this or the `scheduleName` parameter.
+          in: query
+          format: guid
+          name: scheduleId
           required: true
           type: string
         - description: >
