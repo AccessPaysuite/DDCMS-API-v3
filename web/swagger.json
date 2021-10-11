@@ -2213,7 +2213,22 @@
                   "description": "Memos for this customer.",
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "properties": {
+                      "At": {
+                        "description": "Datetime for when the memo was added.",
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "Body": {
+                        "description": "HTML body of the memo.",
+                        "type": "string"
+                      },
+                      "ContractRef": {
+                        "description": "Direct Debit reference for the contract the memo was assigned to.",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
                   }
                 },
                 "MobilePhoneNumber": {
@@ -2696,7 +2711,22 @@
                   "description": "Memos for this customer.",
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "properties": {
+                      "At": {
+                        "description": "Datetime for when the memo was added.",
+                        "type": "string",
+                        "format": "datetime"
+                      },
+                      "Body": {
+                        "description": "HTML body of the memo.",
+                        "type": "string"
+                      },
+                      "ContractRef": {
+                        "description": "Direct Debit reference for the contract the memo was assigned to.",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
                   }
                 },
                 "MobilePhoneNumber": {
