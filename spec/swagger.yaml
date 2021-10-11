@@ -2673,7 +2673,7 @@ paths:
         On a newly created customer, this will show as `true` which is normal.
         The record will automatically change to `false` when an associated live
         Direct Debit (contract) is attached to it.
-      summary: Queries the database for a customer or set of customers.
+      summary: Queries the database for a set of customers.
       x-codeSamples:
         - lang: C#
           name: C# (EazySDK)
@@ -2997,6 +2997,113 @@ paths:
             curl -H "apiKey: {apiKey}" --request POST
             https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer?email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1%20Tebbit%20Mews&postCode=GL52%202NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr%20John%20Doe
   '/client/{clientCode}/customer/{customerId}':
+    get:
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The GUID of the customer.
+          in: path
+          name: customerId
+          required: true
+          type: string
+          format: guid
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              AddressDetail:
+                Line1: 1 Tebbit Mews
+                Line2: Winchcombe Street
+                Line3: Cheltenham
+                PostCode: A1 1AA
+              BankDetail:
+                AccountHolderName: Access Paysuite
+                AccountNumber: 01065285
+                BankSortCode: '309906'
+              CompanyName: Access Paysuite
+              CustomerRef: AE102890
+              DateAdded": '2017-04-12T13:22:48.800Z'
+              DateOfBirth: '2017-01-01T00:00:00.000Z'
+              Email: spam@eazycollect.co.uk
+              FirstName: Matthew
+              HomePhoneNumber: 01234567890
+              Id: c36ce83c-0064-4c1e-a157-cd4c70decf47
+              IsArchived: true
+              Memos: []
+              Surname: Harris
+              Title: Mr
+            application/xml: >-
+              <CustomerDetail xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                  <Id>c36ce83c-0064-4c1e-a157-cd4c70decf47</Id>
+                  <CustomerRef>AE102890</CustomerRef>
+                  <IsArchived>true</IsArchived>
+                  <DateAdded>2017-04-12T13:22:48.8</DateAdded>
+                  <Title>Mr</Title>
+                  <FirstName>Matthew</FirstName>
+                  <Surname>Harris</Surname>
+                  <CompanyName>Access Paysuite</CompanyName>
+                  <DateOfBirth>2017-01-01T00:00:00</DateOfBirth>
+                  <HomePhoneNumber>01234567890</HomePhoneNumber>
+                  <Email>spam@eazycollect.co.uk</Email>
+                  <AddressDetail>
+                      <Line1>1 Tebbit Mews</Line1>
+                      <Line2>Winchcombe Street</Line2>
+                      <Line3>Cheltenham</Line3>
+                      <PostCode>A1 1AA</PostCode>
+                  </AddressDetail>
+                  <BankDetail>
+                      <AccountHolderName>Access Paysuite</AccountHolderName>
+                      <AccountNumber>01065285</AccountNumber>
+                      <BankSortCode>309906</BankSortCode>
+                  </BankDetail>
+                  <Memos />
+              </CustomerDetail>
+        '404':
+          description: Customer not found
+          examples:
+            application/json:
+              Message: API not enabled
+            application/xml: >-
+              <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Message>API
+                not enabled</Message><ErrorCode>7</ErrorCode></ErrorAcknowledgement>
+      tags:
+        - Customer Manipulation
+      description: |
+        **NOTE:** The response from a GET method includes an `IsArchived` flag.
+        On a newly created customer, this will show as `true` which is normal.
+        The record will automatically change to `false` when an associated live
+        Direct Debit (contract) is attached to it.
+      summary: Queries the database for a single customer by ID.
+      x-codeSamples:
+        - lang: C#
+          name: C# (EazySDK)
+          source: |
+            var get = new Get(settings);
+            string response = get.Customers();
+        - lang: Python
+          name: Python (EazySDK)
+          source: |
+            client = eazysdk.EazySDK()
+            response = client.get.customers()
+        - lang: Java
+          name: Java (EazySDK)
+          source: |
+            Get get = new Get(settings);
+            String response = get.customers();
+        - lang: cURL
+          source: >
+            curl -H "apiKey: {apiKey}"
+            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/c36ce83c-0064-4c1e-a157-cd4c70decf47"
     patch:
       produces:
         - application/json
