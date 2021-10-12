@@ -2125,144 +2125,14 @@
             },
             "schema": {
               "properties": {
-                "AddressDetail": {
-                  "description": "Address of the customer.",
-                  "type": "object",
-                  "properties": {
-                    "Line1": {
-                      "description": "Line 1 of the customer's address.",
-                      "type": "string"
-                    },
-                    "Line2": {
-                      "description": "Line 2 of the customer's address.",
-                      "type": "string"
-                    },
-                    "Line3": {
-                      "description": "Line 3 of the customer's address.",
-                      "type": "string"
-                    },
-                    "Line4": {
-                      "description": "Line 4 of the customer's address.",
-                      "type": "string"
-                    },
-                    "PostCode": {
-                      "description": "The customer's registered postcode.",
-                      "type": "string"
-                    }
-                  }
-                },
-                "BankDetail": {
-                  "description": "Details of the customer's bank account.",
-                  "type": "object",
-                  "properties": {
-                    "AccountHolderName": {
-                      "description": "Name on the account.",
-                      "type": "string"
-                    },
-                    "AccountNumber": {
-                      "description": "The eight-digit account number.",
-                      "type": "string"
-                    },
-                    "BankSortCode": {
-                      "description": "The six-digit bank sort code.",
-                      "type": "string"
-                    }
-                  }
-                },
-                "CompanyName": {
-                  "description": "The customer's registered company.",
-                  "type": "string"
-                },
-                "CustomerRef": {
-                  "description": "The unique customer reference.",
-                  "type": "string"
-                },
-                "DateAdded": {
-                  "description": "Datetime for when this customer was created in the database.",
-                  "type": "string",
-                  "format": "datetime"
-                },
-                "DateOfBirth": {
-                  "description": "The customer's date of birth.",
-                  "type": "string",
-                  "format": "datetime"
-                },
-                "Email": {
-                  "description": "The customer's email address.",
-                  "type": "string",
-                  "format": "email"
-                },
-                "FirstName": {
-                  "description": "First name of the customer.",
-                  "type": "string"
-                },
-                "HomePhoneNumber": {
-                  "description": "The customer's home phone number.",
-                  "type": "string"
-                },
-                "Id": {
-                  "description": "The GUID for this customer object.",
-                  "type": "string",
-                  "format": "guid"
-                },
-                "IsArchived": {
-                  "description": "Returns true if all of the customer's contracts are archived, otherwise false.",
-                  "type": "boolean"
-                },
-                "Memos": {
-                  "description": "Memos for this customer.",
+                "Customers": {
+                  "description": "Array of Customers matching the search criteria.",
                   "type": "array",
                   "items": {
-                    "properties": {
-                      "At": {
-                        "description": "Datetime for when the memo was added.",
-                        "type": "string",
-                        "format": "datetime"
-                      },
-                      "Body": {
-                        "description": "HTML body of the memo.",
-                        "type": "string"
-                      },
-                      "ContractRef": {
-                        "description": "Direct Debit reference for the contract the memo was assigned to.",
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
+                    "$ref": "#/definitions/Customer"
                   }
-                },
-                "MobilePhoneNumber": {
-                  "description": "The customer's mobile phone number.",
-                  "type": "string"
-                },
-                "Surname": {
-                  "description": "Last name of the customer.",
-                  "type": "string"
-                },
-                "Title": {
-                  "description": "The customer's preferred title.",
-                  "type": "string",
-                  "enum": [
-                    "Mrs",
-                    "Mr",
-                    "Miss",
-                    "Ms",
-                    "Dr",
-                    "Sir",
-                    "Lord",
-                    "Lady",
-                    "Prof.",
-                    "Rev.",
-                    "Master",
-                    "Mx"
-                  ]
-                },
-                "WorkPhoneNumber": {
-                  "description": "The customer's work phone number.",
-                  "type": "string"
                 }
-              },
-              "type": "object"
+              }
             }
           },
           "404": {
@@ -2622,145 +2492,7 @@
               "application/xml": "<CustomerDetail xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n    <Id>c36ce83c-0064-4c1e-a157-cd4c70decf47</Id>\n    <CustomerRef>AE102890</CustomerRef>\n    <IsArchived>true</IsArchived>\n    <DateAdded>2017-04-12T13:22:48.8</DateAdded>\n    <Title>Mr</Title>\n    <FirstName>Matthew</FirstName>\n    <Surname>Harris</Surname>\n    <CompanyName>Access Paysuite</CompanyName>\n    <DateOfBirth>2017-01-01T00:00:00</DateOfBirth>\n    <HomePhoneNumber>01234567890</HomePhoneNumber>\n    <Email>spam@eazycollect.co.uk</Email>\n    <AddressDetail>\n        <Line1>1 Tebbit Mews</Line1>\n        <Line2>Winchcombe Street</Line2>\n        <Line3>Cheltenham</Line3>\n        <PostCode>A1 1AA</PostCode>\n    </AddressDetail>\n    <BankDetail>\n        <AccountHolderName>Access Paysuite</AccountHolderName>\n        <AccountNumber>01065285</AccountNumber>\n        <BankSortCode>309906</BankSortCode>\n    </BankDetail>\n    <Memos />\n</CustomerDetail>"
             },
             "schema": {
-              "properties": {
-                "AddressDetail": {
-                  "description": "Address of the customer.",
-                  "type": "object",
-                  "properties": {
-                    "Line1": {
-                      "description": "Line 1 of the customer's address.",
-                      "type": "string"
-                    },
-                    "Line2": {
-                      "description": "Line 2 of the customer's address.",
-                      "type": "string"
-                    },
-                    "Line3": {
-                      "description": "Line 3 of the customer's address.",
-                      "type": "string"
-                    },
-                    "Line4": {
-                      "description": "Line 4 of the customer's address.",
-                      "type": "string"
-                    },
-                    "PostCode": {
-                      "description": "The customer's registered postcode.",
-                      "type": "string"
-                    }
-                  }
-                },
-                "BankDetail": {
-                  "description": "Details of the customer's bank account.",
-                  "type": "object",
-                  "properties": {
-                    "AccountHolderName": {
-                      "description": "Name on the account.",
-                      "type": "string"
-                    },
-                    "AccountNumber": {
-                      "description": "The eight-digit account number.",
-                      "type": "string"
-                    },
-                    "BankSortCode": {
-                      "description": "The six-digit bank sort code.",
-                      "type": "string"
-                    }
-                  }
-                },
-                "CompanyName": {
-                  "description": "The customer's registered company.",
-                  "type": "string"
-                },
-                "CustomerRef": {
-                  "description": "The unique customer reference.",
-                  "type": "string"
-                },
-                "DateAdded": {
-                  "description": "Datetime for when this customer was created in the database.",
-                  "type": "string",
-                  "format": "datetime"
-                },
-                "DateOfBirth": {
-                  "description": "The customer's date of birth.",
-                  "type": "string",
-                  "format": "datetime"
-                },
-                "Email": {
-                  "description": "The customer's email address.",
-                  "type": "string",
-                  "format": "email"
-                },
-                "FirstName": {
-                  "description": "First name of the customer.",
-                  "type": "string"
-                },
-                "HomePhoneNumber": {
-                  "description": "The customer's home phone number.",
-                  "type": "string"
-                },
-                "Id": {
-                  "description": "The GUID for this customer object.",
-                  "type": "string",
-                  "format": "guid"
-                },
-                "IsArchived": {
-                  "description": "Returns true if all of the customer's contracts are archived, otherwise false.",
-                  "type": "boolean"
-                },
-                "Memos": {
-                  "description": "Memos for this customer.",
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "At": {
-                        "description": "Datetime for when the memo was added.",
-                        "type": "string",
-                        "format": "datetime"
-                      },
-                      "Body": {
-                        "description": "HTML body of the memo.",
-                        "type": "string"
-                      },
-                      "ContractRef": {
-                        "description": "Direct Debit reference for the contract the memo was assigned to.",
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  }
-                },
-                "MobilePhoneNumber": {
-                  "description": "The customer's mobile phone number.",
-                  "type": "string"
-                },
-                "Surname": {
-                  "description": "Last name of the customer.",
-                  "type": "string"
-                },
-                "Title": {
-                  "description": "The customer's preferred title.",
-                  "type": "string",
-                  "enum": [
-                    "Mrs",
-                    "Mr",
-                    "Miss",
-                    "Ms",
-                    "Dr",
-                    "Sir",
-                    "Lord",
-                    "Lady",
-                    "Prof.",
-                    "Rev.",
-                    "Master",
-                    "Mx"
-                  ]
-                },
-                "WorkPhoneNumber": {
-                  "description": "The customer's work phone number.",
-                  "type": "string"
-                }
-              },
-              "type": "object"
+              "$ref": "#/definitions/Customer"
             }
           },
           "404": {
@@ -3621,6 +3353,147 @@
           ]
         }
       }
+    },
+    "Customer": {
+      "properties": {
+        "AddressDetail": {
+          "description": "Address of the customer.",
+          "type": "object",
+          "properties": {
+            "Line1": {
+              "description": "Line 1 of the customer's address.",
+              "type": "string"
+            },
+            "Line2": {
+              "description": "Line 2 of the customer's address.",
+              "type": "string"
+            },
+            "Line3": {
+              "description": "Line 3 of the customer's address.",
+              "type": "string"
+            },
+            "Line4": {
+              "description": "Line 4 of the customer's address.",
+              "type": "string"
+            },
+            "PostCode": {
+              "description": "The customer's registered postcode.",
+              "type": "string"
+            }
+          }
+        },
+        "BankDetail": {
+          "description": "Details of the customer's bank account.",
+          "type": "object",
+          "properties": {
+            "AccountHolderName": {
+              "description": "Name on the account.",
+              "type": "string"
+            },
+            "AccountNumber": {
+              "description": "The eight-digit account number.",
+              "type": "string"
+            },
+            "BankSortCode": {
+              "description": "The six-digit bank sort code.",
+              "type": "string"
+            }
+          }
+        },
+        "CompanyName": {
+          "description": "The customer's registered company.",
+          "type": "string"
+        },
+        "CustomerRef": {
+          "description": "The unique customer reference.",
+          "type": "string"
+        },
+        "DateAdded": {
+          "description": "Datetime for when this customer was created in the database.",
+          "type": "string",
+          "format": "datetime"
+        },
+        "DateOfBirth": {
+          "description": "The customer's date of birth.",
+          "type": "string",
+          "format": "datetime"
+        },
+        "Email": {
+          "description": "The customer's email address.",
+          "type": "string",
+          "format": "email"
+        },
+        "FirstName": {
+          "description": "First name of the customer.",
+          "type": "string"
+        },
+        "HomePhoneNumber": {
+          "description": "The customer's home phone number.",
+          "type": "string"
+        },
+        "Id": {
+          "description": "The GUID for this customer object.",
+          "type": "string",
+          "format": "guid"
+        },
+        "IsArchived": {
+          "description": "Returns true if all of the customer's contracts are archived, otherwise false.",
+          "type": "boolean"
+        },
+        "Memos": {
+          "description": "Memos for this customer.",
+          "type": "array",
+          "items": {
+            "properties": {
+              "At": {
+                "description": "Datetime for when the memo was added.",
+                "type": "string",
+                "format": "datetime"
+              },
+              "Body": {
+                "description": "HTML body of the memo.",
+                "type": "string"
+              },
+              "ContractRef": {
+                "description": "Direct Debit reference for the contract the memo was assigned to.",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "MobilePhoneNumber": {
+          "description": "The customer's mobile phone number.",
+          "type": "string"
+        },
+        "Surname": {
+          "description": "Last name of the customer.",
+          "type": "string"
+        },
+        "Title": {
+          "description": "The customer's preferred title.",
+          "type": "string",
+          "enum": [
+            "Mrs",
+            "Mr",
+            "Miss",
+            "Ms",
+            "Dr",
+            "Sir",
+            "Lord",
+            "Lady",
+            "Prof.",
+            "Rev.",
+            "Master",
+            "Mx"
+          ]
+        },
+        "WorkPhoneNumber": {
+          "description": "The customer's work phone number.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "Payment": {
       "properties": {
