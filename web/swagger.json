@@ -3219,6 +3219,50 @@
     }
   },
   "definitions": {
+    "AddressDetail": {
+      "description": "Address of the customer.",
+      "type": "object",
+      "properties": {
+        "Line1": {
+          "description": "Line 1 of the customer's address.",
+          "type": "string"
+        },
+        "Line2": {
+          "description": "Line 2 of the customer's address.",
+          "type": "string"
+        },
+        "Line3": {
+          "description": "Line 3 of the customer's address.",
+          "type": "string"
+        },
+        "Line4": {
+          "description": "Line 4 of the customer's address.",
+          "type": "string"
+        },
+        "PostCode": {
+          "description": "The customer's registered postcode.",
+          "type": "string"
+        }
+      }
+    },
+    "BankDetail": {
+      "description": "Details of the customer's bank account.",
+      "type": "object",
+      "properties": {
+        "AccountHolderName": {
+          "description": "Name on the account.",
+          "type": "string"
+        },
+        "AccountNumber": {
+          "description": "The eight-digit account number.",
+          "type": "string"
+        },
+        "BankSortCode": {
+          "description": "The six-digit bank sort code.",
+          "type": "string"
+        }
+      }
+    },
     "CallbackEntities": {
       "description": "The entity for which to receive callback BACS messages.",
       "enum": [
@@ -3357,48 +3401,10 @@
     "Customer": {
       "properties": {
         "AddressDetail": {
-          "description": "Address of the customer.",
-          "type": "object",
-          "properties": {
-            "Line1": {
-              "description": "Line 1 of the customer's address.",
-              "type": "string"
-            },
-            "Line2": {
-              "description": "Line 2 of the customer's address.",
-              "type": "string"
-            },
-            "Line3": {
-              "description": "Line 3 of the customer's address.",
-              "type": "string"
-            },
-            "Line4": {
-              "description": "Line 4 of the customer's address.",
-              "type": "string"
-            },
-            "PostCode": {
-              "description": "The customer's registered postcode.",
-              "type": "string"
-            }
-          }
+          "$ref": "#/definitions/AddressDetail"
         },
         "BankDetail": {
-          "description": "Details of the customer's bank account.",
-          "type": "object",
-          "properties": {
-            "AccountHolderName": {
-              "description": "Name on the account.",
-              "type": "string"
-            },
-            "AccountNumber": {
-              "description": "The eight-digit account number.",
-              "type": "string"
-            },
-            "BankSortCode": {
-              "description": "The six-digit bank sort code.",
-              "type": "string"
-            }
-          }
+          "$ref": "#/definitions/BankDetail"
         },
         "CompanyName": {
           "description": "The customer's registered company.",
@@ -3444,22 +3450,7 @@
           "description": "Memos for this customer.",
           "type": "array",
           "items": {
-            "properties": {
-              "At": {
-                "description": "Datetime for when the memo was added.",
-                "type": "string",
-                "format": "datetime"
-              },
-              "Body": {
-                "description": "HTML body of the memo.",
-                "type": "string"
-              },
-              "ContractRef": {
-                "description": "Direct Debit reference for the contract the memo was assigned to.",
-                "type": "string"
-              }
-            },
-            "type": "object"
+            "$ref": "#/definitions/CustomerMemo"
           }
         },
         "MobilePhoneNumber": {
@@ -3494,6 +3485,25 @@
         }
       },
       "type": "object"
+    },
+    "CustomerMemo": {
+      "description": "Memo attached to a customer's contract.",
+      "type": "object",
+      "properties": {
+        "At": {
+          "description": "Datetime for when the memo was added.",
+          "type": "string",
+          "format": "datetime"
+        },
+        "Body": {
+          "description": "HTML body of the memo.",
+          "type": "string"
+        },
+        "ContractRef": {
+          "description": "Direct Debit reference for the contract the memo was assigned to.",
+          "type": "string"
+        }
+      }
     },
     "Payment": {
       "properties": {
