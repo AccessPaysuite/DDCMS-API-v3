@@ -403,8 +403,7 @@ paths:
             String request = delete.callbackUrl("contract");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request DELETE
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{entity}/callback"
+            curl -L -g -X DELETE 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/contract/callback' -H 'apiKey: {apiKey}'
     get:
       produces:
         - application/json
@@ -483,8 +482,7 @@ paths:
             String response = get.callbackUrl("contract");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}"
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{entity}/callback"
+            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/contract/callback' -H 'apiKey: {apiKey}'
     post:
       produces:
         - application/json
@@ -542,8 +540,7 @@ paths:
             String request = post.callbackUrl("contract", "https://my.website.com/webhook");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request POST
-            https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{entity}/callback?url=https://my.website.com/webhook
+            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/contract/callback?url=https://my.website.com/webhook' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/bulk/payments':
     post:
       consumes:
@@ -671,11 +668,18 @@ paths:
       summary: Adds a payment to the database to the contract specified in the URL.
       x-codeSamples:
         - lang: cURL
-          sample: |
-            curl -H "apiKey: {apiKey}" -H "Content-Type: application/json" -d
-            "{'Payments':[{'contract':'1802e1dd-a657-428c-b8d0-ba162fc76203','amount':9.99,'date':'2019-08-01T00:00:00.000','comment':'New
-            payment','isCredit':false}]}"
-            https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/bulk/payments
+          sample: >
+            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/bulk/payments' -H 'apiKey: {apiKey}' -H 'Content-Type: application/json' --data-raw '{
+                "Payments": [
+                  {
+                    "contract": "1802e1dd-a657-428c-b8d0-ba162fc76203",
+                    "amount": 9.99,
+                    "date": "2019-08-01T00:00:00.000",
+                    "comment": "New payment",
+                    "isCredit": false
+                  }
+                ]
+              }'
   '/client/{clientCode}/contract/{contractId}/amount':
     patch:
       produces:
@@ -766,8 +770,7 @@ paths:
             "Change contract amount");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request PATCH
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/amount?amount=9.99&comment=Change%20contract%20amount"
+            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/amount?amount=9.99&comment=Change contract amount' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/annual':
     patch:
       produces:
@@ -922,8 +925,7 @@ paths:
             "15", "1", "Change day", false);
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request PATCH
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/annual?monthDay=15&month=1&comment=Change%20day&patchNextPayment=false"
+            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/annual?monthDay=15&month=1&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/archive':
     post:
       produces:
@@ -1011,8 +1013,7 @@ paths:
             post.archiveContract("1802e1dd-a657-428c-b8d0-ba162fc76203");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request POST
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/archive"
+            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/archive' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/cancel':
     post:
       produces:
@@ -1096,8 +1097,7 @@ paths:
             post.cancelDirectDebit("1802e1dd-a657-428c-b8d0-ba162fc76203");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request POST
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/cancel"
+            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/cancel' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/monthly':
     patch:
       produces:
@@ -1249,12 +1249,10 @@ paths:
             "15", "Change day", false);
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request PATCH
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/monthly?day=15&comment=Change%20day&patchNextPayment=false"
+            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/monthly?day=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/payment':
     get:
       produces:
-        - application/octet-stream
         - application/json
         - application/xml
       parameters:
@@ -1367,14 +1365,12 @@ paths:
             get.payments("2b62a358-9a1a-4c71-9450-e419e393dcd1");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}"
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment"
+            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment' -H 'apiKey: {apiKey}'
     post:
       consumes:
         - application/json
         - application/xml
       produces:
-        - application/octet-stream
         - application/json
         - application/xml
       parameters:
@@ -1561,8 +1557,7 @@ paths:
             "2019-08-01", "A comment");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request POST
-            https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment?amount=10.00&dueDate=2019-08-01&comment=A%20comment
+            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment?amount=10.00&dueDate=2019-08-01&comment=A comment' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/payment/{paymentId}':
     delete:
       produces:
@@ -1671,8 +1666,7 @@ paths:
             "750f142f-1608-464a-8e34-4b322e703c2c", "A comment");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request DELETE
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?comment=A%20comment"
+            curl -L -g -X DELETE 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?comment=A comment' -H 'apiKey: {apiKey}'
     get:
       produces:
         - application/json
@@ -1776,11 +1770,9 @@ paths:
             "6917d51a-be83-424f-b0a6-31fbf9574a79");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}"
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}"
+            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}' -H 'apiKey: {apiKey}'
     patch:
       produces:
-        - application/octet-stream
         - application/json
         - application/xml
       parameters:
@@ -1905,8 +1897,7 @@ paths:
             comment");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request PATCH
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?amount=10.00&date=2019-08-01&comment=test%20comment"
+            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?amount=10.00&date=2019-08-01&comment=Test comment' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/reactivate':
     post:
       produces:
@@ -1985,8 +1976,7 @@ paths:
             post.reactivateDirectDebit("1802e1dd-a657-428c-b8d0-ba162fc76203");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request POST
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reactivate"
+            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reactivate' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/reference':
     patch:
       produces:
@@ -2066,8 +2056,7 @@ paths:
       x-codeSamples:
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request PATCH
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reference?newDDRef=TEST-MT012345"
+            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reference?newDDRef=TEST-MT012345' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/restart':
     post:
       produces:
@@ -2334,8 +2323,7 @@ paths:
             further notice").atTheEnd("Switch to further notice").query();
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request POST
-            https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/restart?terminationType=Until%20further%20notice&atTheEnd=Switch%20to%20further%20notice
+            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/restart?terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/weekly':
     patch:
       produces:
@@ -2459,8 +2447,7 @@ paths:
             "15", "Change day", false);
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request PATCH
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=15&comment=Change%20day&patchNextPayment=false"
+            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/customer':
     get:
       produces:
@@ -2699,14 +2686,12 @@ paths:
             String response = get.customers();
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}"
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer"
+            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer' -H 'apiKey: {apiKey}'
     post:
       consumes:
         - application/json
         - application/xml
       produces:
-        - application/octet-stream
         - application/json
         - application/xml
       parameters:
@@ -3001,8 +2986,7 @@ paths:
                   .sortCode("123456").accountHolderName("Mr John Doe").query();
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request POST
-            https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer?email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1%20Tebbit%20Mews&postCode=GL52%202NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr%20John%20Doe
+            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer?email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1 Tebbit Mews&postCode=GL52 2NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr John Doe' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/customer/{customerId}':
     get:
       produces:
@@ -3111,8 +3095,7 @@ paths:
             String response = get.customers();
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}"
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/c36ce83c-0064-4c1e-a157-cd4c70decf47"
+            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/c36ce83c-0064-4c1e-a157-cd4c70decf47' -H 'apiKey: {apiKey}'
     patch:
       produces:
         - application/json
@@ -3351,8 +3334,7 @@ paths:
             patch.customer("dfca6da1-2490-4607-a256-c5799d2584e9").email("john.doe@test.com").query();
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request PATCH
-            https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com
+            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/customer/{customerId}/contract':
     get:
       produces:
@@ -3467,8 +3449,7 @@ paths:
             get.contracts("310a826b-d095-48e7-a55a-19dba82c566f");
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}"
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract"
+            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract' -H 'apiKey: {apiKey}'
     post:
       consumes:
         - application/json
@@ -3956,8 +3937,7 @@ paths:
                   .terminationType("Until further notice").atTheEnd("Switch to further notice").query();
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}" --request POST
-            https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract?scheduleName=adhoc_monthly_free&start=2019-08-01&isGiftAid=false&terminationType=Until%20further%20notice&atTheEnd=Switch%20to%20further%20notice
+            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract?scheduleName=adhoc_monthly_free&start=2019-08-01&isGiftAid=false&terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/schedules':
     get:
       produces:
@@ -4109,8 +4089,7 @@ paths:
             String response = get.schedules();
         - lang: cURL
           source: >
-            curl -H "apiKey: {apiKey}"
-            "https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules"
+            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules' -H 'apiKey: {apiKey}'
 definitions:
   AddressDetail:
     description: Address of the customer.

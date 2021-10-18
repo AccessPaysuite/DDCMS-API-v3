@@ -84,7 +84,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request DELETE \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{entity}/callback\"\n"
+            "source": "curl -L -g -X DELETE 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/contract/callback' -H 'apiKey: {apiKey}'\n"
           }
         ]
       },
@@ -175,7 +175,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{entity}/callback\"\n"
+            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/contract/callback' -H 'apiKey: {apiKey}'\n"
           }
         ]
       },
@@ -246,7 +246,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request POST https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/{entity}/callback?url=https://my.website.com/webhook\n"
+            "source": "curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/contract/callback?url=https://my.website.com/webhook' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -367,7 +367,7 @@
         "x-codeSamples": [
           {
             "lang": "cURL",
-            "sample": "curl -H \"apiKey: {apiKey}\" -H \"Content-Type: application/json\" -d\n\"{'Payments':[{'contract':'1802e1dd-a657-428c-b8d0-ba162fc76203','amount':9.99,'date':'2019-08-01T00:00:00.000','comment':'New\npayment','isCredit':false}]}\"\nhttps://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/bulk/payments\n"
+            "sample": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/bulk/payments' -H 'apiKey: {apiKey}' -H 'Content-Type: application/json' --data-raw '{\n    \"Payments\": [\n      {\n        \"contract\": \"1802e1dd-a657-428c-b8d0-ba162fc76203\",\n        \"amount\": 9.99,\n        \"date\": \"2019-08-01T00:00:00.000\",\n        \"comment\": \"New payment\",\n        \"isCredit\": false\n      }\n    ]\n  }'\n"
           }
         ]
       }
@@ -457,7 +457,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request PATCH \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/amount?amount=9.99&comment=Change%20contract%20amount\"\n"
+            "source": "curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/amount?amount=9.99&comment=Change contract amount' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -598,7 +598,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request PATCH \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/annual?monthDay=15&month=1&comment=Change%20day&patchNextPayment=false\"\n"
+            "source": "curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/annual?monthDay=15&month=1&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -679,7 +679,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request POST \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/archive\"\n"
+            "source": "curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/archive' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -760,7 +760,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request POST \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/cancel\"\n"
+            "source": "curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/cancel' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -892,7 +892,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request PATCH \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/monthly?day=15&comment=Change%20day&patchNextPayment=false\"\n"
+            "source": "curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/monthly?day=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -900,7 +900,6 @@
     "/client/{clientCode}/contract/{contractId}/payment": {
       "get": {
         "produces": [
-          "application/octet-stream",
           "application/json",
           "application/xml"
         ],
@@ -1005,7 +1004,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment\"\n"
+            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment' -H 'apiKey: {apiKey}'\n"
           }
         ]
       },
@@ -1015,7 +1014,6 @@
           "application/xml"
         ],
         "produces": [
-          "application/octet-stream",
           "application/json",
           "application/xml"
         ],
@@ -1177,7 +1175,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request POST https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment?amount=10.00&dueDate=2019-08-01&comment=A%20comment\n"
+            "source": "curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment?amount=10.00&dueDate=2019-08-01&comment=A comment' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -1282,7 +1280,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request DELETE \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?comment=A%20comment\"\n"
+            "source": "curl -L -g -X DELETE 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?comment=A comment' -H 'apiKey: {apiKey}'\n"
           }
         ]
       },
@@ -1376,13 +1374,12 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}\"\n"
+            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}' -H 'apiKey: {apiKey}'\n"
           }
         ]
       },
       "patch": {
         "produces": [
-          "application/octet-stream",
           "application/json",
           "application/xml"
         ],
@@ -1499,7 +1496,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request PATCH \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?amount=10.00&date=2019-08-01&comment=test%20comment\"\n"
+            "source": "curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?amount=10.00&date=2019-08-01&comment=Test comment' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -1579,7 +1576,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request POST \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reactivate\"\n"
+            "source": "curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reactivate' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -1653,7 +1650,7 @@
         "x-codeSamples": [
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request PATCH \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reference?newDDRef=TEST-MT012345\"\n"
+            "source": "curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reference?newDDRef=TEST-MT012345' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -1846,7 +1843,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request POST https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/restart?terminationType=Until%20further%20notice&atTheEnd=Switch%20to%20further%20notice\n"
+            "source": "curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/restart?terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -1954,7 +1951,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request PATCH \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=15&comment=Change%20day&patchNextPayment=false\"\n"
+            "source": "curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -2168,7 +2165,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer\"\n"
+            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer' -H 'apiKey: {apiKey}'\n"
           }
         ]
       },
@@ -2178,7 +2175,6 @@
           "application/xml"
         ],
         "produces": [
-          "application/octet-stream",
           "application/json",
           "application/xml"
         ],
@@ -2431,7 +2427,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request POST https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer?email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1%20Tebbit%20Mews&postCode=GL52%202NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr%20John%20Doe\n"
+            "source": "curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer?email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1 Tebbit Mews&postCode=GL52 2NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr John Doe' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -2528,7 +2524,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/c36ce83c-0064-4c1e-a157-cd4c70decf47\"\n"
+            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/c36ce83c-0064-4c1e-a157-cd4c70decf47' -H 'apiKey: {apiKey}'\n"
           }
         ]
       },
@@ -2745,7 +2741,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request PATCH https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com\n"
+            "source": "curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -2845,7 +2841,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract\"\n"
+            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract' -H 'apiKey: {apiKey}'\n"
           }
         ]
       },
@@ -3125,7 +3121,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" --request POST https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract?scheduleName=adhoc_monthly_free&start=2019-08-01&isGiftAid=false&terminationType=Until%20further%20notice&atTheEnd=Switch%20to%20further%20notice\n"
+            "source": "curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract?scheduleName=adhoc_monthly_free&start=2019-08-01&isGiftAid=false&terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
@@ -3212,7 +3208,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -H \"apiKey: {apiKey}\" \"https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules\"\n"
+            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
