@@ -271,11 +271,12 @@
             "type": "string"
           },
           {
-            "description": "Payments should be submitted in the body of the POST request in the format\ndetailed below.\n",
+            "description": "The payments to be processed.\n",
             "in": "body",
             "name": "body",
             "required": true,
             "schema": {
+              "$ref": "#/definitions/BulkPaymentRequest",
               "example": {
                 "Payments": [
                   {
@@ -294,45 +295,6 @@
                   }
                 ]
               },
-              "properties": {
-                "Payments": {
-                  "items": {
-                    "properties": {
-                      "amount": {
-                        "description": "The amount to be collected.",
-                        "multipleOf": 0.01,
-                        "type": "number"
-                      },
-                      "comment": {
-                        "description": "A comment relating to the payment (which can be recalled using\nthe GET method).\n",
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "contract": {
-                        "description": "The contract GUID that you wish to collect a payment against.",
-                        "format": "guid",
-                        "type": "string"
-                      },
-                      "date": {
-                        "description": "The date on which the payment should be collected.\nThis **must** be at least 5 **working** days in the future,\non a permitted date and not before the start date set when\ncreating the contract.\n**Format: `YYYY-MM-DDT00:00:00.000`**\n",
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "isCredit": {
-                        "description": "If you have an own SUN and you have agreed by prior arrangement\nwith your account manager that you may issue credits, pass\n`true` with this parameter to issue a credit to the customer.\nIf omitted, this will be a debit.\n",
-                        "type": "boolean"
-                      }
-                    },
-                    "required": [
-                      "amount",
-                      "contract",
-                      "date"
-                    ],
-                    "type": "object"
-                  },
-                  "type": "array"
-                }
-              },
               "type": "object"
             }
           }
@@ -340,6 +302,33 @@
         "responses": {
           "200": {
             "description": "OK",
+            "schema": {
+              "properties": {
+                "FailureCount": {
+                  "type": "number",
+                  "description": "Number of payment requests that failed to push to the queue."
+                },
+                "Failures": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/BulkPayment"
+                  },
+                  "description": "Array of payment requests that failed to push to the queue."
+                },
+                "IsSuccessfull": {
+                  "type": "boolean",
+                  "description": "Returns `true` if all requests were successfully submitted to the queue for processing, otherwise `false`."
+                },
+                "Duration": {
+                  "type": "string",
+                  "description": "The length of time it took to submit the payments."
+                },
+                "Message": {
+                  "type": "string",
+                  "description": "Returns `All payments are in queue for process` if Failures is empty, otherwise returns `Not all payments are in queue, please resend failures at a later time`."
+                }
+              }
+            },
             "examples": {
               "application/json": {
                 "FailureCount": 0,
@@ -363,7 +352,7 @@
         "tags": [
           "Bulk Adding Payments"
         ],
-        "summary": "Adds a payment to the database to the contract specified in the URL.",
+        "summary": "Sends a list of payment requests to a queue to be processed in bulk.",
         "x-codeSamples": [
           {
             "lang": "cURL",
@@ -3259,6 +3248,54 @@
         }
       }
     },
+    "BulkPayment": {
+      "description": "Single ad-hoc payment request used in bulk adding payments.",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "The amount to be collected.",
+          "multipleOf": 0.01,
+          "type": "number"
+        },
+        "comment": {
+          "description": "A comment relating to the payment (which can be recalled using\nthe GET method).\n",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "contract": {
+          "description": "The contract GUID that you wish to collect a payment against.",
+          "format": "guid",
+          "type": "string"
+        },
+        "date": {
+          "description": "The date on which the payment should be collected.\nThis **must** be at least 5 **working** days in the future,\non a permitted date and not before the start date set when\ncreating the contract.\n**Format: `YYYY-MM-DDT00:00:00.000`**\n",
+          "format": "date-time",
+          "type": "string"
+        },
+        "isCredit": {
+          "description": "If you have an own SUN and you have agreed by prior arrangement\nwith your account manager that you may issue credits, pass\n`true` with this parameter to issue a credit to the customer.\nIf omitted, this will be a debit.\n",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "amount",
+        "contract",
+        "date"
+      ]
+    },
+    "BulkPaymentRequest": {
+      "description": "Payload for the bulk adding payments request.",
+      "type": "object",
+      "properties": {
+        "Payments": {
+          "description": "Array of payments to be inserted in bulk.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BulkPayment"
+          }
+        }
+      }
+    },
     "CallbackEntities": {
       "description": "The entity for which to receive callback BACS messages.",
       "enum": [
@@ -3608,6 +3645,7 @@
       "name": "Adding/Querying Payments"
     },
     {
+      "description": "We will send the payment creation API responses to your configured 'payments' webhook - please see the Return Endpoints section for setting this.\n",
       "name": "Bulk Adding Payments"
     },
     {

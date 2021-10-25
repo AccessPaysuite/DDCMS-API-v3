@@ -557,14 +557,12 @@ paths:
           required: true
           type: string
         - description: >
-            Payments should be submitted in the body of the POST request in the
-            format
-
-            detailed below.
+            The payments to be processed.
           in: body
           name: body
           required: true
           schema:
+            $ref: '#/definitions/BulkPaymentRequest'
             example:
               Payments:
                 - amount: 1.1
@@ -577,66 +575,29 @@ paths:
                   contract: GUID
                   date: 'YYYY-MM-DDT00:00:00.000'
                   isCredit: false
-            properties:
-              Payments:
-                items:
-                  properties:
-                    amount:
-                      description: The amount to be collected.
-                      multipleOf: 0.01
-                      type: number
-                    comment:
-                      description: >
-                        A comment relating to the payment (which can be recalled
-                        using
-
-                        the GET method).
-                      maxLength: 255
-                      type: string
-                    contract:
-                      description: >-
-                        The contract GUID that you wish to collect a payment
-                        against.
-                      format: guid
-                      type: string
-                    date:
-                      description: >
-                        The date on which the payment should be collected.
-
-                        This **must** be at least 5 **working** days in the
-                        future,
-
-                        on a permitted date and not before the start date set
-                        when
-
-                        creating the contract.
-
-                        **Format: `YYYY-MM-DDT00:00:00.000`**
-                      format: date-time
-                      type: string
-                    isCredit:
-                      description: >
-                        If you have an own SUN and you have agreed by prior
-                        arrangement
-
-                        with your account manager that you may issue credits,
-                        pass
-
-                        `true` with this parameter to issue a credit to the
-                        customer.
-
-                        If omitted, this will be a debit.
-                      type: boolean
-                  required:
-                    - amount
-                    - contract
-                    - date
-                  type: object
-                type: array
             type: object
       responses:
         '200':
           description: OK
+          schema:
+            properties:
+              FailureCount:
+                type: number
+                description: Number of payment requests that failed to push to the queue.
+              Failures:
+                type: array
+                items:
+                  $ref: '#/definitions/BulkPayment'
+                description: Array of payment requests that failed to push to the queue.
+              IsSuccessfull:
+                type: boolean
+                description: Returns `true` if all requests were successfully submitted to the queue for processing, otherwise `false`.
+              Duration:
+                type: string
+                description: The length of time it took to submit the payments.
+              Message:
+                type: string
+                description: Returns `All payments are in queue for process` if Failures is empty, otherwise returns `Not all payments are in queue, please resend failures at a later time`.
           examples:
             application/json:
               FailureCount: 0
@@ -665,7 +626,7 @@ paths:
               </ErrorAcknowledgement>
       tags:
         - Bulk Adding Payments
-      summary: Adds a payment to the database to the contract specified in the URL.
+      summary: Sends a list of payment requests to a queue to be processed in bulk.
       x-codeSamples:
         - lang: cURL
           sample: >
@@ -4123,6 +4084,69 @@ definitions:
       BankSortCode:
         description: The six-digit bank sort code.
         type: string
+  BulkPayment:
+    description: Single ad-hoc payment request used in bulk adding payments.
+    type: object
+    properties:
+      amount:
+        description: The amount to be collected.
+        multipleOf: 0.01
+        type: number
+      comment:
+        description: >
+          A comment relating to the payment (which can be recalled
+          using
+
+          the GET method).
+        maxLength: 255
+        type: string
+      contract:
+        description: >-
+          The contract GUID that you wish to collect a payment
+          against.
+        format: guid
+        type: string
+      date:
+        description: >
+          The date on which the payment should be collected.
+
+          This **must** be at least 5 **working** days in the
+          future,
+
+          on a permitted date and not before the start date set
+          when
+
+          creating the contract.
+
+          **Format: `YYYY-MM-DDT00:00:00.000`**
+        format: date-time
+        type: string
+      isCredit:
+        description: >
+          If you have an own SUN and you have agreed by prior
+          arrangement
+
+          with your account manager that you may issue credits,
+          pass
+
+          `true` with this parameter to issue a credit to the
+          customer.
+
+          If omitted, this will be a debit.
+        type: boolean
+    required:
+      - amount
+      - contract
+      - date
+  BulkPaymentRequest:
+    description: Payload for the bulk adding payments request.
+    type: object
+    properties:
+      Payments:
+        description: Array of payments to be inserted in bulk.
+        type: array
+        items:
+          $ref: '#/definitions/BulkPayment'
   CallbackEntities:
     description: The entity for which to receive callback BACS messages.
     enum:
@@ -4585,7 +4609,9 @@ tags:
       met, otherwise unexpected results may occur.
     name: Restart a Contract
   - name: Adding/Querying Payments
-  - name: Bulk Adding Payments
+  - description: >
+      We will send the payment creation API responses to your configured 'payments' webhook - please see the Return Endpoints section for setting this.
+    name: Bulk Adding Payments
   - name: Payment Manipulation
   - name: Obtaining Available Schedules
   - description: >
