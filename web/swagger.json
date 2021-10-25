@@ -343,9 +343,11 @@
             "description": "Bad request - no payments",
             "examples": {
               "application/json": {
-                "Message": "No payments found in request"
+                "ErrorCode": 2,
+                "Detail": "No payments found in request",
+                "Message": "Parameter arguments incorrect"
               },
-              "application/xml": "<ErrorAcknowledgement xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\nxmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n    <Message>No payments found in request</Message>\n</ErrorAcknowledgement>\n"
+              "application/xml": "<ErrorAcknowledgement xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\nxmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n    <ErrorCode>2</ErrorCode>\n    <Detail>No payments found in request</Detail>\n    <Message>Parameter arguments incorrect</Message>\n</ErrorAcknowledgement>\n"
             }
           }
         },
@@ -3645,7 +3647,7 @@
       "name": "Adding/Querying Payments"
     },
     {
-      "description": "We will send the payment creation API responses to your configured 'payments' webhook - please see the Return Endpoints section for setting this.\n",
+      "description": "We will send the payment creation API responses to your configured 'bulk payments' webhook - please see the Return Endpoints section for setting this.\n",
       "name": "Bulk Adding Payments"
     },
     {

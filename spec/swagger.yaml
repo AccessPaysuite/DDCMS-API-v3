@@ -618,11 +618,15 @@ paths:
           description: Bad request - no payments
           examples:
             application/json:
-              Message: No payments found in request
+              ErrorCode: 2
+              Detail: No payments found in request
+              Message: Parameter arguments incorrect
             application/xml: |
               <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                  <Message>No payments found in request</Message>
+                  <ErrorCode>2</ErrorCode>
+                  <Detail>No payments found in request</Detail>
+                  <Message>Parameter arguments incorrect</Message>
               </ErrorAcknowledgement>
       tags:
         - Bulk Adding Payments
@@ -4610,7 +4614,7 @@ tags:
     name: Restart a Contract
   - name: Adding/Querying Payments
   - description: >
-      We will send the payment creation API responses to your configured 'payments' webhook - please see the Return Endpoints section for setting this.
+      We will send the payment creation API responses to your configured 'bulk payments' webhook - please see the Return Endpoints section for setting this.
     name: Bulk Adding Payments
   - name: Payment Manipulation
   - name: Obtaining Available Schedules
