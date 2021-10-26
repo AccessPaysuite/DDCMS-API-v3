@@ -4157,6 +4157,7 @@ definitions:
       - customer
       - contract
       - payment
+      - schedule
     type: string
   Contract:
     properties:
@@ -4520,7 +4521,9 @@ tags:
 
       | contract | Notification of contract changes due to BACS notifications  
 
-      | payment | Payment data returned from a scheduled payment creation   
+      | payment | Payment data returned from a scheduled payment creation
+      
+      | schedule | Notification of change, addition or deletion of a contract schedule
     name: Return Endpoints
   - description: >
       A customer record captures the personal and banking details of the
