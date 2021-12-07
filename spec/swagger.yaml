@@ -289,23 +289,23 @@ info:
         
     ## Environments
 
-    We offer two environments to developers, `sandbox` and `ecm3`. Our `sandbox`
+    We offer two environments to developers, `playpen` and `ecm3`. Our `playpen`
     environment is designed
 
     for all your testing needs. Our `ecm3` environment is our production
     environment and we strongly
 
-    recommend using the `sandbox` environment to get acquainted with how the API
+    recommend using the `playpen` environment to get acquainted with how the API
     functions and returns
 
-    data. If you would like access to our `sandbox` environment, please contact
-    our sales team at `sales@eazycollect.co.uk`. 
+    data. If you would like access to our `playpen` environment, please contact
+    our sales team at `sales@accesspaysuite.com`. 
 
 
     The two environments behave identically, with the only difference being how
     you would access an environment. All requests to our production environment
-    would go through `ecm3.eazycollect.co.uk` whereas requests for our sandbox
-    environment would go through `sandbox.eazycollect.co.uk`.
+    would go through `ecm3.eazycollect.co.uk` whereas requests for our playpen
+    environment would go through `playpen.eazycollect.co.uk`.
 
 
     ## SDKs
@@ -4055,6 +4055,444 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules' -H 'apiKey: {apiKey}'
+  '/client/{clientCode}/contract/{contractId}/patch/changeamount':
+    post:
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The contract GUID on which to add the patch.
+          format: guid
+          in: path
+          name: contractId
+          required: true
+          type: string
+        - description: Start date of the patch.
+          format: datetime
+          in: query
+          name: from
+          required: true
+          type: string
+        - description: End date of the patch.
+          format: datetime
+          in: query
+          name: to
+          required: true
+          type: string
+        - description: Sets the contract's effective amount during the patch period.
+          format: decimal
+          in: query
+          name: amount
+          required: true
+          type: number
+        - description: Comment for the patch.
+          in: query
+          name: comment
+          required: true
+          type: string
+        - description: >
+            Example JSON/XML payload.
+          in: body
+          name: body
+          schema:
+            example:
+              Comment: Price increase
+              From: "2021-12-05T00:00:00"
+              To: "2021-12-15T00:00:00"
+              Amount: 9.99
+            type: object
+            xml:
+              name: PatchChangeAmountRequestDto
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              Message: New Patch added to contract
+        '400':
+          description: Bad Request - Overlapping patches
+          examples:
+            application/json:
+              Detail: This Patch overlaps with an existing Patch for the same Contract. Please check dates.
+              ErrorCode: 3
+              Message: Validation error
+        '404':
+          description: Contract not found
+          examples:
+            application/json:
+              error: The requested resource is not found
+      tags:
+        - Patches
+      summary: Adds a patch to change payment amount for a contract.
+  '/client/{clientCode}/contract/{contractId}/patch/skip':
+    post:
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The contract GUID on which to add the patch.
+          format: guid
+          in: path
+          name: contractId
+          required: true
+          type: string
+        - description: Start date of the patch.
+          format: datetime
+          in: query
+          name: from
+          required: true
+          type: string
+        - description: End date of the patch.
+          format: datetime
+          in: query
+          name: to
+          required: true
+          type: string
+        - description: Comment for the patch.
+          in: query
+          name: comment
+          required: true
+          type: string
+        - description: >
+            Example JSON/XML payload.
+          in: body
+          name: body
+          schema:
+            example:
+              Comment: Payment pause
+              From: "2021-12-05T00:00:00"
+              To: "2021-12-15T00:00:00"
+            type: object
+            xml:
+              name: PatchCollectionRequestDto
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              Message: New Patch added to contract
+        '400':
+          description: Bad Request - Overlapping patches
+          examples:
+            application/json:
+              Detail: This Patch overlaps with an existing Patch for the same Contract. Please check dates.
+              ErrorCode: 3
+              Message: Validation error
+        '404':
+          description: Contract not found
+          examples:
+            application/json:
+              error: The requested resource is not found
+      tags:
+        - Patches
+      summary: Adds a patch to skip collections for a contract.
+  '/client/{clientCode}/contract/{contractId}/patch/freeze':
+    post:
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The contract GUID on which to add the patch.
+          format: guid
+          in: path
+          name: contractId
+          required: true
+          type: string
+        - description: Start date of the patch.
+          format: datetime
+          in: query
+          name: from
+          required: true
+          type: string
+        - description: End date of the patch.
+          format: datetime
+          in: query
+          name: to
+          required: true
+          type: string
+        - description: Comment for the patch.
+          in: query
+          name: comment
+          required: true
+          type: string
+        - description: >
+            Example JSON/XML payload.
+          in: body
+          name: body
+          schema:
+            example:
+              Comment: Payment pause
+              From: "2021-12-05T00:00:00"
+              To: "2021-12-15T00:00:00"
+            type: object
+            xml:
+              name: PatchCollectionRequestDto
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              Message: New Patch added to contract
+        '400':
+          description: Bad Request - Overlapping patches
+          examples:
+            application/json:
+              Detail: This Patch overlaps with an existing Patch for the same Contract. Please check dates.
+              ErrorCode: 3
+              Message: Validation error
+        '404':
+          description: Contract not found
+          examples:
+            application/json:
+              error: The requested resource is not found
+      tags:
+        - Patches
+      summary: Adds a patch to freeze collections for a contract.
+  '/client/{clientCode}/contract/{contractId}/patches':
+    get:
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The contract GUID on which the patches have been applied to.
+          format: guid
+          in: path
+          name: contractId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              Patches:
+                - Id: bd686494-2b90-47b4-95f9-e88568aeb49f
+                  DateAdded: "2021-11-25T14:32:49"
+                  Type: Change amount
+                  DateFrom: "2021-12-15T00:00:00"
+                  DateTo: "2021-12-25T00:00:00"
+                  Amount: 11
+                  Comment: Price increase
+                - Id: 769f959c-57b2-4c7e-82c5-8179b9094c7e
+                  DateAdded: "2021-11-25T14:34:14"
+                  Type: Skip collection (adjusts contract)
+                  DateFrom: "2021-12-25T00:00:00"
+                  DateTo: "2022-01-05T00:00:00"
+                  Amount: null
+                  Comment: Payment pause
+                - Id: a4642e6c-75c3-4439-9474-c073925eb47c
+                  DateAdded: "2021-11-25T14:38:08"
+                  Type: Freeze collect (leave contract as is)
+                  DateFrom: "2022-01-10T00:00:00"
+                  DateTo: "2022-01-15T00:00:00"
+                  Amount: null
+                  Comment: Payment pause 2
+          schema:
+            properties:
+              Patches:
+                description: Array of Patches applied to this contract.
+                type: array
+                items:
+                  $ref: '#/definitions/Patch'
+        '404':
+          description: Contract not found
+          examples:
+            application/json:
+              error: The requested resource is not found
+      tags:
+        - Patches
+      summary: Returns all patches applied to a given contract.
+  '/client/{clientCode}/contract/{contractId}/patch/{patchId}':
+    get:
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The contract GUID on which the patch has been applied to.
+          format: guid
+          in: path
+          name: contractId
+          required: true
+          type: string
+        - description: The patch GUID.
+          format: guid
+          in: path
+          name: patchId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              Id: bd686494-2b90-47b4-95f9-e88568aeb49f
+              DateAdded: "2021-11-25T14:32:49"
+              Type: Change amount
+              DateFrom: "2021-12-15T00:00:00"
+              DateTo: "2021-12-25T00:00:00"
+              Amount: 11
+              Comment: Price increase
+          schema:
+            $ref: '#/definitions/Patch'
+        '404':
+          description: Contract/patch not found
+          examples:
+            application/json:
+              ErrorCode: 0
+              Detail: null
+              Message: Patch not found
+      tags:
+        - Patches
+      summary: Gets details of a specific patch.
+    patch:
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The contract GUID on which the patch has been applied to.
+          format: guid
+          in: path
+          name: contractId
+          required: true
+          type: string
+        - description: The patch GUID.
+          format: guid
+          in: path
+          name: patchId
+          required: true
+          type: string
+        - description: The new end date to set for this patch.
+          format: datetime
+          in: query
+          name: to
+          required: true
+          type: string
+        - description: A comment for this update.
+          in: query
+          name: comment
+          required: true
+          type: string
+        - description: >
+            Example JSON/XML payload.
+          in: body
+          name: body
+          schema:
+            example:
+              To: "2021-12-15T00:00:00.000"
+              Comment: Extend patch
+            type: object
+            xml:
+              name: PatchUpdateRequestDto
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              Message: Patch updated
+        '400':
+          description: Bad Request - Invalid To date
+          examples:
+            application/json:
+              ErrorCode: 3
+              Detail: To date should be greater than From Date. Please check patch dates
+              Message: Validation error
+        '404':
+          description: Contract/patch not found
+          examples:
+            application/json:
+              ErrorCode: 0
+              Detail: null
+              Message: Patch not found
+      tags:
+        - Patches
+      summary: Updates the end date of a patch.
+    delete:
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The contract GUID on which the patch has been applied to.
+          format: guid
+          in: path
+          name: contractId
+          required: true
+          type: string
+        - description: The patch GUID.
+          format: guid
+          in: path
+          name: patchId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              Message: Patch deleted
+        '404':
+          description: Contract/patch not found
+          examples:
+            application/json:
+              ErrorCode: 0
+              Detail: null
+              Message: Patch not found
+      tags:
+        - Patches
+      summary: Deletes a patch.
 definitions:
   AddressDetail:
     description: Address of the customer.
@@ -4331,6 +4769,38 @@ definitions:
         type: string
       ContractRef:
         description: Direct Debit reference for the contract the memo was assigned to.
+        type: string
+  Patch:
+    properties:
+      Amount:
+        description: If type is `Change amount`, defines the effective contract amount during this patch.
+        format: decimal
+        type: number
+      Comment:
+        description: A user-defined comment for this patch.
+        type: string
+      DateAdded:
+        description: Date-time this patch was added in the system.
+        format: datetime
+        type: string
+      DateFrom:
+        description: Start date for the patch.
+        format: datetime
+        type: string
+      DateTo:
+        description: End date for the patch.
+        format: datetime
+        type: string
+      Id:
+        description: The GUID for this patch object.
+        format: guid
+        type: string
+      Type:
+        description: Type of patch.
+        enum:
+          - Change amount
+          - Freeze collect (leave contract as is)
+          - Skip collection (adjusts contract)
         type: string
   Payment:
     properties:
@@ -4615,6 +5085,17 @@ tags:
       This call cannot be used unless both of the two criteria above have been
       met, otherwise unexpected results may occur.
     name: Restart a Contract
+  - name: Patches
+    description: >
+      On regularly scheduled contracts, patches can be used to make temporary changes to the payments generated, or stop them from generated. Patches can **not** be applied to ad-hoc contracts.
+      
+      We offer four different types of patches:
+        - `Change amount`
+        - `Freeze collect (leave contract as is)`
+        - `Give notice (terminate contract)`
+        - `Skip collection`
+      
+      Please note that for `Give notice (terminate contract)` patches, we allow GET, PATCH and DELETE requests for, but we do not allow to be created via the API. To add a give notice patch, you must do this via the admin UI.
   - name: Adding/Querying Payments
   - description: >
       We will send the payment creation API responses to your configured 'bulk payments' webhook - please see the Return Endpoints section for setting this.
