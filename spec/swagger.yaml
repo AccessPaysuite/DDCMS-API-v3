@@ -5326,7 +5326,7 @@ tags:
       This is what the API returns from a bulk payment insert - see the *Bulk Adding
       Payments* section for more info.
 
-      #### Example XML Payload
+      #### Example XML Payload - Successful Insert
 
       ```xml
 
@@ -5335,16 +5335,24 @@ tags:
           <Amount>15.99</Amount>
           <DueDate>2017-06-01T00:00:00</DueDate>
           <Id>1522c59f-87dc-4b31-9931-a6083776f670</Id>
-          <Comment>test</Comment>
-          <IsCredit>False</IsCredit>
-          <ErrorCode>7</ErrorCode>
-          <Detail>Invalid Contract ID</Detail>
-          <Message>Contract not found</Message>
+      </root>
+
+      ```
+      
+      #### Example XML Payload - Error
+
+      ```xml
+
+      <root>
+          <Contract>07024c7a-c31c-46c1-8e0e-8fcff640b35c</Contract>
+          <Amount>15.99</Amount>
+          <DueDate>2017-06-01T00:00:00</DueDate>
+          <Error>Invalid Contract ID</Error>
       </root>
 
       ```
 
-      #### Example JSON Payload
+      #### Example JSON Payload - Successful Insert
 
       ```json
 
@@ -5352,12 +5360,20 @@ tags:
         "Contract":"07024c7a-c31c-46c1-8e0e-8fcff640b35c",
         "Amount":15.99,
         "DueDate":"2017-06-01T00:00:00",
-        "Id":"23bc8558-51cd-4c4e-b223-260010c69d38",
-        "Comment":"test",
-        "IsCredit":false,
-        "ErrorCode":7,
-        "Detail":"Invalid Contract ID",
-        "Message":"Contract not found"
+        "Id":"23bc8558-51cd-4c4e-b223-260010c69d38"
+      }
+
+      ```
+      
+      #### Example JSON Payload - Error
+      
+      ```json
+
+      {
+        "Contract":"07024c7a-c31c-46c1-8e0e-8fcff640b35c",
+        "Amount":15.99,
+        "DueDate":"2017-06-01T00:00:00",
+        "Error": "Invalid Contract ID"
       }
 
       ```
