@@ -2308,8 +2308,15 @@ paths:
           required: true
           type: string
         - description: >
-            The new day on which payments are to be taken.
-
+            The new day on which payments are to be taken. Must be passed as an
+            integer:
+            <ul>
+            <li>1 = Monday</li>
+            <li>2 = Tuesday</li>
+            <li>3 = Wednesday</li>
+            <li>4 = Thursday</li>
+            <li>5 = Friday</li>
+            </ul>
             Payments will be collected on the next available instance of the
             payment
 
@@ -2320,16 +2327,12 @@ paths:
             be
 
             collected</u>.
-          enum:
-            - Monday
-            - Tuesday
-            - Wednesday
-            - Thursday
-            - Friday
           in: query
           name: day
           required: true
-          type: string
+          type: number
+          minimum: 1
+          maximum: 5
         - description: A comment to explain the reason for the change of day.
           in: query
           maxLength: 255
@@ -2391,7 +2394,7 @@ paths:
 
             string request =
             patch.ContractDayWeekly("1802e1dd-a657-428c-b8d0-ba162fc76203",
-            "15", "Change day", false);
+            "5", "Change to Friday", false);
         - lang: Python
           name: Python (EazySDK)
           source: >
@@ -2399,9 +2402,9 @@ paths:
 
             request =
             client.patch.contract_day_weekly('36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b',
-            15,
+            5,
 
-            'A comment', False)
+            'Change to Friday', False)
         - lang: Java
           name: Java (EazySDK)
           source: >
@@ -2409,10 +2412,10 @@ paths:
 
             String request =
             patch.contractDayWeekly("1802e1dd-a657-428c-b8d0-ba162fc76203",
-            "15", "Change day", false);
+            "5", "Change to Friday", false);
         - lang: cURL
           source: >
-            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
+            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=5&comment=Change to Friday&patchNextPayment=false' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/customer':
     get:
       produces:

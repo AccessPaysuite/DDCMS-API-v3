@@ -1863,18 +1863,13 @@
             "type": "string"
           },
           {
-            "description": "The new day on which payments are to be taken.\nPayments will be collected on the next available instance of the payment\nday, which will be a **minimum** of 5 working days in the future. Any\npayment already scheduled in the next 5 working days <u>will still be\ncollected</u>.\n",
-            "enum": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
+            "description": "The new day on which payments are to be taken. Must be passed as an integer: <ul> <li>1 = Monday</li> <li>2 = Tuesday</li> <li>3 = Wednesday</li> <li>4 = Thursday</li> <li>5 = Friday</li> </ul> Payments will be collected on the next available instance of the payment\nday, which will be a **minimum** of 5 working days in the future. Any\npayment already scheduled in the next 5 working days <u>will still be\ncollected</u>.\n",
             "in": "query",
             "name": "day",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "minimum": 1,
+            "maximum": 5
           },
           {
             "description": "A comment to explain the reason for the change of day.",
@@ -1928,21 +1923,21 @@
           {
             "lang": "C#",
             "name": "C# (EazySDK)",
-            "source": "var patch = new Patch(settings);\nstring request = patch.ContractDayWeekly(\"1802e1dd-a657-428c-b8d0-ba162fc76203\", \"15\", \"Change day\", false);\n"
+            "source": "var patch = new Patch(settings);\nstring request = patch.ContractDayWeekly(\"1802e1dd-a657-428c-b8d0-ba162fc76203\", \"5\", \"Change to Friday\", false);\n"
           },
           {
             "lang": "Python",
             "name": "Python (EazySDK)",
-            "source": "client = eazysdk.EazySDK()\nrequest = client.patch.contract_day_weekly('36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b', 15,\n'A comment', False)\n"
+            "source": "client = eazysdk.EazySDK()\nrequest = client.patch.contract_day_weekly('36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b', 5,\n'Change to Friday', False)\n"
           },
           {
             "lang": "Java",
             "name": "Java (EazySDK)",
-            "source": "Patch patch = new Patch(settings);\nString request = patch.contractDayWeekly(\"1802e1dd-a657-428c-b8d0-ba162fc76203\", \"15\", \"Change day\", false);\n"
+            "source": "Patch patch = new Patch(settings);\nString request = patch.contractDayWeekly(\"1802e1dd-a657-428c-b8d0-ba162fc76203\", \"5\", \"Change to Friday\", false);\n"
           },
           {
             "lang": "cURL",
-            "source": "curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'\n"
+            "source": "curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=5&comment=Change to Friday&patchNextPayment=false' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
