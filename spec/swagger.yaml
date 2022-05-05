@@ -1522,7 +1522,7 @@ paths:
             "2019-08-01", "A comment");
         - lang: cURL
           source: >
-            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment?amount=10.00&dueDate=2019-08-01&comment=A comment' -H 'apiKey: {apiKey}'
+            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment?amount=10.00&due=2019-08-01&comment=A comment' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/payment/{paymentId}':
     delete:
       produces:
