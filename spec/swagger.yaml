@@ -5113,6 +5113,9 @@ tags:
       required. The default is JSON – if you need XML return information,
 
       please let us know.
+      
+      
+      We also have the option for you to set custom headers that'll be sent for every notification from DDCMS to your endpoints - please raise a support case if this is something you require, telling us the header name and value to send.
 
       ### Object Change Return Information
 
