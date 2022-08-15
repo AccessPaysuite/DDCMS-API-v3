@@ -2732,6 +2732,49 @@
         ]
       }
     },
+    "/client/{clientCode}/customer/{customerId}/paymentdate": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "NextFirstPaymentDate": "2022-08-22T00:00:00+01:00",
+                "NextSubsequentPaymentDate": "2022-08-19T00:00:00+01:00"
+              }
+            },
+            "schema": {
+              "properties": {
+                "NextFirstPaymentDate": {
+                  "description": "The earliest contract start/first collection date currently allowed by your SUN.",
+                  "type": "string",
+                  "format": "datetime"
+                },
+                "NextSubsequentPaymentDate": {
+                  "description": "The earliest adhoc payment date for active contracts after first collection currently allowed by your SUN.",
+                  "type": "string",
+                  "format": "datetime"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Payment Dates"
+        ],
+        "summary": "Gets the earliest first and subsequent payment dates currently allowed.",
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules' -H 'apiKey: {apiKey}'\n"
+          }
+        ]
+      }
+    },
     "/client/{clientCode}/customer/{customerId}/contract": {
       "get": {
         "produces": [
@@ -4278,6 +4321,10 @@
     {
       "description": "A customer record captures the personal and banking details of the\nperson or organisation that you wish to collect funds from. A customer\nrecord needs to be created before a Direct Debit (contract) record can\nbe created to collect payments. There can be multiple Direct Debits\n(contracts) attached to a customer record.\n**Important: You are required to perform a modulus check on bank account numbers\nand sort codes before they are passed to the API. We can offer a bank\nchecking API on a pay-per-use basis – please contact our Sales\nDepartment on `01206 675847` for further details on pricing. Failure to\nmodulus check data is likely to cause problems in processing your\npayments. **\n",
       "name": "Customer Manipulation"
+    },
+    {
+      "description": "Although our documentation advises in most cases to lodge ad-hoc collections at least <b>5</b> working days before collection, and new contracts at least <b>10</b> working days before first collection, DDCMS can handle collections with these periods reduced to 3 and 5 working days respectively - depending on your SUN.\n\nIf you're testing on our playpen server, please send an email to us if you wish to reduce the period dates on your test account.\n\nIf you're a live customer and wish to discuss the possibility of reducing your SUN delay periods, please raise a support case.\n",
+      "name": "Payment Dates"
     },
     {
       "description": "A contract record represents the Direct Debit associated with a customer\nrecord. There are two forms of contract record:\n-   **Ad-hoc:** This is where a Direct Debit is created at the bank for\n    the customer, but no payments are requested unless you specifically\n    input payments via the Payments or Bulk Payments API call.\n-   **Scheduled:** In this mode, a schedule for payments is stated at\n    the outset and the system will create the relevant payments in the\n    database approximately five working days before the payments become\n    due. Schedules can usually be weekly or monthly, however the\n    frequencies available will be communicated to you when the API\n    details are provided.\nCustomers can have multiple contracts attached to them in order that\nthey may have multiple payment streams being collected simultaneously.\n",

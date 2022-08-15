@@ -3303,6 +3303,35 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com' -H 'apiKey: {apiKey}'
+  '/client/{clientCode}/customer/{customerId}/paymentdate':
+    get:
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              NextFirstPaymentDate: '2022-08-22T00:00:00+01:00'
+              NextSubsequentPaymentDate: '2022-08-19T00:00:00+01:00'
+          schema:
+            properties:
+              NextFirstPaymentDate:
+                description: The earliest contract start/first collection date currently allowed by your SUN.
+                type: string
+                format: datetime
+              NextSubsequentPaymentDate:
+                description: The earliest adhoc payment date for active contracts after first collection currently allowed by your SUN.
+                type: string
+                format: datetime
+            type: object
+      tags:
+        - Payment Dates
+      summary: Gets the earliest first and subsequent payment dates currently allowed.
+      x-codeSamples:
+        - lang: cURL
+          source: >
+            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/customer/{customerId}/contract':
     get:
       produces:
@@ -5022,6 +5051,14 @@ tags:
 
       payments. **
     name: Customer Manipulation
+  - description: |
+      Although our documentation advises in most cases to lodge ad-hoc collections at least <b>5</b> working days before collection, and new contracts at least <b>10</b> working days before first collection, DDCMS can handle collections with these periods reduced to 3 and 5 working days respectively - depending on your SUN.
+      
+      If you're testing on our playpen server, please send an email to us if you wish to reduce the period dates on your test account.
+      
+      If you're a live customer and wish to discuss the possibility of reducing your SUN delay periods, please raise a support case.
+      
+    name: Payment Dates
   - description: |
       A contract record represents the Direct Debit associated with a customer
       record. There are two forms of contract record:
