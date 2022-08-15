@@ -3303,10 +3303,17 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/customer/{customerId}/paymentdate':
+  '/client/{clientCode}/paymentdate':
     get:
       produces:
         - application/json
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
       responses:
         '200':
           description: OK
