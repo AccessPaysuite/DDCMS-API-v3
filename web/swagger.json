@@ -2780,7 +2780,7 @@
         "x-codeSamples": [
           {
             "lang": "cURL",
-            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules' -H 'apiKey: {apiKey}'\n"
+            "source": "curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/paymentdate' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
