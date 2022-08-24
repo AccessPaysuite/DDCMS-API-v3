@@ -2732,6 +2732,535 @@
         ]
       }
     },
+    "/client/{clientCode}/question": {
+      "post": {
+        "produces": [
+          "applciation/json"
+        ],
+        "parameters": [
+          {
+            "description": "The client code provided in your welcome email.",
+            "in": "path",
+            "maxLength": 6,
+            "name": "clientCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Label for the question.",
+            "in": "query",
+            "maxLength": 200,
+            "name": "label",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Data type for answers to this question.",
+            "in": "query",
+            "enum": [
+              "text",
+              "list",
+              "date"
+            ],
+            "name": "type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Comma-separated list of possible answers for this question. Can only be used when type is `list`.",
+            "in": "query",
+            "name": "options",
+            "required": false,
+            "type": "string",
+            "pattern": "\\[[A-Za-z0-9,]+\\]",
+            "maxLength": 200
+          },
+          {
+            "description": "Whether or not an answer is required for this question.",
+            "in": "query",
+            "name": "isMandatory",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "description": "Example JSON payload.",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "example": {
+                "label": "Would you like us to send you offers by email?",
+                "type": "list",
+                "options": "[Yes,No]",
+                "isMandatory": false
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "Id": "e45afe74-0217-43e1-8afc-0f60b887c691",
+                "Message": "Client custom question was added successfully"
+              }
+            },
+            "schema": {
+              "properties": {
+                "Id": {
+                  "description": "The GUID of the question. You must save this to your database as it will be needed when you add an answer.\n",
+                  "type": "string"
+                },
+                "Message": {
+                  "description": "Success message.\n",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad request - options not provided for `list` question",
+            "examples": {
+              "application/json": {
+                "ErrorCode": 3,
+                "Detail": "Please provide Options for the selected Type.",
+                "Message": "Validation error"
+              }
+            }
+          }
+        },
+        "summary": "Creates a new question.",
+        "tags": [
+          "Customer Questions"
+        ]
+      }
+    },
+    "/client/{clientCode}/question/{questionId}": {
+      "patch": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The client code provided in your welcome email.",
+            "in": "path",
+            "maxLength": 6,
+            "name": "clientCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The ID of the question to update.",
+            "in": "path",
+            "name": "questionId",
+            "required": true,
+            "type": "string",
+            "format": "guid"
+          },
+          {
+            "description": "Label for the question.",
+            "in": "query",
+            "maxLength": 200,
+            "name": "label",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Data type for answers to this question.",
+            "in": "query",
+            "enum": [
+              "text",
+              "list",
+              "date"
+            ],
+            "name": "type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Comma-separated list of possible answers for this question. Can only be used when type is `list`.",
+            "in": "query",
+            "name": "options",
+            "required": false,
+            "type": "string",
+            "pattern": "[A-Za-z0-9,]+",
+            "maxLength": 200
+          },
+          {
+            "description": "Whether or not an answer is required for this question.",
+            "in": "query",
+            "name": "isMandatory",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Example JSON payload.",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "example": {
+                "label": "Would you like us to send you offers by email?",
+                "type": "list",
+                "options": "Yes,No",
+                "isMandatory": false
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "Message": "Client custom question updated"
+              }
+            },
+            "schema": {
+              "properties": {
+                "Id": {
+                  "description": "The GUID of the question. You must save this to your database as it will be needed when you add an answer.\n",
+                  "type": "string"
+                },
+                "Message": {
+                  "description": "Success message.\n",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad request - options not provided for `list` question",
+            "examples": {
+              "application/json": {
+                "ErrorCode": 3,
+                "Detail": "Please provide Options for the selected Type.",
+                "Message": "Validation error"
+              }
+            }
+          }
+        },
+        "summary": "Updates an existing question.",
+        "tags": [
+          "Customer Questions"
+        ]
+      }
+    },
+    "/client/{clientCode}/questions": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The client code provided in your welcome email.",
+            "in": "path",
+            "maxLength": 6,
+            "name": "clientCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "Questions": [
+                  {
+                    "Id": "3836f9ea-bf95-495b-a87b-76012056ab3d",
+                    "Label": "Enter your pet's name:",
+                    "Type": "Text",
+                    "Options": [
+                      ""
+                    ],
+                    "IsMandatory": false
+                  },
+                  {
+                    "Id": "dec0153e-7e75-4666-9b90-08efb48cea0b",
+                    "Label": "Would you like us to send you offers by email?",
+                    "Type": "List",
+                    "Options": [
+                      "Yes",
+                      "No"
+                    ],
+                    "IsMandatory": false
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "properties": {
+                "Questions": {
+                  "description": "Array of Questions.",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Question"
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Lists all questions created for the client.",
+        "tags": [
+          "Customer Questions"
+        ]
+      }
+    },
+    "/client/{clientCode}/customer/{customerId}/question/{questionId}/answer": {
+      "post": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The client code provided in your welcome email.",
+            "in": "path",
+            "maxLength": 6,
+            "name": "clientCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Customer to assign the answer to.",
+            "in": "path",
+            "name": "customerId",
+            "required": true,
+            "type": "string",
+            "format": "guid"
+          },
+          {
+            "description": "Question the answer relates to.",
+            "in": "path",
+            "name": "questionId",
+            "required": true,
+            "type": "string",
+            "format": "guid"
+          },
+          {
+            "description": "The answer to add.",
+            "in": "query",
+            "required": true,
+            "name": "value",
+            "type": "string",
+            "maxLength": 200
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "Message": "Customer Answer added"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - answer exists",
+            "examples": {
+              "application/json": {
+                "ErrorCode": 3,
+                "Detail": "There is an existing Customer answer with the same Customer and Question in the database already.",
+                "Message": "Validation error"
+              }
+            }
+          }
+        },
+        "summary": "Adds an answer for a customer.",
+        "tags": [
+          "Customer Questions"
+        ]
+      },
+      "patch": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The client code provided in your welcome email.",
+            "in": "path",
+            "maxLength": 6,
+            "name": "clientCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Customer to assign the answer to.",
+            "in": "path",
+            "name": "customerId",
+            "required": true,
+            "type": "string",
+            "format": "guid"
+          },
+          {
+            "description": "Question the answer relates to.",
+            "in": "path",
+            "name": "questionId",
+            "required": true,
+            "type": "string",
+            "format": "guid"
+          },
+          {
+            "description": "The answer to add.",
+            "in": "query",
+            "required": true,
+            "name": "value",
+            "type": "string",
+            "maxLength": 200
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "Message": "Customer Answer updated"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - answer not in Options",
+            "examples": {
+              "application/json": {
+                "ErrorCode": 3,
+                "Detail": "Please provide a valid response to this question.  Possible responses are Yes,No",
+                "Message": "Validation error"
+              }
+            }
+          },
+          "404": {
+            "description": "Answer not found",
+            "examples": {
+              "application/json": {
+                "ErrorCode": 9,
+                "Detail": null,
+                "Message": "Customer Answer not found"
+              }
+            }
+          }
+        },
+        "summary": "Updates an existing customer answer.",
+        "tags": [
+          "Customer Questions"
+        ]
+      },
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The client code provided in your welcome email.",
+            "in": "path",
+            "maxLength": 6,
+            "name": "clientCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Customer to assign the answer to.",
+            "in": "path",
+            "name": "customerId",
+            "required": true,
+            "type": "string",
+            "format": "guid"
+          },
+          {
+            "description": "Question the answer relates to.",
+            "in": "path",
+            "name": "questionId",
+            "required": true,
+            "type": "string",
+            "format": "guid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "Message": "Customer Answer deleted"
+              }
+            }
+          },
+          "404": {
+            "description": "Answer not found",
+            "examples": {
+              "application/json": {
+                "ErrorCode": 9,
+                "Detail": null,
+                "Message": "Customer Answer not found"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The client code provided in your welcome email.",
+            "in": "path",
+            "maxLength": 6,
+            "name": "clientCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Customer to assign the answer to.",
+            "in": "path",
+            "name": "customerId",
+            "required": true,
+            "type": "string",
+            "format": "guid"
+          },
+          {
+            "description": "Question the answer relates to.",
+            "in": "path",
+            "name": "questionId",
+            "required": true,
+            "type": "string",
+            "format": "guid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Answer"
+            },
+            "examples": {
+              "application/json": {
+                "Id": "37c1def5-e9e5-4be4-bd6a-bc8fb5f0cbc2",
+                "Product": null,
+                "Customer": "66e88855-a07e-40d8-aff6-1fa7ace4dd1d",
+                "CustomQuestion": "ba8a6aef-756f-4945-b846-f8adaafb69df",
+                "Answer": "Yes"
+              }
+            }
+          },
+          "404": {
+            "description": "Answer not found",
+            "examples": {
+              "application/json": {
+                "ErrorCode": 9,
+                "Detail": null,
+                "Message": "Customer Answer not found"
+              }
+            }
+          }
+        },
+        "summary": "Gets the answer for a particular customer and question.",
+        "tags": [
+          "Customer Questions"
+        ]
+      }
+    },
     "/client/{clientCode}/paymentdate": {
       "get": {
         "produces": [
@@ -3902,6 +4431,36 @@
         }
       }
     },
+    "Answer": {
+      "description": "Answer to a custom question.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "Unique ID for the answer.",
+          "type": "string",
+          "format": "guid"
+        },
+        "Product": {
+          "description": "If the question is a ServiceCustomQuestion, returns the service the question belongs to. Otherwise, returns `null`.",
+          "type": "string",
+          "format": "guid"
+        },
+        "Customer": {
+          "description": "Unique ID for the customer.",
+          "type": "string",
+          "format": "guid"
+        },
+        "CustomQuestion": {
+          "description": "Unique ID for the question the answer is for.",
+          "type": "string",
+          "format": "guid"
+        },
+        "Answer": {
+          "description": "Actual value of the answer.",
+          "type": "string"
+        }
+      }
+    },
     "BankDetail": {
       "description": "Details of the customer's bank account.",
       "type": "object",
@@ -4309,6 +4868,39 @@
         }
       },
       "type": "object"
+    },
+    "Question": {
+      "properties": {
+        "Id": {
+          "description": "Unique ID for this question. We recommend you keep a record of this as it's required for adding answers.",
+          "type": "string",
+          "format": "guid"
+        },
+        "Label": {
+          "description": "Label for the question.",
+          "type": "string"
+        },
+        "Type": {
+          "description": "Data type for answers to this question.",
+          "type": "string",
+          "enum": [
+            "text",
+            "list",
+            "date"
+          ]
+        },
+        "Options": {
+          "description": "Comma-separated list of possible answers for this question. Can only be used when type is `list`.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "IsMandatory": {
+          "description": "Whether or not an answer is required for this question.",
+          "type": "boolean"
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -4331,6 +4923,10 @@
     {
       "description": "A customer record captures the personal and banking details of the\nperson or organisation that you wish to collect funds from. A customer\nrecord needs to be created before a Direct Debit (contract) record can\nbe created to collect payments. There can be multiple Direct Debits\n(contracts) attached to a customer record.\n**Important: You are required to perform a modulus check on bank account numbers\nand sort codes before they are passed to the API. We can offer a bank\nchecking API on a pay-per-use basis – please contact our Sales\nDepartment on `01206 675847` for further details on pricing. Failure to\nmodulus check data is likely to cause problems in processing your\npayments. **\n",
       "name": "Customer Manipulation"
+    },
+    {
+      "description": "Add custom fields to your customer data.",
+      "name": "Customer Questions"
     },
     {
       "description": "Although our documentation advises in most cases to lodge ad-hoc collections at least <b>5</b> working days before collection, and new contracts at least <b>10</b> working days before first collection, DDCMS can handle collections with these periods reduced to 3 and 5 working days respectively - depending on your SUN.\n\nIf you're testing on our playpen server, please send an email to us if you wish to reduce the period dates on your test account.\n\nIf you're a live customer and wish to discuss the possibility of reducing your SUN delay periods, please raise a support case.\n",
