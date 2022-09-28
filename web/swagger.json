@@ -2772,7 +2772,7 @@
             "name": "options",
             "required": false,
             "type": "string",
-            "pattern": "\\[[A-Za-z0-9,]+\\]",
+            "pattern": "[A-Za-z0-9,]+",
             "maxLength": 200
           },
           {
@@ -2790,7 +2790,7 @@
               "example": {
                 "label": "Would you like us to send you offers by email?",
                 "type": "list",
-                "options": "[Yes,No]",
+                "options": "Yes,No",
                 "isMandatory": false
               }
             }

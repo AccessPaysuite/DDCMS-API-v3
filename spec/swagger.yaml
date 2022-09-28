@@ -3334,7 +3334,7 @@ paths:
           name: options
           required: false
           type: string
-          pattern: '\[[A-Za-z0-9,]+\]'
+          pattern: '[A-Za-z0-9,]+'
           maxLength: 200
         - description: Whether or not an answer is required for this question.
           in: query
@@ -3348,7 +3348,7 @@ paths:
             example:
               label: Would you like us to send you offers by email?
               type: list
-              options: '[Yes,No]'
+              options: 'Yes,No'
               isMandatory: false
       responses:
         '200':
