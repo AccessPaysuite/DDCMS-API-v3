@@ -3629,6 +3629,9 @@ paths:
               ErrorCode: 9
               Detail: null
               Message: "Customer Answer not found"
+      summary: Deletes an existing customer answer.
+      tags:
+        - Customer Questions
     get:
       produces:
         - application/json

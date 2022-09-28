@@ -3196,7 +3196,11 @@
               }
             }
           }
-        }
+        },
+        "summary": "Deletes an existing customer answer.",
+        "tags": [
+          "Customer Questions"
+        ]
       },
       "get": {
         "produces": [
