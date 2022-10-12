@@ -3306,7 +3306,7 @@ paths:
   '/client/{clientCode}/question':
     post:
       produces:
-        - applciation/json
+        - application/json
       parameters:
         - description: The client code provided in your welcome email.
           in: path
