@@ -361,6 +361,7 @@ paths:
           type: string
         - description: The entity for which to receive callback BACS messages.
           enum:
+            - bulkpayment
             - customer
             - contract
             - payment
@@ -417,6 +418,7 @@ paths:
           type: string
         - description: The entity for which to receive callback BACS messages.
           enum:
+            - bulkpayment
             - customer
             - contract
             - payment
@@ -496,6 +498,7 @@ paths:
           type: string
         - description: The entity for which to receive callback BACS messages.
           enum:
+            - bulkpayment
             - customer
             - contract
             - payment
@@ -5027,6 +5030,7 @@ definitions:
   CallbackEntities:
     description: The entity for which to receive callback BACS messages.
     enum:
+      - bulkpayment
       - customer
       - contract
       - payment
@@ -5445,6 +5449,8 @@ tags:
       | Entity | Payload | 
 
       | ------ | ------- |
+      
+      | bulkpayment | Notification of success/failure to process a bulk payment request - see 'Bulk Adding Payments' section for more info.
 
       | customer | Notification of customer changes due to BACS notifications 
 

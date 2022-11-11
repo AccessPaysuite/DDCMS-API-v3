@@ -37,6 +37,7 @@
           {
             "description": "The entity for which to receive callback BACS messages.",
             "enum": [
+              "bulkpayment",
               "customer",
               "contract",
               "payment",
@@ -105,6 +106,7 @@
           {
             "description": "The entity for which to receive callback BACS messages.",
             "enum": [
+              "bulkpayment",
               "customer",
               "contract",
               "payment",
@@ -196,6 +198,7 @@
           {
             "description": "The entity for which to receive callback BACS messages.",
             "enum": [
+              "bulkpayment",
               "customer",
               "contract",
               "payment",
@@ -4534,6 +4537,7 @@
     "CallbackEntities": {
       "description": "The entity for which to receive callback BACS messages.",
       "enum": [
+        "bulkpayment",
         "customer",
         "contract",
         "payment",
@@ -4921,7 +4925,7 @@
   ],
   "tags": [
     {
-      "description": "\nReturn data is passed to endpoints of your choice by setting the URL\nthat data should be posted to using the API. Data is returned to three separate endpoints based on the entity described, as explained in the table below. Each callback can be set to pass data to the same endpoint. You should contact us at\nhelp@accesspaysuite.com to advise whether you require return\ninformation in XML or JSON format; the default is JSON.\n\n| Entity | Payload | \n| ------ | ------- |\n| customer | Notification of customer changes due to BACS notifications \n| contract | Notification of contract changes due to BACS notifications  \n| payment | Payment data returned from a scheduled payment creation\n| schedule | Notification of change, addition or deletion of a contract schedule\n",
+      "description": "\nReturn data is passed to endpoints of your choice by setting the URL\nthat data should be posted to using the API. Data is returned to three separate endpoints based on the entity described, as explained in the table below. Each callback can be set to pass data to the same endpoint. You should contact us at\nhelp@accesspaysuite.com to advise whether you require return\ninformation in XML or JSON format; the default is JSON.\n\n| Entity | Payload | \n| ------ | ------- |\n| bulkpayment | Notification of success/failure to process a bulk payment request - see 'Bulk Adding Payments' section for more info.\n| customer | Notification of customer changes due to BACS notifications \n| contract | Notification of contract changes due to BACS notifications  \n| payment | Payment data returned from a scheduled payment creation\n| schedule | Notification of change, addition or deletion of a contract schedule\n",
       "name": "Return Endpoints"
     },
     {
