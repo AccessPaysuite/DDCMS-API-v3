@@ -3528,7 +3528,7 @@
             "type": "integer"
           },
           {
-            "description": "If the contract is for regular payments, then the day on which you wish\nthe first payment should be passed with this parameter.  **NOTE:** *You\nmay not* select days 29, 30 or 31 of the month; if you wish to select the\nlast day of the month; pass the integer value 99 which represent `Last day of the Month`.\nThis field is only mandatory if the contract is **not** an ad-hoc contract.\nThis field is only mandatory if the contract is **annual** or **monthly**.\nYou may only select days 1 to 28 or “Last day of the month” which is equal with value 99.\nChoosing 29, 30 or 31 will result in payments being skipped in\nmonths that do not contain that date.\n",
+            "description": "If the contract is for regular payments, then the day on which you wish\nthe first payment should be passed with this parameter.\nThis field is only mandatory if the contract is **not** an ad-hoc contract.\nThis field is only mandatory if the contract is **annual** or **monthly**.\n**NOTE:** You may only select:\n  - days **1** to **28**\n  - **98**, which represents `Last working day of the Month`\n  - **99**, which represents `Last day of the Month`\nequal with value 99.\n*You may not* select days 29, 30 or 31 of the month; choosing 29, 30 or 31 will result in payments being skipped in months that do not contain that date.\n",
             "enum": [
               1,
               2,
@@ -3558,6 +3558,7 @@
               26,
               27,
               28,
+              98,
               99
             ],
             "in": "query",

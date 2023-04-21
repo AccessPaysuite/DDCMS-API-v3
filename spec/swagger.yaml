@@ -3991,27 +3991,23 @@ paths:
             If the contract is for regular payments, then the day on which you
             wish
 
-            the first payment should be passed with this parameter.  **NOTE:**
-            *You
-
-            may not* select days 29, 30 or 31 of the month; if you wish to
-            select the
-
-            last day of the month; pass the integer value 99 which represent
-            `Last day of the Month`.
-
+            the first payment should be passed with this parameter.
+            
             This field is only mandatory if the contract is **not** an ad-hoc
             contract.
 
             This field is only mandatory if the contract is **annual** or
             **monthly**.
 
-            You may only select days 1 to 28 or “Last day of the month” which is
+            **NOTE:** You may only select:
+              - days **1** to **28**
+              - **98**, which represents `Last working day of the Month`
+              - **99**, which represents `Last day of the Month`
             equal with value 99.
-
-            Choosing 29, 30 or 31 will result in payments being skipped in
-
-            months that do not contain that date.
+            
+            *You may not* select days 29, 30 or 31 of the month; choosing 29, 30
+            or 31 will result in payments being skipped in months that do not
+            contain that date.
           enum:
             - 1
             - 2
@@ -4041,6 +4037,7 @@ paths:
             - 26
             - 27
             - 28
+            - 98
             - 99
           in: query
           name: paymentDayInMonth
