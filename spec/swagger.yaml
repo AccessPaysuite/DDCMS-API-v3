@@ -2210,7 +2210,7 @@ paths:
 
             this can be passed to using the `additionalReference` parameter.
           in: query
-          maxLength: 255
+          maxLength: 200
           name: additionalReference
           type: string
       responses:
@@ -4117,7 +4117,7 @@ paths:
 
             this can be passed to using the `additionalReference` parameter.
           in: query
-          maxLength: 255
+          maxLength: 200
           name: additionalReference
           type: string
         - description: >
