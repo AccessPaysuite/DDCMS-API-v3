@@ -590,7 +590,7 @@ paths:
               Failures:
                 type: array
                 items:
-                  $ref: '#/definitions/BulkPayment'
+                  $ref: '#/definitions/BulkPaymentRequest'
                 description: Array of payment requests that failed to push to the queue.
               IsSuccessfull:
                 type: boolean
@@ -5023,7 +5023,7 @@ definitions:
         description: Array of payments to be inserted in bulk.
         type: array
         items:
-          $ref: '#/definitions/BulkPayment'
+          $ref: '#/definitions/BulkPaymentRequest'
   CallbackEntities:
     description: The entity for which to receive callback BACS messages.
     enum:
