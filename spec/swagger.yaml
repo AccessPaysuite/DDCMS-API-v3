@@ -5822,7 +5822,7 @@ tags:
           <Contract>07024c7a-c31c-46c1-8e0e-8fcff640b35c</Contract>
           <Amount>15.99</Amount>
           <DueDate>2017-06-01T00:00:00</DueDate>
-          <Error>Invalid Contract ID</Error>
+          <Error>Contract not found - Invalid Contract Id</Error>
       </root>
 
       ```
@@ -5848,7 +5848,7 @@ tags:
         "Contract":"07024c7a-c31c-46c1-8e0e-8fcff640b35c",
         "Amount":15.99,
         "DueDate":"2017-06-01T00:00:00",
-        "Error": "Invalid Contract ID"
+        "Error": "Contract not found - Invalid Contract Id"
       }
 
       ```
