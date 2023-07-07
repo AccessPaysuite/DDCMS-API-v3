@@ -307,30 +307,6 @@ info:
     would go through `ecm3.eazycollect.co.uk` whereas requests for our playpen
     environment would go through `playpen.eazycollect.co.uk`.
 
-
-    ## SDKs
-
-    To help improve speed and reliability when integrating into the
-    EazyCustomerManager product, we have created open-sourced, MIT licensed SDKs
-    for Python, C# and Java for our developers to use. You can view the
-    documentation for all three below
-
-
-    - [Python](https://github.com/EazyCollectServices/EazyCollectSDK-Python)
-
-    - [C#](https://github.com/EazyCollectServices/EazyCollectSDK-Dotnet)
-
-    - [Java](https://github.com/EazyCollectServices/EazyCollectSDK-Java)
-
-
-    All three SDKs are free to use and no additional setup is required to begin
-    using them. All code examples in this document will provide examples based
-    on the above SDKs. 
-
-
-    There are currently no plans to bring the SDKs to additional languages,
-    though that may change in the future.
-
       contact:
     email: help@accesspaysuite.com
   license:
