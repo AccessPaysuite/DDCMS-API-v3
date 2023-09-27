@@ -6,14 +6,13 @@ info:
     Access PaySuite is a leading provider of payment solutions to mid-sized UK organisations. Part of The Access Group, it combines payments expertise with unparalleled SaaS experience to help customers across commercial and not for profit sectors improve their payment solutions, providing organisations with the freedom to accelerate their innovation and growth. For more information about Access PaySuite, visit www.accesspaysuite.com
     
 
-    Our Collection Services are based around our Eazy Customer Manager™
-    application
-
-    which manages the Direct Debit process from beginning to end and is
-    connected to a
-
-    robust and powerful BACS submission engine. The system also provides a range
-    of
+    Our Collection Services are based around our Direct Debit and Credit Management System
+    
+    (DDCMS) application which manages the Direct Debit process from beginning
+    to end and is connected
+    
+    to a robust and powerful BACS submission engine. The system also provides
+    a range of
 
     management information via the easy to use secure web interface.
 
@@ -112,7 +111,7 @@ info:
     days after the schedule creation date.
 
 
-    3. Ad-hoc payments need to be lodged onto the *Eazy Customer Manager™*
+    3. Ad-hoc payments need to be lodged onto *DDCMS*
 
     <u>at least</u> 5 working days before the collection date.
 
@@ -192,7 +191,7 @@ info:
     ## Using the API and UI together
 
 
-    Eazy Customer Manager provides a useful User Interface (UI) available
+    DDCMS provides a useful User Interface (UI) available
 
     via your browser which gives access to your customer data and a suite of
 
@@ -222,7 +221,7 @@ info:
     - The account and arrears balances shown in the Access Paysuite UI
       against each customer will not reflect manual payments made in your
       CRM/Accounts package unless they are also (double) keyed as manual
-      payments onto the Eazy Customer Manager UI.
+      payments onto the DDCMS UI.
 
     - At present, there is no way to automatically “represent” failed
       payments using the API and therefore our recommendation is to add a
