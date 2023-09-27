@@ -2,7 +2,7 @@
   "generator-openapi-repo": {
     "importExistingSpec": true,
     "importedSpec": "/Users/ivang/dev/eng_swagger/spec/swagger.yaml",
-    "name": "EazyCollect",
+    "name": "Access PaySuite DDCMS",
     "repo": "EazyCollectServices/EazyCollectAPIv3",
     "splitSpec": false,
     "samples": false,
