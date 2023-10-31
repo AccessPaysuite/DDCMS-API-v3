@@ -1,6 +1,15 @@
 swagger: '2.0'
 info:
   description: >
+    **NOTICE:** On 29th November 2023 at 09:00am GMT, the new URL for this documentation page will be updated
+    to: https://api-docs.accesspaysuite.com/DDCMS-API-v3
+    
+    We strongly encourage all users of the API to actively change to using the new link when it goes live
+    on 29th November.
+    
+    
+    Please note that the current URL 'https://github.com/EazyCollectServices/EazyCollectAPIv3/' will be phased out, so please ensure you update your bookmarks and links as soon as possible once the new URL 'https://api-docs.accesspaysuite.com/DDCMS-API-v3' becomes active.
+  
     ## About Access Paysuite
     
     Access PaySuite is a leading provider of payment solutions to mid-sized UK organisations. Part of The Access Group, it combines payments expertise with unparalleled SaaS experience to help customers across commercial and not for profit sectors improve their payment solutions, providing organisations with the freedom to accelerate their innovation and growth. For more information about Access PaySuite, visit www.accesspaysuite.com
