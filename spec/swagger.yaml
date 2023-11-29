@@ -1,14 +1,7 @@
 swagger: '2.0'
 info:
   description: >
-    **NOTICE:** On 29th November 2023 at 09:00am GMT, the new URL for this documentation page will be updated
-    to: https://api-docs.accesspaysuite.com/DDCMS-API-v3
-    
-    We strongly encourage all users of the API to actively change to using the new link when it goes live
-    on 29th November.
-    
-    
-    Please note that the current URL 'https://github.com/EazyCollectServices/EazyCollectAPIv3/' will be phased out, so please ensure you update your bookmarks and links as soon as possible once the new URL 'https://api-docs.accesspaysuite.com/DDCMS-API-v3' becomes active.
+    **NOTICE:** The current API documentation URL 'https://github.com/EazyCollectServices/EazyCollectAPIv3/' will soon be phased out. We will let you know what the new URL hosting this documentation will be, and when the update will take place, before the change.
   
     ## About Access Paysuite
     
