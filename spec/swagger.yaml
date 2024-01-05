@@ -5787,6 +5787,10 @@ tags:
           <Amount>15.99</Amount>
           <DueDate>2017-06-01T00:00:00</DueDate>
           <Id>1522c59f-87dc-4b31-9931-a6083776f670</Id>
+          <Error />
+          <Comment>Successful Payment Example</Comment>
+          <IsCredit>false</IsCredit>
+          <Message />
       </root>
 
       ```
@@ -5799,7 +5803,11 @@ tags:
           <Contract>07024c7a-c31c-46c1-8e0e-8fcff640b35c</Contract>
           <Amount>15.99</Amount>
           <DueDate>2017-06-01T00:00:00</DueDate>
+          <Id>00000000-0000-0000-0000-000000000000</Id>
           <Error>Contract not found - Invalid Contract Id</Error>
+          <Comment>Failed Payment Example</Comment>
+          <IsCredit>false</IsCredit>
+          <Message />
       </root>
 
       ```
