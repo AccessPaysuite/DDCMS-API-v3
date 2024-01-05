@@ -5812,7 +5812,11 @@ tags:
         "Contract":"07024c7a-c31c-46c1-8e0e-8fcff640b35c",
         "Amount":15.99,
         "DueDate":"2017-06-01T00:00:00",
-        "Id":"23bc8558-51cd-4c4e-b223-260010c69d38"
+        "Id":"23bc8558-51cd-4c4e-b223-260010c69d38",
+        "Error": null,
+        "Comment": "Successful Payment Example",
+        "IsCredit": false,
+        "Message": null
       }
 
       ```
@@ -5825,7 +5829,11 @@ tags:
         "Contract":"07024c7a-c31c-46c1-8e0e-8fcff640b35c",
         "Amount":15.99,
         "DueDate":"2017-06-01T00:00:00",
-        "Error": "Contract not found - Invalid Contract Id"
+        "Id": "00000000-0000-0000-0000-000000000000",
+        "Error": "Contract not found - Invalid Contract Id",
+        "Comment": "Failed Payment Example",
+        "IsCredit": false,
+        "Message": null
       }
 
       ```
@@ -5842,9 +5850,13 @@ tags:
 
       | DueDate   | The due date of the payment.
 
-      | Id        | The payment GUID that you should keep a record of.
+      | Id        | The payment GUID that you should keep a record of. If the request fails, this will be `00000000-0000-0000-0000-000000000000`
 
       | Error     | Any validation errors will appear here.
+      
+      | Comment   | The custom comment passed in for this payment request.
+      
+      | IsCredit  | Whether the payment is a credit (`True`) or debit (`False`) collection.
 
       | Message   | Any validation messages or warnings will appear here.
       
