@@ -1,7 +1,9 @@
 swagger: '2.0'
 info:
   description: >
-    **NOTICE:** The current API documentation URL 'https://github.com/EazyCollectServices/EazyCollectAPIv3/' will soon be phased out. We will let you know what the new URL hosting this documentation will be, and when the update will take place, before the change.
+    **NOTICE:** The URL hosting this documentation will be updated to https://api-docs-ddcms-v3.accesspaysuite.com on **24th January at 09:00 UK time**.
+    
+    We strongly encourage all of our customers to actively change to using the new link when it goes live on 24th January. Connections to the current site https://eazycollectservices.github.io/EazyCollectAPIv3/ will automatically redirect to https://api-docs-ddcms-v3.accesspaysuite.com. However, we only intend to maintain this automatic redirect across a transitional period, so please ensure you update your bookmarks and links as soon as possible.
   
     ## About Access Paysuite
     
