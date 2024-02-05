@@ -1961,6 +1961,30 @@
             "type": "string"
           },
           {
+            "description": "The number of customer records to return per page.\nIf this parameter is omitted or `0` is passed in, no pagination will be used.\n",
+            "in": "query",
+            "name": "pageSize",
+            "type": "number"
+          },
+          {
+            "description": "The current page of results you wish to view.",
+            "in": "query",
+            "name": "pageNumber",
+            "type": "number"
+          },
+          {
+            "description": "Default is `false`.\nIf `true`, adds extra JSON metadata in the response to help callers using pagination.\n",
+            "in": "query",
+            "name": "includePagingDetail",
+            "type": "boolean"
+          },
+          {
+            "description": "Default is `true`.\nIf `true`, includes an array of `Memos` for each customer record returned.\nIf `false`, `Memos` will return `null` for every customer.\n",
+            "in": "query",
+            "name": "includeMemos",
+            "type": "boolean"
+          },
+          {
             "description": "The customer’s contact email address.",
             "in": "query",
             "maxLength": 255,
@@ -2117,6 +2141,11 @@
                   "items": {
                     "$ref": "#/definitions/Customer"
                   }
+                },
+                "Metadata": {
+                  "description": "Object of metadata useful for clients using pagination.\nOnly included if `includePagingDetail=true`\n",
+                  "type": "object",
+                  "$ref": "#/definitions/PagingMetadata"
                 }
               }
             }
@@ -4721,7 +4750,7 @@
           "type": "boolean"
         },
         "Memos": {
-          "description": "Memos for this customer.",
+          "description": "Memos for this customer. When calling `GET /customer` with `includeMemos=false`, this will be `null`.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/CustomerMemo"
@@ -4776,6 +4805,28 @@
         "ContractRef": {
           "description": "Direct Debit reference for the contract the memo was assigned to.",
           "type": "string"
+        }
+      }
+    },
+    "PagingMetadata": {
+      "description": "Object providing useful metadata for clients calling an endpoint with pagination.",
+      "type": "object",
+      "properties": {
+        "TotalPages": {
+          "description": "Total count of pages.",
+          "type": "number"
+        },
+        "TotalRecords": {
+          "description": "Count of records with current filter.",
+          "type": "number"
+        },
+        "PageSize": {
+          "description": "Number of records returned per page.",
+          "type": "number"
+        },
+        "PageNumber": {
+          "description": "Current page.",
+          "type": "number"
         }
       }
     },

@@ -2411,6 +2411,29 @@ paths:
           name: clientCode
           required: true
           type: string
+        - description: |
+            The number of customer records to return per page.
+            If this parameter is omitted or `0` is passed in, no pagination will be used.
+          in: query
+          name: pageSize
+          type: number
+        - description: The current page of results you wish to view.
+          in: query
+          name: pageNumber
+          type: number
+        - description: |
+            Default is `false`.
+            If `true`, adds extra JSON metadata in the response to help callers using pagination.
+          in: query
+          name: includePagingDetail
+          type: boolean
+        - description: |
+            Default is `true`.
+            If `true`, includes an array of `Memos` for each customer record returned.
+            If `false`, `Memos` will return `null` for every customer.
+          in: query
+          name: includeMemos
+          type: boolean
         - description: The customer’s contact email address.
           in: query
           maxLength: 255
@@ -2602,6 +2625,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Customer'
+              Metadata:
+                description: |
+                  Object of metadata useful for clients using pagination.
+                  Only included if `includePagingDetail=true`
+                type: object
+                $ref: '#/definitions/PagingMetadata'
         '404':
           description: Customer not found
           examples:
@@ -5154,7 +5183,7 @@ definitions:
         description: Returns true if all of the customer's contracts are archived, otherwise false.
         type: boolean
       Memos:
-        description: Memos for this customer.
+        description: Memos for this customer. When calling `GET /customer` with `includeMemos=false`, this will be `null`.
         type: array
         items:
           $ref: '#/definitions/CustomerMemo'
@@ -5186,6 +5215,22 @@ definitions:
       ContractRef:
         description: Direct Debit reference for the contract the memo was assigned to.
         type: string
+  PagingMetadata:
+    description: Object providing useful metadata for clients calling an endpoint with pagination.
+    type: object
+    properties:
+      TotalPages:
+        description: Total count of pages.
+        type: number
+      TotalRecords:
+        description: Count of records with current filter.
+        type: number
+      PageSize:
+        description: Number of records returned per page.
+        type: number
+      PageNumber:
+        description: Current page.
+        type: number
   Patch:
     properties:
       Amount:
