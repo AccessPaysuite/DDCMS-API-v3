@@ -5826,6 +5826,51 @@ tags:
       }
 
       ```
+      
+      ### New eDD Signup Notification Information
+      
+      This notification is submitted when a contract is created from a payer completing
+      registration on an Access Payments eDD page linked to your DDCMS client account.
+      
+      
+      This does *NOT* send information on contracts added via the POST /contract endpoint,
+      or added manually in the DDCMS portal. This is *ONLY* for contracts added via eDD.
+      
+      
+      Currently the callback URL for these notifications cannot be changed via the API - if
+      you wish to setup or amend the callback for New eDD Signups, please raise a support case.
+      
+      ```json
+      
+      {
+        "CustomerId": "e4e9bdad-4370-4072-ad4f-77454a42d839",
+        "AdditionalRef": "My Additional Ref",
+        "DirectDebitReference": "ABC-XY123456",
+        "ScheduleName": "Monthly",
+        "Description": "Monthly > Every 1 month > Day chosen by customer starting on any month (customer's choice) > Until further notice > Switch to further notice",
+        "PaymentMonthInYear": 4,
+        "PaymentDayInMonth": 15,
+        "PaymentDayInWeek": null,
+        "Start": "2023-04-15T00:00:00",
+        "TerminationDate": null,
+        "TerminationType": "Until further notice",
+        "NumberOfDebits": null,
+        "InitialAmount": null,
+        "ExtraInitialAmounts": "",
+        "Amount": 15,
+        "FinalAmount": null,
+        "Every": 1,
+        "IsGiftAid": true,
+        "AtTheEnd": "Switch to further notice",
+        "Status": "Creation Pending",
+        "StatusExplanation": "",
+        "Id": "6062addf-768c-40d6-af08-e8e4e32d7c80",
+        "Entity": "contract",
+        "CreateType": "API",
+        "Source": null
+      }
+      
+      ```
 
       ### Bulk Payment Insert Return Information
       
