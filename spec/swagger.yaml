@@ -315,7 +315,7 @@ info:
     The two environments behave identically, with the only difference being how
     you would access an environment. All requests to our production environment
     would go through `ddcms.accesspaysuite.com` whereas requests for our playpen
-    environment would go through `ddcms.accesspaysuite.com`.
+    environment would go through `playpen.accesspaysuite.com`.
 
       contact:
     email: help@accesspaysuite.com
