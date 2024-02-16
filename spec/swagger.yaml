@@ -1,6 +1,12 @@
 swagger: '2.0'
 info:
   description: >
+    **NOTICE:** The hosts for the API are now located at `ddcms.accesspaysuite.com` and `playpen.accesspaysuite.com`, instead of `ecm3.eazycollect.co.uk` and `playpen.eazycollect.co.uk` respectively.
+    
+    
+    While the old URLs will continue to work as normal, and although there's no plans currently to disable these URLs, we would strongly recommend you update your integration to call the new URLs.
+    
+    
     **NOTICE:** The URL hosting this documentation has now been updated to https://api-docs-ddcms-v3.accesspaysuite.com
     
     
@@ -68,7 +74,7 @@ info:
     ```
 
     GET
-    https://ecm3.eazycollect.co.uk/api/v3/client/LUISCT/BACS/customer/callback
+    https://ddcms.accesspaysuite.com/api/v3/client/LUISCT/BACS/customer/callback
 
 
     Accept: application/json
@@ -293,10 +299,10 @@ info:
         
     ## Environments
 
-    We offer two environments to developers, `playpen` and `ecm3`. Our `playpen`
+    We offer two environments to developers, `playpen` and `ddcms`. Our `playpen`
     environment is designed
 
-    for all your testing needs. Our `ecm3` environment is our production
+    for all your testing needs. Our `ddcms` environment is our production
     environment and we strongly
 
     recommend using the `playpen` environment to get acquainted with how the API
@@ -308,8 +314,8 @@ info:
 
     The two environments behave identically, with the only difference being how
     you would access an environment. All requests to our production environment
-    would go through `ecm3.eazycollect.co.uk` whereas requests for our playpen
-    environment would go through `playpen.eazycollect.co.uk`.
+    would go through `ddcms.accesspaysuite.com` whereas requests for our playpen
+    environment would go through `ddcms.accesspaysuite.com`.
 
       contact:
     email: help@accesspaysuite.com
@@ -322,7 +328,7 @@ info:
   x-logo:
     backgroundColor: '#4b112c'
     url: 'https://www.accesspaysuite.com/media/iwwhai0a/paysuite-logo.png'
-host: 'ecm3.eazycollect.co.uk'
+host: 'ddcms.accesspaysuite.com'
 basePath: '/api/v3'
 schemes:
   - https
@@ -384,7 +390,7 @@ paths:
             String request = delete.callbackUrl("contract");
         - lang: cURL
           source: >
-            curl -L -g -X DELETE 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/contract/callback' -H 'apiKey: {apiKey}'
+            curl -L -g -X DELETE 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/BACS/contract/callback' -H 'apiKey: {apiKey}'
     get:
       produces:
         - application/json
@@ -464,7 +470,7 @@ paths:
             String response = get.callbackUrl("contract");
         - lang: cURL
           source: >
-            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/contract/callback' -H 'apiKey: {apiKey}'
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/BACS/contract/callback' -H 'apiKey: {apiKey}'
     post:
       produces:
         - application/json
@@ -523,7 +529,7 @@ paths:
             String request = post.callbackUrl("contract", "https://my.website.com/webhook");
         - lang: cURL
           source: >
-            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/BACS/contract/callback?url=https://my.website.com/webhook' -H 'apiKey: {apiKey}'
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/BACS/contract/callback?url=https://my.website.com/webhook' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/bulk/payments':
     post:
       consumes:
@@ -617,7 +623,7 @@ paths:
       x-codeSamples:
         - lang: cURL
           sample: >
-            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/bulk/payments' -H 'apiKey: {apiKey}' -H 'Content-Type: application/json' --data-raw '{
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/bulk/payments' -H 'apiKey: {apiKey}' -H 'Content-Type: application/json' --data-raw '{
                 "Payments": [
                   {
                     "contract": "1802e1dd-a657-428c-b8d0-ba162fc76203",
@@ -718,7 +724,7 @@ paths:
             "Change contract amount");
         - lang: cURL
           source: >
-            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/amount?amount=9.99&comment=Change contract amount' -H 'apiKey: {apiKey}'
+            curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/amount?amount=9.99&comment=Change contract amount' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/annual':
     patch:
       produces:
@@ -873,7 +879,7 @@ paths:
             "15", "1", "Change day", false);
         - lang: cURL
           source: >
-            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/annual?monthDay=15&month=1&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
+            curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/annual?monthDay=15&month=1&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/archive':
     post:
       produces:
@@ -961,7 +967,7 @@ paths:
             post.archiveContract("1802e1dd-a657-428c-b8d0-ba162fc76203");
         - lang: cURL
           source: >
-            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/archive' -H 'apiKey: {apiKey}'
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/archive' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/cancel':
     post:
       produces:
@@ -1045,7 +1051,7 @@ paths:
             post.cancelDirectDebit("1802e1dd-a657-428c-b8d0-ba162fc76203");
         - lang: cURL
           source: >
-            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/cancel' -H 'apiKey: {apiKey}'
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/cancel' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/monthly':
     patch:
       produces:
@@ -1197,7 +1203,7 @@ paths:
             "15", "Change day", false);
         - lang: cURL
           source: >
-            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/monthly?day=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
+            curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/monthly?day=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/payment':
     get:
       produces:
@@ -1313,7 +1319,7 @@ paths:
             get.payments("2b62a358-9a1a-4c71-9450-e419e393dcd1");
         - lang: cURL
           source: >
-            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment' -H 'apiKey: {apiKey}'
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/payment' -H 'apiKey: {apiKey}'
     post:
       consumes:
         - application/json
@@ -1505,7 +1511,7 @@ paths:
             "2019-08-01", "A comment");
         - lang: cURL
           source: >
-            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment?amount=10.00&date=2019-08-01&comment=A comment' -H 'apiKey: {apiKey}'
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/payment?amount=10.00&date=2019-08-01&comment=A comment' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/payment/{paymentId}':
     delete:
       produces:
@@ -1614,7 +1620,7 @@ paths:
             "750f142f-1608-464a-8e34-4b322e703c2c", "A comment");
         - lang: cURL
           source: >
-            curl -L -g -X DELETE 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?comment=A comment' -H 'apiKey: {apiKey}'
+            curl -L -g -X DELETE 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?comment=A comment' -H 'apiKey: {apiKey}'
     get:
       produces:
         - application/json
@@ -1718,7 +1724,7 @@ paths:
             "6917d51a-be83-424f-b0a6-31fbf9574a79");
         - lang: cURL
           source: >
-            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}' -H 'apiKey: {apiKey}'
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}' -H 'apiKey: {apiKey}'
     patch:
       produces:
         - application/json
@@ -1845,7 +1851,7 @@ paths:
             comment");
         - lang: cURL
           source: >
-            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?amount=10.00&date=2019-08-01&comment=Test comment' -H 'apiKey: {apiKey}'
+            curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?amount=10.00&date=2019-08-01&comment=Test comment' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/reactivate':
     post:
       produces:
@@ -1924,7 +1930,7 @@ paths:
             post.reactivateDirectDebit("1802e1dd-a657-428c-b8d0-ba162fc76203");
         - lang: cURL
           source: >
-            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reactivate' -H 'apiKey: {apiKey}'
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/reactivate' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/reference':
     patch:
       produces:
@@ -2004,7 +2010,7 @@ paths:
       x-codeSamples:
         - lang: cURL
           source: >
-            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/reference?newDDRef=TEST-MT012345' -H 'apiKey: {apiKey}'
+            curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/reference?newDDRef=TEST-MT012345' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/restart':
     post:
       produces:
@@ -2271,7 +2277,7 @@ paths:
             further notice").atTheEnd("Switch to further notice").query();
         - lang: cURL
           source: >
-            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/restart?terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/restart?terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/weekly':
     patch:
       produces:
@@ -2398,7 +2404,7 @@ paths:
             "5", "Change to Friday", false);
         - lang: cURL
           source: >
-            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=5&comment=Change to Friday&patchNextPayment=false' -H 'apiKey: {apiKey}'
+            curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=5&comment=Change to Friday&patchNextPayment=false' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/customer':
     get:
       produces:
@@ -2666,7 +2672,7 @@ paths:
             String response = get.customers();
         - lang: cURL
           source: >
-            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer' -H 'apiKey: {apiKey}'
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer' -H 'apiKey: {apiKey}'
     post:
       consumes:
         - application/json
@@ -2966,7 +2972,7 @@ paths:
                   .sortCode("123456").accountHolderName("Mr John Doe").query();
         - lang: cURL
           source: >
-            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer?email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1 Tebbit Mews&postCode=GL52 2NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr John Doe' -H 'apiKey: {apiKey}'
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer?email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1 Tebbit Mews&postCode=GL52 2NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr John Doe' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/customer/{customerId}':
     get:
       produces:
@@ -3075,7 +3081,7 @@ paths:
             String response = get.customers();
         - lang: cURL
           source: >
-            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/c36ce83c-0064-4c1e-a157-cd4c70decf47' -H 'apiKey: {apiKey}'
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer/c36ce83c-0064-4c1e-a157-cd4c70decf47' -H 'apiKey: {apiKey}'
     patch:
       produces:
         - application/json
@@ -3314,7 +3320,7 @@ paths:
             patch.customer("dfca6da1-2490-4607-a256-c5799d2584e9").email("john.doe@test.com").query();
         - lang: cURL
           source: >
-            curl -L -g -X PATCH 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com' -H 'apiKey: {apiKey}'
+            curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/question':
     post:
       produces:
@@ -3723,7 +3729,7 @@ paths:
       x-codeSamples:
         - lang: cURL
           source: >
-            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/paymentdate' -H 'apiKey: {apiKey}'
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/paymentdate' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/customer/{customerId}/contract':
     get:
       produces:
@@ -3838,7 +3844,7 @@ paths:
             get.contracts("310a826b-d095-48e7-a55a-19dba82c566f");
         - lang: cURL
           source: >
-            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract' -H 'apiKey: {apiKey}'
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer/{customerId}/contract' -H 'apiKey: {apiKey}'
     post:
       consumes:
         - application/json
@@ -4323,7 +4329,7 @@ paths:
                   .terminationType("Until further notice").atTheEnd("Switch to further notice").query();
         - lang: cURL
           source: >
-            curl -L -g -X POST 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/customer/{customerId}/contract?scheduleName=adhoc_monthly_free&start=2019-08-01&isGiftAid=false&terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer/{customerId}/contract?scheduleName=adhoc_monthly_free&start=2019-08-01&isGiftAid=false&terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/schedules':
     get:
       produces:
@@ -4475,7 +4481,7 @@ paths:
             String response = get.schedules();
         - lang: cURL
           source: >
-            curl -L -g -X GET 'https://ecm3.eazycollect.co.uk/api/v3/client/{clientCode}/schedules' -H 'apiKey: {apiKey}'
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/schedules' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/patch/changeamount':
     post:
       consumes:
