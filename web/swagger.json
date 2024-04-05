@@ -254,6 +254,46 @@
         ]
       }
     },
+    "/client/{clientCode}/info": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The client code provided in your welcome email.",
+            "in": "path",
+            "maxLength": 6,
+            "name": "clientCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "CustomerEmailMandatory": {
+                  "type": "boolean",
+                  "description": "Whether or not the `email` parameter is required when adding new customer records."
+                }
+              }
+            },
+            "examples": {
+              "application/json": {
+                "CustomerEmailMandatory": true
+              }
+            }
+          }
+        },
+        "tags": [
+          "Client Info"
+        ],
+        "description": "Retrieve configuration info about your DDCMS client",
+        "summary": "Retrieve configuration info about your DDCMS client"
+      }
+    },
     "/client/{clientCode}/bulk/payments": {
       "post": {
         "consumes": [
@@ -2206,11 +2246,11 @@
             "type": "string"
           },
           {
-            "description": "The customer’s contact email address.",
+            "description": "The customer’s contact email address.\nBy default this field is required, but this can be disabled at your request.\nThe `CustomerEmailMandatory` field in the Client Info response shows whether this field\nis mandatory.\n",
             "in": "query",
             "maxLength": 255,
             "name": "email",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
@@ -4979,6 +5019,10 @@
     {
       "description": "\nReturn data is passed to endpoints of your choice by setting the URL\nthat data should be posted to using the API. Data is returned to three separate endpoints based on the entity described, as explained in the table below. Each callback can be set to pass data to the same endpoint. You should contact us at\nhelp@accesspaysuite.com to advise whether you require return\ninformation in XML or JSON format; the default is JSON.\n\n| Entity | Payload | \n| ------ | ------- |\n| bulkpayment | Notification of success/failure to process a bulk payment request - see 'Bulk Adding Payments' section for more info.\n| customer | Notification of customer changes due to BACS notifications \n| contract | Notification of contract changes due to BACS notifications  \n| payment | Payment data returned from a scheduled payment creation\n| schedule | Notification of change, addition or deletion of a contract schedule\n",
       "name": "Return Endpoints"
+    },
+    {
+      "description": "Retrieve configuration info about your DDCMS client.",
+      "name": "Client Info"
     },
     {
       "description": "A customer record captures the personal and banking details of the\nperson or organisation that you wish to collect funds from. A customer\nrecord needs to be created before a Direct Debit (contract) record can\nbe created to collect payments. There can be multiple Direct Debits\n(contracts) attached to a customer record.\n**Important: You are required to perform a modulus check on bank account numbers\nand sort codes before they are passed to the API. We can offer a bank\nchecking API on a pay-per-use basis – please contact our Sales\nDepartment on `01206 675847` for further details on pricing. Failure to\nmodulus check data is likely to cause problems in processing your\npayments. **\n",

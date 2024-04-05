@@ -530,6 +530,32 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/BACS/contract/callback?url=https://my.website.com/webhook' -H 'apiKey: {apiKey}'
+  '/client/{clientCode}/info':
+    get:
+      produces:
+        - application/json
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              CustomerEmailMandatory:
+                type: boolean
+                description: Whether or not the `email` parameter is required when adding new customer records.
+          examples:
+            application/json:
+              CustomerEmailMandatory: true
+      tags:
+        - Client Info
+      description: Retrieve configuration info about your DDCMS client
+      summary: Retrieve configuration info about your DDCMS client
   '/client/{clientCode}/bulk/payments':
     post:
       consumes:
@@ -2687,11 +2713,15 @@ paths:
           name: clientCode
           required: true
           type: string
-        - description: The customer’s contact email address.
+        - description: |
+            The customer’s contact email address.
+            By default this field is required, but this can be disabled at your request.
+            The `CustomerEmailMandatory` field in the Client Info response shows whether this field
+            is mandatory.
           in: query
           maxLength: 255
           name: email
-          required: true
+          required: false
           type: string
         - description: The customer’s title (Mr/Mrs/Ms/Miss/Mx etc).
           in: query
@@ -5488,6 +5518,8 @@ tags:
       
       | schedule | Notification of change, addition or deletion of a contract schedule
     name: Return Endpoints
+  - description: Retrieve configuration info about your DDCMS client.
+    name: Client Info
   - description: >
       A customer record captures the personal and banking details of the
 
