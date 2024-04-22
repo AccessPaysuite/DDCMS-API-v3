@@ -2748,7 +2748,7 @@ paths:
           in: query
           maxLength: 255
           name: firstName
-          required: true
+          required: false
           type: string
         - description: The customer's surname.
           in: query
