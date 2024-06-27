@@ -5514,7 +5514,7 @@ tags:
 
       | contract | Notification of contract changes due to BACS notifications  
 
-      | payment | Payment data returned from a scheduled payment creation
+      | payment | Notification of payment status (Unpaid/Indemnity Claimed) changes due to BACS notifications
       
       | schedule | Notification of change, addition or deletion of a contract schedule
     name: Return Endpoints
