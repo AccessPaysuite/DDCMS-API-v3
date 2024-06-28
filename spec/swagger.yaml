@@ -5837,6 +5837,10 @@ tags:
       a new payment on either a fixed or rolling regular schedule.
       This does *NOT* send information on payments submitted on an adhoc schedule.
       
+      
+      Currently the callback URL for these notifications cannot be changed via the API - if
+      you wish to setup or amend the callback for New Payment Generated notifications, please raise a support case.
+      
       #### Example JSON Payload
       
       ```json
