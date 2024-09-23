@@ -4177,7 +4177,8 @@ paths:
             The field may only contain alphanumeric data (`a-z`, `A-Z`, `0-9`)
             and
 
-            certain special characters (hyphen `-` or solidus `/`).
+            certain special characters (whitespace, ampersand `&`, hyphen `-`,
+            solidus `/` or full stop `.`).
           in: query
           maxLength: 18
           name: customDirectDebitRef

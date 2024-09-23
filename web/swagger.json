@@ -3680,7 +3680,7 @@
             "type": "string"
           },
           {
-            "description": "**THIS PARAMETER SHOULD ONLY BE USED IF YOU HAVE BEEN INSTRUCTED TO DO SO** \nIf you have made arrangements with us to use a custom direct debit\nreferencing scheme, pass the custom direct debit using this parameter.\nThe field may only contain alphanumeric data (`a-z`, `A-Z`, `0-9`) and\ncertain special characters (hyphen `-` or solidus `/`).\n",
+            "description": "**THIS PARAMETER SHOULD ONLY BE USED IF YOU HAVE BEEN INSTRUCTED TO DO SO** \nIf you have made arrangements with us to use a custom direct debit\nreferencing scheme, pass the custom direct debit using this parameter.\nThe field may only contain alphanumeric data (`a-z`, `A-Z`, `0-9`) and\ncertain special characters (whitespace, ampersand `&`, hyphen `-`, solidus `/` or full stop `.`).\n",
             "in": "query",
             "maxLength": 18,
             "name": "customDirectDebitRef",
