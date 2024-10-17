@@ -2848,6 +2848,14 @@
             "maxLength": 200
           },
           {
+            "description": "A custom tag that can be assigned to this question. This tag does *not* need to be   unique.",
+            "in": "query",
+            "name": "tags",
+            "required": false,
+            "type": "string",
+            "maxLength": 200
+          },
+          {
             "description": "Whether or not an answer is required for this question.",
             "in": "query",
             "name": "isMandatory",
@@ -3047,6 +3055,7 @@
                     "Options": [
                       ""
                     ],
+                    "Tags": "pet-appeal",
                     "IsMandatory": false
                   },
                   {
@@ -3057,6 +3066,7 @@
                       "Yes",
                       "No"
                     ],
+                    "Tags": null,
                     "IsMandatory": false
                   }
                 ]
@@ -4995,6 +5005,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "Tags": {
+          "description": "A custom tag that was assigned to this question.\n\nIf the question was created from an eDD page, this will be populated with the end of the URL to the page. For example, if the question was added on `https://secure.edirectdebit.co.uk/Example/DD-Signups`, the Tags would be `DD-Signups`.\n",
+          "type": "string"
         },
         "IsMandatory": {
           "description": "Whether or not an answer is required for this question.",

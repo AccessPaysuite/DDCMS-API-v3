@@ -3384,6 +3384,12 @@ paths:
           type: string
           pattern: '[A-Za-z0-9,]+'
           maxLength: 200
+        - description: A custom tag that can be assigned to this question. This tag does *not* need to be   unique.
+          in: query
+          name: tags
+          required: false
+          type: string
+          maxLength: 200
         - description: Whether or not an answer is required for this question.
           in: query
           name: isMandatory
@@ -3529,11 +3535,13 @@ paths:
                   Label: "Enter your pet's name:"
                   Type: Text
                   Options: [""]
+                  Tags: "pet-appeal"
                   IsMandatory: false
                 - Id: "dec0153e-7e75-4666-9b90-08efb48cea0b"
                   Label: "Would you like us to send you offers by email?"
                   Type: List
                   Options: [Yes,No]
+                  Tags: null
                   IsMandatory: false
           schema:
             properties:
@@ -5480,6 +5488,12 @@ definitions:
         type: array
         items:
           type: string
+      Tags:
+        description: |
+          A custom tag that was assigned to this question.
+          
+          If the question was created from an eDD page, this will be populated with the end of the URL to the page. For example, if the question was added on `https://secure.edirectdebit.co.uk/Example/DD-Signups`, the Tags would be `DD-Signups`.
+        type: string
       IsMandatory:
         description: Whether or not an answer is required for this question.
         type: boolean
