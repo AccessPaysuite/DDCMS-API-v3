@@ -234,19 +234,6 @@ info:
       CRM/Accounts package unless they are also (double) keyed as manual
       payments onto the DDCMS UI.
 
-    - At present, there is no way to automatically “represent” failed
-      payments using the API and therefore our recommendation is to add a
-      new ad-hoc payment to collect any arrears. As these are new and
-      separate transactions, these will increase the total contract
-      balance, but will not affect the arrears balance which will remain
-      unless they are manually cleared via the UI.
-
-    - As a result of the above, the arrears report provided within the UI
-      will be incorrect and should not be relied upon. Arrears and
-      contracts balances should be drawn from your own software unless you
-      have keyed any manual payments and written off unpaid transactions
-      that have been represented via the UI.
-
     If you require any further assistance with using the API and UI
 
     together, please contact the IT Helpdesk at help@accesspaysuite.com
