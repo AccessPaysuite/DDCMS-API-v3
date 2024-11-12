@@ -955,7 +955,7 @@
             "type": "string"
           },
           {
-            "description": "The number of payments (rows) you wish to be returned in the response.\n",
+            "description": "The number of payments (rows) you wish to be returned in the response. **Note:** Payments are always returned ordered by `Date`  descending, i.e. the most recent payment will be the first item  returned.\n",
             "in": "query",
             "maximum": 100,
             "minimum": 1,
