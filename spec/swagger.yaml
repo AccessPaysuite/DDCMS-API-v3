@@ -95,7 +95,11 @@ info:
 
     nature of Direct Debits it is helpful to understand the general data
 
-    flow and the reasons for certain time delays.
+    flow and the reasons for certain time delays. For additional
+
+    information about the time delays required when setting up new Direct
+
+    Debit contracts or ad-hoc collections, please see "*A note on Working Days*".
 
 
     1. After creating a ‘Customer’ record on our system, you will need to
@@ -117,14 +121,16 @@ info:
 
     instruction to BACS to create the Direct Debit instruction. The date
 
-    for the first payment required should be set <u>at least</u> 10 working
+    for the first payment required should be set <u>at least</u> your SUN's
 
-    days after the schedule creation date.
+    configured *First Payment Delay* after the schedule creation date.
 
 
     3. Ad-hoc payments need to be lodged onto *DDCMS*
 
-    <u>at least</u> 5 working days before the collection date.
+    <u>at least</u> your SUN's configured *Subsequent Payment Delay* before the
+
+    collection date.
 
 
     4. Around three working days before the collection date, we submit the
@@ -154,15 +160,37 @@ info:
     ## A note on Working Days
 
 
-    We ask that our clients allow an **absolute minimum** of 10 working days
+    Regarding these time delays, you will see mention of two particular delays
+    
+    that need to be considered, particularly when adding new Direct Debit
+    
+    contracts or ad-hoc payments:
+    
+    - **First Payment Delay:** Default is **10 working days** but can be as low
+      as **5**.
+    - **Subsequent Payment Delay:** Default is **5 working days** but can be as
+      low as **3**.
 
-    between creating a customer and contract and collecting the first
+    If you wish to lower these delays whilst testing the API in our playpen,
+    
+    please raise a support case. Requests to lower delays on a live account
+    
+    should be raised with your Customer Success Manager or sales contact. Note
+    
+    that it may not be possible for us to change your account's configured
+    
+    delays.
+
+
+    We ask that our clients that their First Payment Delay is the **absolute
+    
+    minimum** between creating a customer and contract and collecting the first
 
     payment. Payments for existing contracts must be submitted and confirmed
 
-    by 8pm 5 working days before the collection date for existing customers
-
-    with an active Direct Debit.
+    by 12pm the Subsequent Payment Delay before the collection date for existing
+    
+    customers with an active Direct Debit.
 
 
     We <u>strongly recommend</u> that customers are created and payments
@@ -177,26 +205,41 @@ info:
 
     **It is important to note** that if a collection date falls on a weekend
 
-    or a bank holiday, then the 10 and 5 working day rules start from the
+    or a bank holiday, then the delay rules start from the following working day;
+    
+    so for a Saturday or a Sunday, the number of working days to delay should be
 
-    previous working day; so for a Saturday or a Sunday, 5/10 working days
-
-    should be counted back from the previous Friday.
+    counted back from the next non-UK bank holiday Monday.
 
 
     **For example:**
 
+    
+    Assuming **First Payment Delay** = **10 working days** and **Subsequent
+    Payment Delay** = **5 working days**
+    
 
-    <u>For payments due on Saturday 15/04/2017</u>
+    <u>For payments due on Saturday 19/04/2025</u>
 
     - Payments for existing customers would need to be submitted and
-      confirmed by 8pm on Thursday 06/04/2017.
-    - New customers would need to be confirmed by 9pm on Thursday 30/03/2017.
+      confirmed by 12pm on Monday 14/04/2025.
+    - New customers would need to be confirmed by 12pm on Monday 07/04/2025.
 
 
-    **Note:** 14/04/2017 was Good Friday, a Bank Holiday in the UK and does
-
-    not count as a banking day.
+    **Note:** 18/04/2025 (Good Friday) and 21/04/2025 (Easter Monday) are Bank
+    
+    Holidays in the UK and do not count as banking days.
+    
+    
+    To view the deadlines for lodging collections for new and existing customers
+    
+    for any given collection date, please see our **Date Calculator** at
+    
+    https://www.accesspaysuite.com/date. Alternatively, see the `GET /paymentdate`
+    
+    API call available under **Payment Dates** to see the earliest possible
+    
+    dates for first and subsequent payments.
 
 
     ## Using the API and UI together
