@@ -236,7 +236,7 @@ info:
 
     If you require any further assistance with using the API and UI
 
-    together, please contact the IT Helpdesk at help@accesspaysuite.com
+    together, please contact the IT Helpdesk at support@accesspaysuite.com
 
 
     ## Errors
@@ -305,7 +305,7 @@ info:
     environment would go through `playpen.accesspaysuite.com`.
 
       contact:
-    email: help@accesspaysuite.com
+    email: support@accesspaysuite.com
   license:
     name: MIT
     url: >-
@@ -5503,7 +5503,7 @@ tags:
       table below. Each callback can be set to pass data to the same endpoint.
       You should contact us at
 
-      help@accesspaysuite.com to advise whether you require return
+      support@accesspaysuite.com to advise whether you require return
 
       information in XML or JSON format; the default is JSON.
 
