@@ -926,7 +926,7 @@
           },
           {
             "lang": "cURL",
-            "source": "curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/monthly?day=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'\n"
+            "source": "curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/monthly?monthDay=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'\n"
           }
         ]
       }
