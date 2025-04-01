@@ -2845,7 +2845,7 @@
             "required": false,
             "type": "string",
             "pattern": "[A-Za-z0-9,]+",
-            "maxLength": 200
+            "maxLength": 800
           },
           {
             "description": "A custom tag that can be assigned to this question. This tag does *not* need to be   unique.",
@@ -2965,7 +2965,7 @@
             "required": false,
             "type": "string",
             "pattern": "[A-Za-z0-9,]+",
-            "maxLength": 200
+            "maxLength": 800
           },
           {
             "description": "Whether or not an answer is required for this question.",
