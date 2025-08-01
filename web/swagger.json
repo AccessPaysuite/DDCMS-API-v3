@@ -3497,6 +3497,97 @@
                 ]
             }
         },
+        "/client/{clientCode}/contract/{contractId}/schedule": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "description": "The client code provided in your welcome email.",
+                        "in": "path",
+                        "maxLength": 6,
+                        "name": "clientCode",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "The contract identifier.",
+                        "in": "path",
+                        "name": "contractId",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    },
+                    {
+                        "description": "The version (schedule) identifier.",
+                        "in": "query",
+                        "name": "versionId",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": {
+                                "StreamVersion": {
+                                    "Id": "c036d70c-6578-4608-acd2-78511acc02f0",
+                                    "Status": "Active version",
+                                    "IsPatch": false,
+                                    "StartDate": "2025-01-15T00:00:00",
+                                    "Frequency": "Annually",
+                                    "Every": 1,
+                                    "PaymentDayInWeek": null,
+                                    "PaymentDayInMonth": 15,
+                                    "PaymentMonthInYear": null,
+                                    "InitialDate": null,
+                                    "InitialAmount": null,
+                                    "RegistrationFee": null,
+                                    "ExtraInitialAmounts": null,
+                                    "Amount": 400,
+                                    "FinalAmount": null,
+                                    "IsGiftAid": false,
+                                    "TerminationType": "End on exact date",
+                                    "TerminationDate": "2025-05-01T00:00:00",
+                                    "NumberOfDebits": null
+                                },
+                                "SearchInput": null,
+                                "TotalExpectedResults": 1
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "StreamVersion": {
+                                    "$ref": "#/definitions/StreamVersion"
+                                },
+                                "SearchInput": {
+                                    "description": "Search input.",
+                                    "type": "object"
+                                },
+                                "TotalExpectedResults": {
+                                    "description": "Total expected results.",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "tags": [
+                    "Frequency Switching"
+                ],
+                "summary": "Retrieves details of a specific contract stream version (schedule).",
+                "x-codeSamples": [
+                    {
+                        "lang": "cURL",
+                        "source": "curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/schedule?versionId={versionId}' -H 'apiKey: {apiKey}'\n"
+                    }
+                ]
+            }
+        },
         "/client/{clientCode}/customer/{customerId}/contract": {
             "get": {
                 "produces": [
