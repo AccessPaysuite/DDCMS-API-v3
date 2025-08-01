@@ -3800,6 +3800,77 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/paymentdate' -H 'apiKey: {apiKey}'
+  '/client/{clientCode}/contract/{contractId}/futureSchedules':
+    get:
+      produces:
+        - application/json
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The contract identifier.
+          in: path
+          name: contractId
+          required: true
+          type: string
+          format: guid
+        - description: The stream identifier.
+          in: query
+          name: streamId
+          required: true
+          type: string
+          format: guid
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              StreamVersions:
+                - Id: "e4dda449-4bf3-44fc-b8a6-29b3f90576f7"
+                  Status: "Future version"
+                  IsPatch: false
+                  StartDate: "2026-06-11T00:00:00"
+                  Frequency: "Monthly"
+                  Every: 1
+                  PaymentDayInWeek: null
+                  PaymentDayInMonth: 2
+                  PaymentMonthInYear: null
+                  InitialDate: null
+                  InitialAmount: 1.00
+                  RegistrationFee: null
+                  ExtraInitialAmounts: "1"
+                  Amount: 1.00
+                  FinalAmount: 1.00
+                  IsGiftAid: false
+                  TerminationType: "End on exact date"
+                  TerminationDate: "2030-06-15T00:00:00"
+                  NumberOfDebits: null
+              SearchInput: null
+              TotalExpectedResults: 1
+          schema:
+            properties:
+              StreamVersions:
+                description: Array of stream versions.
+                type: array
+                items:
+                  $ref: '#/definitions/StreamVersion'
+              SearchInput:
+                description: Search input.
+                type: object
+              TotalExpectedResults:
+                description: Total expected results.
+                type: integer
+            type: object
+      tags:
+        - Frequency Switching
+      summary: Retrieves all future schedules (stream versions) for a given contract and stream.
+      x-codeSamples:
+        - lang: cURL
+          source: >
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/futureSchedules?streamId={streamId}' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/customer/{customerId}/contract':
     get:
       produces:
@@ -5529,6 +5600,73 @@ definitions:
       IsMandatory:
         description: Whether or not an answer is required for this question.
         type: boolean
+  StreamVersion:
+    properties:
+      Id:
+        description: The stream version identifier.
+        type: string
+        format: guid
+      Status:
+        description: Status.
+        type: string
+      IsPatch:
+        description: Is patch.
+        type: boolean
+      StartDate:
+        description: Start date.
+        type: string
+        format: datetime
+      Frequency:
+        description: Frequency.
+        type: string
+      Every:
+        description: Every.
+        type: integer
+      PaymentDayInWeek:
+        description: Payment day in week.
+        type: integer
+      PaymentDayInMonth:
+        description: Payment day in month.
+        type: integer
+      PaymentMonthInYear:
+        description: Payment month in year.
+        type: integer
+      InitialDate:
+        description: Initial date.
+        type: string
+        format: datetime
+      InitialAmount:
+        description: Initial amount.
+        type: number
+        format: decimal
+      RegistrationFee:
+        description: Registration fee.
+        type: number
+        format: decimal
+      ExtraInitialAmounts:
+        description: Extra initial amounts.
+        type: string
+      Amount:
+        description: Amount.
+        type: number
+        format: decimal
+      FinalAmount:
+        description: Final amount.
+        type: number
+        format: decimal
+      IsGiftAid:
+        description: Is gift aid.
+        type: boolean
+      TerminationType:
+        description: Termination type.
+        type: string
+      TerminationDate:
+        description: Termination date.
+        type: string
+        format: datetime
+      NumberOfDebits:
+        description: Number of debits.
+        type: integer
 securityDefinitions:
   ApiKeyAuth:
     in: header
@@ -5601,6 +5739,7 @@ tags:
       If you're a live customer and wish to discuss the possibility of reducing your SUN delay periods, please raise a support case.
       
     name: Payment Dates
+  - name: Frequency Switching
   - description: |
       A contract record represents the Direct Debit associated with a customer
       record. There are two forms of contract record:
