@@ -3588,6 +3588,57 @@
                 ]
             }
         },
+        "/client/{clientCode}/contract/{contractId}/deleteSchedule/{futureScheduleId}": {
+            "delete": {
+                "produces": [
+                    "text"
+                ],
+                "parameters": [
+                    {
+                        "description": "The client code provided in your welcome email.",
+                        "in": "path",
+                        "maxLength": 6,
+                        "name": "clientCode",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "The contract identifier.",
+                        "in": "path",
+                        "name": "contractId",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    },
+                    {
+                        "description": "The schedule (stream version) identifier.",
+                        "in": "path",
+                        "name": "futureScheduleId",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "text": "Schedule successfully deleted."
+                        }
+                    }
+                },
+                "tags": [
+                    "Frequency Switching"
+                ],
+                "summary": "Deletes a future contract schedule (stream version) by its ID.",
+                "x-codeSamples": [
+                    {
+                        "lang": "cURL",
+                        "source": "curl -L -g -X DELETE 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/deleteSchedule/{futureScheduleId}' -H 'apiKey: {apiKey}'\n"
+                    }
+                ]
+            }
+        },
         "/client/{clientCode}/customer/{customerId}/contract": {
             "get": {
                 "produces": [
