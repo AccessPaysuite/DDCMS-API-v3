@@ -3784,7 +3784,7 @@
                     {
                         "description": "Is Gift Aid.",
                         "in": "query",
-                        "name": "isGiftAid.",
+                        "name": "isGiftAid",
                         "required": true,
                         "type": "boolean"
                     },
@@ -3841,6 +3841,205 @@
                     {
                         "lang": "cURL",
                         "source": "curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/editSchedule/{futureScheduleId}?startDate=2025-07-01T00:00:00Z&scheduleId=guid-value&scheduleName=string&every=1&paymentDayInMonth=1&paymentDayInWeek=1&paymentMonthInYear=1&initialDate=2025-07-01T00:00:00Z&initialAmount=100.0&extraInitialAmounts=string&amount=50.0&finalAmount=0.0&terminationType=string&terminationDate=2026-07-01T00:00:00Z&numberOfPayments=12&isGiftAid=false' -H 'apiKey: {apiKey}'\n"
+                    }
+                ]
+            }
+        },
+        "/client/{clientCode}/contract/{contractId}/newSchedule": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "description": "The client code provided in your welcome email.",
+                        "in": "path",
+                        "maxLength": 6,
+                        "name": "clientCode",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "The contract identifier.",
+                        "in": "path",
+                        "name": "contractId",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    },
+                    {
+                        "description": "Start date.",
+                        "in": "query",
+                        "name": "startDate",
+                        "required": true,
+                        "type": "string",
+                        "format": "datetime"
+                    },
+                    {
+                        "description": "Schedule ID.",
+                        "in": "query",
+                        "name": "scheduleId",
+                        "required": false,
+                        "type": "string",
+                        "format": "guid"
+                    },
+                    {
+                        "description": "Schedule name.",
+                        "in": "query",
+                        "name": "scheduleName",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Every.",
+                        "in": "query",
+                        "name": "every",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Payment day in month.",
+                        "in": "query",
+                        "name": "paymentDayInMonth",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Payment day in week.",
+                        "in": "query",
+                        "name": "paymentDayInWeek",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Payment month in year.",
+                        "in": "query",
+                        "name": "paymentMonthInYear",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Initial date.",
+                        "in": "query",
+                        "name": "initialDate",
+                        "required": false,
+                        "type": "string",
+                        "format": "datetime"
+                    },
+                    {
+                        "description": "Initial amount.",
+                        "in": "query",
+                        "name": "initialAmount",
+                        "required": false,
+                        "type": "number",
+                        "format": "decimal"
+                    },
+                    {
+                        "description": "Extra initial amounts.",
+                        "in": "query",
+                        "name": "extraInitialAmounts",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Amount",
+                        "in": "query",
+                        "name": "amount",
+                        "required": false,
+                        "type": "number",
+                        "format": "decimal"
+                    },
+                    {
+                        "description": "Final amount.",
+                        "in": "query",
+                        "name": "finalAmount",
+                        "required": false,
+                        "type": "number",
+                        "format": "decimal"
+                    },
+                    {
+                        "description": "Termination type.",
+                        "in": "query",
+                        "name": "terminationType",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Termination date.",
+                        "in": "query",
+                        "name": "terminationDate",
+                        "required": false,
+                        "type": "string",
+                        "format": "datetime"
+                    },
+                    {
+                        "description": "Number of payments.",
+                        "in": "query",
+                        "name": "numberOfPayments",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Is Gift Aid.",
+                        "in": "query",
+                        "name": "isGiftAid",
+                        "required": true,
+                        "type": "boolean"
+                    },
+                    {
+                        "description": "Example JSON payload.",
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "example": {
+                                "StartDate": "2025-07-01T00:00:00Z",
+                                "ScheduleId": "guid-value",
+                                "ScheduleName": "string",
+                                "Every": 1,
+                                "PaymentDayInMonth": 1,
+                                "PaymentDayInWeek": 1,
+                                "PaymentMonthInWeek": 1,
+                                "InitialDate": "2025-07-01T00:00:00Z",
+                                "InitialAmount": 100,
+                                "ExtraInitialAmounts": "string",
+                                "Amount": 50,
+                                "FinalAmount": 0,
+                                "TerminationType": "string",
+                                "TerminationDate": "2026-07-01T00:00:00Z",
+                                "NumberOfPayments": 12,
+                                "IsGiftAid": false
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": {
+                                "NewScheduleId": "guid-value"
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "NewScheduleId": {
+                                    "description": "New schedule ID.",
+                                    "type": "string",
+                                    "format": "guid"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "tags": [
+                    "Frequency Switching"
+                ],
+                "summary": "Creates a new future contract schedule.",
+                "x-codeSamples": [
+                    {
+                        "lang": "cURL",
+                        "source": "curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/editSchedule/{futureScheduleId}?startDate=2025-07-01T00:00:00Z&scheduleId=guid-value&scheduleName=string&every=1&paymentDayInMonth=1&paymentDayInWeek=1&paymentMonthInYear=1&initialDate=2025-07-01T00:00:00Z&initialAmount=100.0&extraInitialAmounts=string&amount=50.0&finalAmount=0.0&terminationType=string&terminationDate=2026-07-01T00:00:00Z&numberOfPayments=12&isGiftAid=false' -H 'apiKey: {apiKey}'\n"
                     }
                 ]
             }
