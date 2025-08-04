@@ -3483,6 +3483,58 @@
                             },
                             "type": "object"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Validation error",
+                                "ErrorCode": 3,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Internal server error",
+                                "ErrorCode": 4,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -3574,6 +3626,58 @@
                             },
                             "type": "object"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Validation error",
+                                "ErrorCode": 3,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Internal server error",
+                                "ErrorCode": 4,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -3624,6 +3728,58 @@
                         "description": "OK",
                         "examples": {
                             "text": "Schedule successfully deleted."
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Validation error",
+                                "ErrorCode": 3,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Internal server error",
+                                "ErrorCode": 4,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 },
@@ -3689,7 +3845,7 @@
                         "description": "Schedule name.",
                         "in": "query",
                         "name": "scheduleName",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
@@ -3740,7 +3896,7 @@
                         "description": "Extra initial amounts.",
                         "in": "query",
                         "name": "extraInitialAmounts",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
@@ -3763,7 +3919,7 @@
                         "description": "Termination type.",
                         "in": "query",
                         "name": "terminationType",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
@@ -3785,7 +3941,7 @@
                         "description": "Is Gift Aid.",
                         "in": "query",
                         "name": "isGiftAid",
-                        "required": true,
+                        "required": false,
                         "type": "boolean"
                     },
                     {
@@ -3830,6 +3986,58 @@
                                 }
                             },
                             "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Validation error",
+                                "ErrorCode": 3,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Internal server error",
+                                "ErrorCode": 4,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 },
@@ -3887,7 +4095,7 @@
                         "description": "Schedule name.",
                         "in": "query",
                         "name": "scheduleName",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
@@ -3938,7 +4146,7 @@
                         "description": "Extra initial amounts.",
                         "in": "query",
                         "name": "extraInitialAmounts",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
@@ -3961,7 +4169,7 @@
                         "description": "Termination type.",
                         "in": "query",
                         "name": "terminationType",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {
@@ -3983,7 +4191,7 @@
                         "description": "Is Gift Aid.",
                         "in": "query",
                         "name": "isGiftAid",
-                        "required": true,
+                        "required": false,
                         "type": "boolean"
                     },
                     {
@@ -4029,6 +4237,58 @@
                                 }
                             },
                             "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Validation error",
+                                "ErrorCode": 3,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Internal server error",
+                                "ErrorCode": 4,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 },

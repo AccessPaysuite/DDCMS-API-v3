@@ -3864,6 +3864,42 @@ paths:
                 description: Total expected results.
                 type: integer
             type: object
+        '400':
+          description: Bad Request
+          examples:
+            application/json:
+              Message: "Validation error"
+              ErrorCode: 3
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
+        '500':
+          description: Internal Server Error
+          examples:
+            application/json:
+              Message: "Internal server error"
+              ErrorCode: 4
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
       tags:
         - Frequency Switching
       summary: Retrieves all future schedules (stream versions) for a given contract and stream.
@@ -3932,6 +3968,42 @@ paths:
                 description: Total expected results.
                 type: integer
             type: object
+        '400':
+          description: Bad Request
+          examples:
+            application/json:
+              Message: "Validation error"
+              ErrorCode: 3
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
+        '500':
+          description: Internal Server Error
+          examples:
+            application/json:
+              Message: "Internal server error"
+              ErrorCode: 4
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
       tags:
         - Frequency Switching
       summary: Retrieves details of a specific contract stream version (schedule).
@@ -3968,6 +4040,42 @@ paths:
           examples:
             text:
               Schedule successfully deleted.
+        '400':
+          description: Bad Request
+          examples:
+            application/json:
+              Message: "Validation error"
+              ErrorCode: 3
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
+        '500':
+          description: Internal Server Error
+          examples:
+            application/json:
+              Message: "Internal server error"
+              ErrorCode: 4
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
       tags:
         - Frequency Switching
       summary: Deletes a future contract schedule (stream version) by its ID.
@@ -4013,7 +4121,7 @@ paths:
         - description: Schedule name.
           in: query
           name: scheduleName
-          required: true
+          required: false
           type: string
         - description: Every.
           in: query
@@ -4050,7 +4158,7 @@ paths:
         - description: Extra initial amounts.
           in: query
           name: extraInitialAmounts
-          required: true
+          required: false
           type: string
         - description: Amount
           in: query
@@ -4067,7 +4175,7 @@ paths:
         - description: Termination type.
           in: query
           name: terminationType
-          required: true
+          required: false
           type: string
         - description: Termination date.
           in: query
@@ -4083,7 +4191,7 @@ paths:
         - description: Is Gift Aid.
           in: query
           name: isGiftAid
-          required: true
+          required: false
           type: boolean
         - description: Example JSON payload.
           in: body
@@ -4118,6 +4226,42 @@ paths:
                 description: Message.
                 type: string
             type: object
+        '400':
+          description: Bad Request
+          examples:
+            application/json:
+              Message: "Validation error"
+              ErrorCode: 3
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
+        '500':
+          description: Internal Server Error
+          examples:
+            application/json:
+              Message: "Internal server error"
+              ErrorCode: 4
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
       tags:
         - Frequency Switching
       summary: Edits an existing future contract schedule.
@@ -4157,7 +4301,7 @@ paths:
         - description: Schedule name.
           in: query
           name: scheduleName
-          required: true
+          required: false
           type: string
         - description: Every.
           in: query
@@ -4194,7 +4338,7 @@ paths:
         - description: Extra initial amounts.
           in: query
           name: extraInitialAmounts
-          required: true
+          required: false
           type: string
         - description: Amount
           in: query
@@ -4211,7 +4355,7 @@ paths:
         - description: Termination type.
           in: query
           name: terminationType
-          required: true
+          required: false
           type: string
         - description: Termination date.
           in: query
@@ -4227,7 +4371,7 @@ paths:
         - description: Is Gift Aid.
           in: query
           name: isGiftAid
-          required: true
+          required: false
           type: boolean
         - description: Example JSON payload.
           in: body
@@ -4263,6 +4407,42 @@ paths:
                 type: string
                 format: guid
             type: object
+        '400':
+          description: Bad Request
+          examples:
+            application/json:
+              Message: "Validation error"
+              ErrorCode: 3
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
+        '500':
+          description: Internal Server Error
+          examples:
+            application/json:
+              Message: "Internal server error"
+              ErrorCode: 4
+              Detail: ""
+          schema:
+            properties:
+              Message:
+                description: Message.
+                type: string
+              ErrorCode:
+                description: Error code.
+                type: integer
+              Detail:
+                description: Detail.
+                type: string
       tags:
         - Frequency Switching
       summary: Creates a new future contract schedule.
