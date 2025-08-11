@@ -3811,15 +3811,9 @@ paths:
           name: clientCode
           required: true
           type: string
-        - description: The contract identifier.
+        - description: The contract GUID that you wish to query.
           in: path
           name: contractId
-          required: true
-          type: string
-          format: guid
-        - description: The stream identifier.
-          in: query
-          name: streamId
           required: true
           type: string
           format: guid
@@ -3906,7 +3900,7 @@ paths:
       x-codeSamples:
         - lang: cURL
           source: >
-            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/futureSchedules?streamId={streamId}' -H 'apiKey: {apiKey}'
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/futureSchedules' -H 'apiKey: {apiKey}'
   '/client/{clientCode}/contract/{contractId}/schedule':
     get:
       produces:
@@ -3918,13 +3912,13 @@ paths:
           name: clientCode
           required: true
           type: string
-        - description: The contract identifier.
+        - description: The contract GUID that you wish to query.
           in: path
           name: contractId
           required: true
           type: string
           format: guid
-        - description: The version (schedule) identifier.
+        - description: The StreamVersion (schedule) GUID that you wish to query.
           in: query
           name: versionId
           required: true
@@ -4022,13 +4016,13 @@ paths:
           name: clientCode
           required: true
           type: string
-        - description: The contract identifier.
+        - description: The contract GUID on which the future schedule has been applied to.
           in: path
           name: contractId
           required: true
           type: string
           format: guid
-        - description: The schedule (stream version) identifier.
+        - description: The StreamVersion (schedule) GUID that you wish to delete.
           in: path
           name: futureScheduleId
           required: true
@@ -4094,101 +4088,216 @@ paths:
           name: clientCode
           required: true
           type: string
-        - description: The contract identifier.
+        - description: The contract GUID that you wish to amend.
           in: path
           name: contractId
           required: true
           type: string
           format: guid
-        - description: The schedule (stream version) identifier.
+        - description: The StreamVersion (schedule) GUID that you wish to amend.
           in: path
           name: futureScheduleId
           required: true
           type: string
           format: guid
-        - description: Start date.
+        - description: Effective date of change.
           in: query
           name: startDate
           required: true
           type: string
           format: datetime
-        - description: Schedule ID.
+        - description: Schedule ID from available schedules.
           in: query
           name: scheduleId
           required: false
           type: string
           format: guid
-        - description: Schedule name.
+        - description: Schedule name from available schedules.
           in: query
           name: scheduleName
           required: false
           type: string
-        - description: Every.
+        - description: If the schedule is set to take regular payments, this parameter allows you to skip periods (e.g. every 2 months, every 4 weeks etc). This field is only mandatory if the schedule is not an ad-hoc schedule.
           in: query
           name: every
           required: false
           type: integer
-        - description: Payment day in month.
+        - description:  >
+            If the schedule is for regular payments, then the day on which you
+            wish
+
+            the first payment should be passed with this parameter.
+            
+            This field is only mandatory if the schedule is **not** an ad-hoc
+            schedule.
+
+            This field is only mandatory if the schedule is **annual** or
+            **monthly**.
+
+            **NOTE:** You may only select:
+              - days **1** to **28**
+              - **98**, which represents `Last working day of the Month`
+              - **99**, which represents `Last day of the Month`
+            equal with value 99.
+            
+            *You may not* select days 29, 30 or 31 of the month; choosing 29, 30
+            or 31 will result in payments being skipped in months that do not
+            contain that date.
           in: query
           name: paymentDayInMonth
           required: false
           type: integer
-        - description: Payment day in week.
+        - description: >
+            1 ->
+            Monday                                                                     
+
+            2 ->
+            Tuesday                                                                     
+
+            3 ->
+            Wednesday                                                                     
+
+            4 ->
+            Thursday                                                                     
+
+            5 -> Friday
+
+            If the schedule is for regular payments and has a weekly frequency,
+            pass the
+
+            day of the week that you wish payments to be collected via this
+            parameter.
+
+            This field is only mandatory if the schedule is **not** an ad-hoc
+            schedule.
+
+            This field is only mandatory if the schedule is **weekly**.
           in: query
           name: paymentDayInWeek
           required: false
           type: integer
-        - description: Payment month in year.
+        - description: >
+            If the schedule is for regular payments then the month in which you
+
+            wish the first payment should be passed with this parameter.
+
+            This field is only mandatory if the schedule is **not** an ad-hoc
+            schedule.
+
+            This field is only mandatory if the schedule is **annual** or
+            **monthly**.
           in: query
           name: paymentMonthInYear
           required: false
           type: integer
-        - description: Initial date.
+        - description: Different first payment date.
           in: query
           name: initialDate
           required: false
           type: string
           format: datetime
-        - description: Initial amount.
+        - description: >
+            If this is a schedule for regular payments **and** the first payment
+            is
+
+            different to the regular payments, then pass the first payment
+            amount
+
+            with this parameter.
+
+            **Do not** pass this parameter with ad-hoc schedule, or where the
+            first
+
+            amount is the same as the regular amount.
           in: query
           name: initialAmount
           required: false
           type: number
           format: decimal
-        - description: Extra initial amounts.
+        - description: |
+            If there are extra charges to be collected with the first payment
+            (e.g. a gym joining fee/registration fee) then these can be added
+            separately with this parameter. Do not pass the parameter if there
+            are no extra amounts, and this must not be used if the schedule is
+            an ad-hoc payment schedule.
           in: query
           name: extraInitialAmounts
           required: false
           type: string
-        - description: Amount
+        - description: >
+            If the schedule is for regular payments, then the regular payment
+
+            amount should be passed using this parameter. Do not pass this
+
+            parameter if the schedule is an ad-hoc schedule.
+
+            This field is only mandatory if the schedule is **not** an ad-hoc
+            schedule.
           in: query
           name: amount
           required: false
           type: number
           format: decimal
-        - description: Final amount.
+        - description: >
+            If this is a schedule for regular payments **and** the final payment
+            is
+
+            different to the regular payments, then pass the final payment
+            amount
+
+            with this parameter. **Do not** pass this parameter with ad-hoc
+
+            schedules, or where the final amount is the same as the regular
+            amount.
           in: query
           name: finalAmount
           required: false
           type: number
           format: decimal
-        - description: Termination type.
+        - description: >
+            Pass the way in which the schedule should end using this parameter.
+
+            If the schedule is **ad-hoc,** *you must* pass `Until further
+            notice`.
+          enum:
+            - Take certain number of debits
+            - Until further notice
+            - End on exact date
           in: query
           name: terminationType
           required: false
           type: string
-        - description: Termination date.
+        - description: >
+            If the `terminationType` is `End on Exact Date` then the termination
+            date
+
+            should be passed using this.
+
+            **Format: `YYYY-MM-DDT00:00:00.000`**
           in: query
           name: terminationDate
           required: false
           type: string
           format: datetime
-        - description: Number of payments.
+        - description: >
+            If this is a “Take certain Number of Debits” schedule then the
+            number of
+
+            debits to be taken should be passed using this parameter.
+
+            This field is only mandatory if the termination type is “Take
+            Certain
+
+            Number of Debits”.
           in: query
           name: numberOfPayments
           required: false
           type: integer
-        - description: Is Gift Aid.
+        - description: >
+            Pass true if the payments to be collected are to be subject to a
+            gift aid
+
+            claim, false if not (pass false if the client is not a charity).
           in: query
           name: isGiftAid
           required: false
@@ -4280,95 +4389,250 @@ paths:
           name: clientCode
           required: true
           type: string
-        - description: The contract identifier.
+        - description: The contract GUID that you wish to add a new future schedule to.
           in: path
           name: contractId
           required: true
           type: string
           format: guid
-        - description: Start date.
+        - description: Effective date of change.
           in: query
           name: startDate
           required: true
           type: string
           format: datetime
-        - description: Schedule ID.
+        - description: Schedule ID from available schedules.
           in: query
           name: scheduleId
           required: false
           type: string
           format: guid
-        - description: Schedule name.
+        - description: Schedule name from available schedules.
           in: query
           name: scheduleName
           required: false
           type: string
-        - description: Every.
+        - description: >
+            If the schedule is set to take regular payments, this parameter
+            allows you
+
+            to skip periods (e.g. every 2 months, every 4 weeks etc).
+
+            This field is only mandatory if the schedule is **not** an ad-hoc
+            schedule.
           in: query
           name: every
           required: false
           type: integer
-        - description: Payment day in month.
+        - description: >
+            If the schedule is for regular payments, then the day on which you
+            wish
+
+            the first payment should be passed with this parameter.
+            
+            This field is only mandatory if the schedule is **not** an ad-hoc
+            schedule.
+
+            This field is only mandatory if the schedule is **annual** or
+            **monthly**.
+
+            **NOTE:** You may only select:
+              - days **1** to **28**
+              - **98**, which represents `Last working day of the Month`
+              - **99**, which represents `Last day of the Month`
+            equal with value 99.
+            
+            *You may not* select days 29, 30 or 31 of the month; choosing 29, 30
+            or 31 will result in payments being skipped in months that do not
+            contain that date.
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+            - 8
+            - 9
+            - 10
+            - 11
+            - 12
+            - 13
+            - 14
+            - 15
+            - 16
+            - 17
+            - 18
+            - 19
+            - 20
+            - 21
+            - 22
+            - 23
+            - 24
+            - 25
+            - 26
+            - 27
+            - 28
+            - 98
+            - 99
           in: query
           name: paymentDayInMonth
           required: false
           type: integer
-        - description: Payment day in week.
+        - description: >
+            1 ->
+            Monday                                                                     
+
+            2 ->
+            Tuesday                                                                     
+
+            3 ->
+            Wednesday                                                                     
+
+            4 ->
+            Thursday                                                                     
+
+            5 -> Friday
+
+            If the schedule is for regular payments and has a weekly frequency,
+            pass the
+
+            day of the week that you wish payments to be collected via this
+            parameter.
+
+            This field is only mandatory if the schedule is **not** an ad-hoc
+            schedule.
+
+            This field is only mandatory if the schedule is **weekly**.
           in: query
           name: paymentDayInWeek
           required: false
           type: integer
-        - description: Payment month in year.
+        - description: >
+            If the schedule is for regular payments then the month in which you
+
+            wish the first payment should be passed with this parameter.
+
+            This field is only mandatory if the schedule is **not** an ad-hoc
+            schedule.
+
+            This field is only mandatory if the schedule is **annual** or
+            **monthly**.
           in: query
           name: paymentMonthInYear
           required: false
           type: integer
-        - description: Initial date.
+        - description: Different first payment date.
           in: query
           name: initialDate
           required: false
           type: string
           format: datetime
-        - description: Initial amount.
+        - description: >
+            If this is a schedule for regular payments **and** the first payment
+            is
+
+            different to the regular payments, then pass the first payment
+            amount
+
+            with this parameter.
+
+            **Do not** pass this parameter with ad-hoc schedules, or where the
+            first
+
+            amount is the same as the regular amount.
           in: query
           name: initialAmount
           required: false
           type: number
           format: decimal
-        - description: Extra initial amounts.
+        - description: |
+            If there are extra charges to be collected with the first payment
+            (e.g. a gym joining fee/registration fee) then these can be added
+            separately with this parameter. Do not pass the parameter if there
+            are no extra amounts, and this must not be used if the schedule is
+            an ad-hoc payment schedule.
           in: query
           name: extraInitialAmounts
           required: false
           type: string
-        - description: Amount
+        - description: >
+            If the schedule is for regular payments, then the regular payment
+
+            amount should be passed using this parameter. Do not pass this
+
+            parameter if the schedule is an ad-hoc schedule.
+
+            This field is only mandatory if the schedule is **not** an ad-hoc
+            schedule.
           in: query
           name: amount
           required: false
           type: number
           format: decimal
-        - description: Final amount.
+        - description: >
+            If this is a schedule for regular payments **and** the final payment
+            is
+
+            different to the regular payments, then pass the final payment
+            amount
+
+            with this parameter. **Do not** pass this parameter with ad-hoc
+
+            schedules, or where the final amount is the same as the regular
+            amount.
           in: query
           name: finalAmount
           required: false
           type: number
           format: decimal
-        - description: Termination type.
+        - description: >
+            Pass the way in which the schedule should end using this parameter.
+
+            If the schedule is **ad-hoc,** *you must* pass `Until further
+            notice`.
+          enum:
+            - Take certain number of debits
+            - Until further notice
+            - End on exact date
           in: query
           name: terminationType
           required: false
           type: string
-        - description: Termination date.
+        - description: >
+            If the `terminationType` is `End on Exact Date` then the termination
+            date
+
+            should be passed using this.
+
+            **Format: `YYYY-MM-DDT00:00:00.000`**
           in: query
           name: terminationDate
           required: false
           type: string
           format: datetime
-        - description: Number of payments.
+        - description: >
+            If this is a “Take certain Number of Debits” schedule then the
+            number of
+
+            debits to be taken should be passed using this parameter.
+
+            This field is only mandatory if the termination type is “Take
+            Certain
+
+            Number of Debits”.
           in: query
+          maximum: 999
+          minimum: 0
           name: numberOfPayments
           required: false
           type: integer
-        - description: Is Gift Aid.
+        - description: >
+            Pass true if the payments to be collected are to be subject to a
+            gift aid
+
+            claim, false if not (pass false if the client is not a charity).
           in: query
           name: isGiftAid
           required: false
@@ -6318,7 +6582,6 @@ tags:
       If you're a live customer and wish to discuss the possibility of reducing your SUN delay periods, please raise a support case.
       
     name: Payment Dates
-  - name: Frequency Switching
   - description: |
       A contract record represents the Direct Debit associated with a customer
       record. There are two forms of contract record:
@@ -6345,6 +6608,7 @@ tags:
       however you should be prepared to accept different errors and handle
       them as exceptions during the testing stage.
     name: Contract Amendment
+  - name: Frequency Switching
   - description: |
       It is important to understand that there are two parts to a contract;
       the schedule which creates payments and the Direct Debit which collects
