@@ -6087,6 +6087,7 @@
             "name": "Contract Amendment"
         },
         {
+            "description": "Managing frequencies on a future scheduled contract can be achieved \nusing the Frequency Switching API endpoints below. These endpoints allow \nfor dynamic adjustments to future contract schedules, including retrieving, \ncreating, editing, or deleting future schedules. By selecting the \nappropriate endpoint for the required action, users can efficiently manage \npayment frequencies, ensuring automated and accurate handling of future \ncontract schedules without manual intervention.\n",
             "name": "Frequency Switching"
         },
         {

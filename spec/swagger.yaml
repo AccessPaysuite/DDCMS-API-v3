@@ -6608,7 +6608,15 @@ tags:
       however you should be prepared to accept different errors and handle
       them as exceptions during the testing stage.
     name: Contract Amendment
-  - name: Frequency Switching
+  - description: |
+      Managing frequencies on a future scheduled contract can be achieved 
+      using the Frequency Switching API endpoints below. These endpoints allow 
+      for dynamic adjustments to future contract schedules, including retrieving, 
+      creating, editing, or deleting future schedules. By selecting the 
+      appropriate endpoint for the required action, users can efficiently manage 
+      payment frequencies, ensuring automated and accurate handling of future 
+      contract schedules without manual intervention.
+    name: Frequency Switching
   - description: |
       It is important to understand that there are two parts to a contract;
       the schedule which creates payments and the Direct Debit which collects
