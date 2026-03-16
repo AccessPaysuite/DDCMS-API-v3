@@ -4340,6 +4340,327 @@
                 ]
             }
         },
+        "/client/{clientCode}/contract/{contractId}/cancelSchedule": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "description": "The client code provided in your welcome email.",
+                        "in": "path",
+                        "maxLength": 6,
+                        "name": "clientCode",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "The contract GUID that you want to cancel the schedule for.",
+                        "in": "path",
+                        "name": "contractId",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Contract schedule was cancelled successfully."
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Validation error",
+                                "ErrorCode": 3,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "examples": {
+                            "application/json": {
+                                "Message": "API not enabled",
+                                "ErrorCode": 7,
+                                "Detail": "This contract cannot be used in API"
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Contract not found",
+                                "ErrorCode": 0
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Internal server error",
+                                "ErrorCode": 4,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "tags": [
+                    "Frequency Switching"
+                ],
+                "summary": "Cancels the schedule of a contract.",
+                "x-codeSamples": [
+                    {
+                        "lang": "cURL",
+                        "source": "curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/cancelSchedule' -H 'apiKey: {apiKey}'\n"
+                    }
+                ]
+            }
+        },
+        "/client/{clientCode}/contract/{contractId}/restartSchedule": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "description": "The client code provided in your welcome email.",
+                        "in": "path",
+                        "maxLength": 6,
+                        "name": "clientCode",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "The contract GUID that you want to restart the schedule for.",
+                        "in": "path",
+                        "name": "contractId",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    },
+                    {
+                        "description": "An optional comment.",
+                        "in": "query",
+                        "name": "comment",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Contract schedule was restarted successfully."
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Validation error",
+                                "ErrorCode": 3,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "examples": {
+                            "application/json": {
+                                "Message": "API not enabled",
+                                "ErrorCode": 7,
+                                "Detail": "This contract cannot be used in API"
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Contract not found",
+                                "ErrorCode": 0
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Internal server error",
+                                "ErrorCode": 4,
+                                "Detail": ""
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "description": "Message.",
+                                    "type": "string"
+                                },
+                                "ErrorCode": {
+                                    "description": "Error code.",
+                                    "type": "integer"
+                                },
+                                "Detail": {
+                                    "description": "Detail.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "tags": [
+                    "Frequency Switching"
+                ],
+                "summary": "Restarts the schedule of a contract.",
+                "x-codeSamples": [
+                    {
+                        "lang": "cURL",
+                        "source": "curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/restartSchedule' -H 'apiKey: {apiKey}'\n"
+                    }
+                ]
+            }
+        },
         "/client/{clientCode}/customer/{customerId}/contract": {
             "get": {
                 "produces": [
