@@ -6126,6 +6126,281 @@ paths:
       tags:
         - Patches
       summary: Deletes a patch.
+  '/client/{clientCode}/ddcmsdirect/import':
+    post:
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: |
+            The file to be imported. Must be in one of the supported formats:
+            BACS Standard 18, BACS Standard 18 Payment Lines, SmartDebit Direct CSV,
+            or BACS Active (EaziPay).
+          in: formData
+          name: file
+          required: true
+          type: file
+        - description: |
+            The file format type, which determines which structural validation rules
+            are applied to the uploaded file. Must be one of the following values:
+            - `bacs_standard_18` - BACS Standard 18
+            - `bacs_standard_18_payment_lines` - BACS Standard 18 Payment Lines
+            - `smartdebit_direct_csv` - SmartDebit Direct CSV
+            - `bacs_active_eazipay` - BACS Active (EaziPay)
+          in: formData
+          name: fileType
+          required: true
+          type: string
+          enum:
+            - bacs_standard_18
+            - bacs_standard_18_payment_lines
+            - smartdebit_direct_csv
+            - bacs_active_eazipay
+      responses:
+        200:
+          description: File imported successfully
+          schema:
+            properties:
+              status:
+                type: string
+                description: Returns `success` when the file has been imported.
+              fileId:
+                type: string
+                format: uuid
+                description: |
+                  The unique idenitifer assigned to the imported file.
+                  You should save this for future reference.
+              importedAt:
+                type: string
+                format: date-time
+                description: The date/time at which the file was imported.
+              message:
+                type: string
+                description: A human-readable message confirming the import.
+              fileStatus:
+                type: string
+                description: The current status of the file. Will be `Queued for validation` on a successful import.
+              nextSteps:
+                type: string
+                description: Guidance on what to do next after a successful import.
+            type: object
+          examples:
+            application/json:
+              status: success
+              fileId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+              importedAt: '2024-01-20T15:30:00Z'
+              message: File imported successfully
+              fileStatus: Queued for validation
+              nextSteps: >-
+                File is queued for validation. Check DDCMS Direct UI for
+                validation results and any required actions such as SUN
+                assignment or processing date selection.
+        400:
+          description: |
+            Bad request. This can occur for several reasons:
+            - **Missing `fileType` parameter:** The `fileType` form field was not included in the request.
+            - **Invalid `fileType` value:** The `fileType` value is not one of the supported file types.
+            - **Missing or empty `file`:** The `file` form field was not included or the file is empty.
+            - **Request not `multipart/form-data`:** The request `Content-Type` is not `multipart/form-data`.
+            - **Structural validation failure:** The file was parsed but failed structural/format validation checks.
+          schema:
+            properties:
+              status:
+                type: string
+                description: |
+                  Returns `error` for parameter issues,
+                  or `validation_failed` for structural validation features.
+              message:
+                type: string
+                description: A human-readable description of the error.
+              errors:
+                type: array
+                description: |
+                  Only present when `status` is `validation_failed`.
+                  An array of structural validation errors found in the file.
+                items:
+                  type: object
+                  properties:
+                    category:
+                      type: string
+                      description: The category of the error (e.g. `structural_validation`, `file_format`).
+                    message:
+                      type: string
+                      description: A human-readable description of the specific validation error.
+              errorType:
+                type: string
+                description: Only present when `status` is `validation_failed`. Returns `structural`.
+              supportedFileTypes:
+                type: array
+                items:
+                  type: string
+                description: |
+                  Only present when the error is caused by an invalid `fileType` value.
+                  Lists the supported file type keys.
+            type: object
+          examples:
+            Missing fileType parameter:
+              status: error
+              message: fileType parameter is required
+            Invalid fileType value:
+              status: error
+              message: >-
+                Invalid fileType value. Must be one of the supported file
+                types.
+              supportedFileTypes:
+                - bacs_standard_18
+                - bacs_standard_18_payment_lines
+                - smartdebit_direct_csv
+                - bacs_active_eazipay
+            Missing or empty file:
+              status: error
+              message: file is required and must not be empty
+            Request not multipart:
+              status: error
+              message: Request must be multipart/form-data
+            Structural validation failure:
+              status: validation_failed
+              message: File structural validation failed
+              errors:
+                - category: structural_validation
+                  message: >-
+                    Invalid BACS Standard 18 file structure: Missing HDR2
+                    header record
+                - category: structural_validation
+                  message: File does not match selected format type
+              errorType: structural
+        403:
+          description: Forbidden - DDCMS Direct feature not enabled for this client
+          schema:
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+            type: object
+          examples:
+            application/json:
+              status: error
+              message: DDCMS Direct feature not enabled for this client
+        413:
+          description: Request Entity Too Large - the uploaded file exceeds the maximum allowed size of 137000000 bytes (130 MB)
+          schema:
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              maxFileSizeBytes:
+                type: integer
+                description: The maximum file size allowed, in bytes (137000000).
+            type: object
+          examples:
+            application/json:
+              status: error
+              message: File exceeds the maximum allowed size
+              maxFileSizeBytes: 137000000
+        500:
+          description: |
+            Internal Server Error. This may occur if:
+            - The API user is not configured in the system.
+            - An unexpected error occurred during processing.
+          schema:
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+            type: object
+          examples:
+            application/json:
+              status: error
+              message: An internal server error occurred
+      tags:
+        - DDCMS Direct File Import
+      summary: Imports a BACS payment file via the API for processing through DDCMS Direct.
+      description: |
+        Imports a file into DDCMS Direct for processing through the existing approval
+        workflows. The file undergoes initial structural validation based on the specified
+        `fileType`. If validation passes, the file is stored and queued for further
+        validation.
+        **Prerequisites:**
+        - The client must have the DDCMS Direct feature enabled.
+        - The request must be sent as `multipart/form-data`.
+        - Both `file` and `fileType` form fields are required.
+
+        **Upload Attribution:**
+        Files uploaded via this endpoint are recorded as "Uploaded by: API User".
+        The file will appear in the DDCMS Direct UI and on the home screen with
+        "API User" attribution. When a user subsequently interacts with the file,
+        the attribution transfers to that user to ensure correct approval workflows.
+
+        **After a Successful Import:**
+        The file will have status "Queued for validation". Check the DDCMS Direct UI
+        for validation results and any required actions such as SUN assignment or
+        processing date selection.
+      security:
+        - ApiKeyAuth: []
+      x-codeSamples:
+        - lang: cURL
+          source: |
+            curl -L -g -X POST \
+              'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/ddcmsdirect/import' \
+              -H 'apiKey: {apiKey}' \
+              -F 'file=@/path/to/payment-file.txt' \
+              -F 'fileType=bacs_standard_18'
+        - lang: C#
+          source: |
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("apiKey", "{apiKey}");
+                using (var content = new MultipartFormDataContent())
+                {
+                    var fileContent = new ByteArrayContent(File.ReadAllBytes("/path/to/payment-file.txt"));
+                    fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                    content.Add(fileContent, "file", "payment-file.txt");
+                    content.Add(new StringContent("bacs_standard_18"), "fileType");
+                    var response = await client.PostAsync(
+                        "https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/ddcmsdirect/import",
+                        content);
+                    var result = await response.Content.ReadAsStringAsync();
+                }
+            }
+        - lang: Python
+          source: |
+            import requests
+            url = "https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/ddcmsdirect/import"
+            headers = {"apiKey": "{apiKey}"}
+            files = {"file": open("/path/to/payment-file.txt", "rb")}
+            data = {"fileType": "bacs_standard_18"}
+            response = requests.post(url, headers=headers, files=files, data=data)
+            print(response.json())
+        - lang: Java
+          source: |
+            HttpClient client = HttpClient.newHttpClient();
+            Path filePath = Path.of("/path/to/payment-file.txt");
+            String boundary = UUID.randomUUID().toString();
+            String body = "--" + boundary + "\r\n"
+                + "Content-Disposition: form-data; name=\"fileType\"\r\n\r\n"
+                + "bacs_standard_18\r\n"
+                + "--" + boundary + "\r\n"
+                + "Content-Disposition: form-data; name=\"file\"; filename=\"payment-file.txt\"\r\n"
+                + "Content-Type: application/octet-stream\r\n\r\n"
+                + Files.readString(filePath) + "\r\n"
+                + "--" + boundary + "--";
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/ddcmsdirect/import"))
+                .header("apiKey", "{apiKey}")
+                .header("Content-Type", "multipart/form-data; boundary=" + boundary)
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 definitions:
   AddressDetail:
     description: Address of the customer.
@@ -6895,6 +7170,10 @@ tags:
     name: Bulk Adding Payments
   - name: Payment Manipulation
   - name: Obtaining Available Schedules
+  - description: >
+      Import BACS payment files via the API for processing through DDCMS Direct.
+      The client must have the DDCMS Direct feature enabled.
+    name: DDCMS Direct File Import
   - description: >
       If you have provided us with a return endpoint using the `Return
 
