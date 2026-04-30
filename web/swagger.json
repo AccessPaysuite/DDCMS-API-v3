@@ -125,7 +125,7 @@
                             "application/json": {
                                 "Message": "https://my.website.com/webhook"
                             },
-                            "application/xml": "<GeneralAcknowledgement xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><Message>https://my.website.com/webhook</Message></GeneralAcknowledgement>\n  "
+                            "application/xml": "<GeneralAcknowledgement xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><Message>https://my.website.com/webhook</Message></GeneralAcknowledgement>"
                         }
                     },
                     "401": {
@@ -290,8 +290,84 @@
                 "tags": [
                     "Client Info"
                 ],
-                "description": "Retrieve configuration info about your DDCMS client",
-                "summary": "Retrieve configuration info about your DDCMS client"
+                "description": "Retrieve configuration info about your DDCMS client.",
+                "summary": "Retrieve configuration info about your DDCMS client."
+            }
+        },
+        "/client/{clientCode}/payments": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "description": "The client code provided in your welcome email.",
+                        "in": "path",
+                        "maxLength": 6,
+                        "name": "clientCode",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Example JSON payload format.",
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ClientListPaymentsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK - Paginated list of payments returned. Empty Data array if no matches. Sorted by createdAt descending.",
+                        "schema": {
+                            "properties": {
+                                "Pagination": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Page": {
+                                            "description": "Page number for the pagination.",
+                                            "type": "number"
+                                        },
+                                        "PageSize": {
+                                            "description": "Number of payment records to return per page.",
+                                            "type": "number"
+                                        },
+                                        "TotalPages": {
+                                            "description": "Total number of pages returned by the search.",
+                                            "type": "number"
+                                        },
+                                        "TotalRecords": {
+                                            "description": "Total number of payment records returned by the search.",
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "Data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Payment"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - {specific error message} e.g. invalid status/type value, pageSize exceeds configured maximum."
+                    },
+                    "403": {
+                        "description": "Forbidden - This contract cannot be used in API. When contract is protected."
+                    },
+                    "500": {
+                        "description": "Internal Server Error - An unexpected error occurred while processing the request."
+                    }
+                },
+                "tags": [
+                    "Client Info"
+                ],
+                "description": "List all payments registered against your DDCMS client.",
+                "summary": "List all payments registered against your DDCMS client."
             }
         },
         "/client/{clientCode}/bulk/payments": {
@@ -6147,6 +6223,83 @@
                 "schedule"
             ],
             "type": "string"
+        },
+        "ClientListPaymentsRequest": {
+            "description": "Payload for the `/client/{clientCode}/payments` endpoint.",
+            "type": "object",
+            "properties": {
+                "PageNumber": {
+                    "description": "Page number for the pagination.",
+                    "type": "number",
+                    "default": 1
+                },
+                "PageSize": {
+                    "description": "Number of payment records to return per page.",
+                    "type": "number",
+                    "default": 100
+                },
+                "ContractId": {
+                    "description": "Unique ID for a particular contract you want to list payments for.",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "CustomerId": {
+                    "description": "Unique ID for a particular customer you want to list payments for.\n**Note:** this will be ignored if `ContractId` is also provided.\n",
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "IsCredit": {
+                    "description": "Set to `true` to only return credit payments.\nSet to `false` to only return debit payments.\n",
+                    "type": "boolean"
+                },
+                "IsScheduled": {
+                    "description": "Set to `true` to only return payments generated by DDCMS on a regular/fixed schedule. \nSet to `false` to only return ad-hoc payments.\n",
+                    "type": "boolean"
+                },
+                "Status": {
+                    "description": "Set to only return payments with a particular status.",
+                    "type": "string",
+                    "enum": [
+                        "Indemnity Claimed",
+                        "Paid",
+                        "Pending",
+                        "Represented",
+                        "Unpaid",
+                        "withdrawn"
+                    ]
+                },
+                "Type": {
+                    "description": "Set to only return payments of a particular type.",
+                    "type": "string",
+                    "enum": [
+                        "Credit",
+                        "Final",
+                        "First Time",
+                        "Regular",
+                        "Retry"
+                    ]
+                },
+                "CollectionDateFrom": {
+                    "description": "Earliest `Due` date to return payments for.",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "CollectionDateTo": {
+                    "description": "Latest `Due` date to return payments for.",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "CreatedAfter": {
+                    "description": "Earliest `DateAdded` date to return payments for.",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "CreatedBefore": {
+                    "description": "Latest `DateAdded` date to return payments for.",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
         },
         "Contract": {
             "properties": {

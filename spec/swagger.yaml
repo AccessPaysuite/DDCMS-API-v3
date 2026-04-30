@@ -1,27 +1,27 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   description: >
     **NOTICE:** The hosts for the API are now located at `ddcms.accesspaysuite.com` and `playpen.accesspaysuite.com`, instead of `ecm3.eazycollect.co.uk` and `playpen.eazycollect.co.uk` respectively.
-    
-    
+
+
     While the old URLs will continue to work as normal, and although there's no plans currently to disable these URLs, we would strongly recommend you update your integration to call the new URLs.
-    
-    
+
+
     **NOTICE:** The URL hosting this documentation has now been updated to https://api-docs-ddcms-v3.accesspaysuite.com
-    
-    
+
+
     We strongly encourage all of our customers to actively change to using this new link. Connections to the current site https://eazycollectservices.github.io/EazyCollectAPIv3/ will automatically redirect to https://api-docs-ddcms-v3.accesspaysuite.com. However, we only intend to maintain this automatic redirect across a transitional period, so please ensure you update your bookmarks and links as soon as possible.
-  
+
     ## About Access Paysuite
-    
+
     Access PaySuite is a leading provider of payment solutions to mid-sized UK organisations. Part of The Access Group, it combines payments expertise with unparalleled SaaS experience to help customers across commercial and not for profit sectors improve their payment solutions, providing organisations with the freedom to accelerate their innovation and growth. For more information about Access PaySuite, visit www.accesspaysuite.com
-    
+
 
     Our Collection Services are based around our Direct Debit and Credit Management System
-    
+
     (DDCMS) application which manages the Direct Debit process from beginning
     to end and is connected
-    
+
     to a robust and powerful BACS submission engine. The system also provides
     a range of
 
@@ -161,35 +161,35 @@ info:
 
 
     Regarding these time delays, you will see mention of two particular delays
-    
+
     that need to be considered, particularly when adding new Direct Debit
-    
+
     contracts or ad-hoc payments:
-    
+
     - **First Payment Delay:** Default is **10 working days** but can be as low
       as **5**.
     - **Subsequent Payment Delay:** Default is **5 working days** but can be as
       low as **3**.
 
     If you wish to lower these delays whilst testing the API in our playpen,
-    
+
     please raise a support case. Requests to lower delays on a live account
-    
+
     should be raised with your Customer Success Manager or sales contact. Note
-    
+
     that it may not be possible for us to change your account's configured
-    
+
     delays.
 
 
     We ask that our clients that their First Payment Delay is the **absolute
-    
+
     minimum** between creating a customer and contract and collecting the first
 
     payment. Payments for existing contracts must be submitted and confirmed
 
     by 12pm the Subsequent Payment Delay before the collection date for existing
-    
+
     customers with an active Direct Debit.
 
 
@@ -206,7 +206,7 @@ info:
     **It is important to note** that if a collection date falls on a weekend
 
     or a bank holiday, then the delay rules start from the following working day;
-    
+
     so for a Saturday or a Sunday, the number of working days to delay should be
 
     counted back from the next non-UK bank holiday Monday.
@@ -214,10 +214,10 @@ info:
 
     **For example:**
 
-    
+
     Assuming **First Payment Delay** = **10 working days** and **Subsequent
     Payment Delay** = **5 working days**
-    
+
 
     <u>For payments due on Saturday 19/04/2025</u>
 
@@ -227,18 +227,18 @@ info:
 
 
     **Note:** 18/04/2025 (Good Friday) and 21/04/2025 (Easter Monday) are Bank
-    
+
     Holidays in the UK and do not count as banking days.
-    
-    
+
+
     To view the deadlines for lodging collections for new and existing customers
-    
+
     for any given collection date, please see our **Date Calculator** at
-    
+
     https://www.accesspaysuite.com/date. Alternatively, see the `GET /paymentdate`
-    
+
     API call available under **Payment Dates** to see the earliest possible
-    
+
     dates for first and subsequent payments.
 
 
@@ -356,14 +356,14 @@ info:
   title: Access Paysuite
   version: 3.0.0
   x-logo:
-    backgroundColor: '#4b112c'
-    url: 'https://www.accesspaysuite.com/media/iwwhai0a/paysuite-logo.png'
-host: 'ddcms.accesspaysuite.com'
-basePath: '/api/v3'
+    backgroundColor: "#4b112c"
+    url: "https://www.accesspaysuite.com/media/iwwhai0a/paysuite-logo.png"
+host: "ddcms.accesspaysuite.com"
+basePath: "/api/v3"
 schemes:
   - https
 paths:
-  '/client/{clientCode}/BACS/{entity}/callback':
+  "/client/{clientCode}/BACS/{entity}/callback":
     delete:
       produces:
         - application/json
@@ -387,7 +387,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -444,17 +444,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
-              Message: 'https://my.website.com/webhook'
+              Message: "https://my.website.com/webhook"
             application/xml: >-
               <GeneralAcknowledgement
               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Message>https://my.website.com/webhook</Message></GeneralAcknowledgement>
-                
-        '401':
+
+        "401":
           description: Unauthorised - API not enabled or API key incorrect
           examples:
             application/json:
@@ -463,7 +463,7 @@ paths:
               <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Message>API
                   not enabled</Message><ErrorCode>7</ErrorCode></ErrorAcknowledgement>
-        '404':
+        "404":
           description: Not found - Client code incorrect
           examples:
             application/json:
@@ -473,7 +473,7 @@ paths:
               <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Message>API
                 not enabled</Message><ErrorCode>7</ErrorCode></ErrorAcknowledgement>
-        '405':
+        "405":
           description: API key not provided
           examples:
             application/json:
@@ -530,7 +530,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -560,7 +560,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/BACS/contract/callback?url=https://my.website.com/webhook' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/info':
+  "/client/{clientCode}/info":
     get:
       produces:
         - application/json
@@ -572,7 +572,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             properties:
@@ -584,9 +584,60 @@ paths:
               CustomerEmailMandatory: true
       tags:
         - Client Info
-      description: Retrieve configuration info about your DDCMS client
-      summary: Retrieve configuration info about your DDCMS client
-  '/client/{clientCode}/bulk/payments':
+      description: Retrieve configuration info about your DDCMS client.
+      summary: Retrieve configuration info about your DDCMS client.
+  "/client/{clientCode}/payments":
+    post:
+      produces:
+        - application/json
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: Example JSON payload format.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/ClientListPaymentsRequest"
+      responses:
+        "200":
+          description: OK - Paginated list of payments returned. Empty Data array if no matches. Sorted by createdAt descending.
+          schema:
+            properties:
+              Pagination:
+                type: object
+                properties:
+                  Page:
+                    description: Page number for the pagination.
+                    type: number
+                  PageSize:
+                    description: Number of payment records to return per page.
+                    type: number
+                  TotalPages:
+                    description: Total number of pages returned by the search.
+                    type: number
+                  TotalRecords:
+                    description: Total number of payment records returned by the search.
+                    type: number
+              Data:
+                type: array
+                items:
+                  $ref: "#/definitions/Payment"
+        "400":
+          description: Bad Request - {specific error message} e.g. invalid status/type value, pageSize exceeds configured maximum.
+        "403":
+          description: Forbidden - This contract cannot be used in API. When contract is protected.
+        "500":
+          description: Internal Server Error - An unexpected error occurred while processing the request.
+      tags:
+        - Client Info
+      description: List all payments registered against your DDCMS client.
+      summary: List all payments registered against your DDCMS client.
+  "/client/{clientCode}/bulk/payments":
     post:
       consumes:
         - application/json
@@ -607,22 +658,22 @@ paths:
           name: body
           required: true
           schema:
-            $ref: '#/definitions/BulkPaymentRequest'
+            $ref: "#/definitions/BulkPaymentRequest"
             example:
               Payments:
                 - amount: 1.1
-                  comment: 'Up to 256 characters, optional'
+                  comment: "Up to 256 characters, optional"
                   contract: GUID
-                  date: 'YYYY-MM-DDT00:00:00.000'
+                  date: "YYYY-MM-DDT00:00:00.000"
                   isCredit: false
                 - amount: 1.1
-                  comment: 'Up to 256 characters, optional'
+                  comment: "Up to 256 characters, optional"
                   contract: GUID
-                  date: 'YYYY-MM-DDT00:00:00.000'
+                  date: "YYYY-MM-DDT00:00:00.000"
                   isCredit: false
             type: object
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             properties:
@@ -632,7 +683,7 @@ paths:
               Failures:
                 type: array
                 items:
-                  $ref: '#/definitions/BulkPayment'
+                  $ref: "#/definitions/BulkPayment"
                 description: Array of payment requests that failed to push to the queue.
               IsSuccessfull:
                 type: boolean
@@ -659,7 +710,7 @@ paths:
                   <IsSuccessfull>true</IsSuccessfull>
                   <Message>All payments are in queue for process</Message>
               </BulkPaymentAcknowledgement>
-        '400':
+        "400":
           description: Bad request - no payments
           examples:
             application/json:
@@ -690,7 +741,7 @@ paths:
                   }
                 ]
               }'
-  '/client/{clientCode}/contract/{contractId}/amount':
+  "/client/{clientCode}/contract/{contractId}/amount":
     patch:
       produces:
         - application/json
@@ -721,7 +772,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -733,7 +784,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract updated</Message>
               </GeneralAcknowledgement>
-        '400':
+        "400":
           description: Bad Request
           examples:
             application/json:
@@ -781,7 +832,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/amount?amount=9.99&comment=Change contract amount' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/annual':
+  "/client/{clientCode}/contract/{contractId}/annual":
     patch:
       produces:
         - application/json
@@ -818,34 +869,34 @@ paths:
 
             collected*.
           enum:
-            - '1'
-            - '2'
-            - '3'
-            - '4'
-            - '5'
-            - '6'
-            - '7'
-            - '8'
-            - '9'
-            - '10'
-            - '11'
-            - '12'
-            - '13'
-            - '14'
-            - '15'
-            - '16'
-            - '17'
-            - '18'
-            - '19'
-            - '20'
-            - '21'
-            - '22'
-            - '23'
-            - '24'
-            - '25'
-            - '26'
-            - '27'
-            - '28'
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+            - "5"
+            - "6"
+            - "7"
+            - "8"
+            - "9"
+            - "10"
+            - "11"
+            - "12"
+            - "13"
+            - "14"
+            - "15"
+            - "16"
+            - "17"
+            - "18"
+            - "19"
+            - "20"
+            - "21"
+            - "22"
+            - "23"
+            - "24"
+            - "25"
+            - "26"
+            - "27"
+            - "28"
             - Last Day of the Month
           in: query
           name: monthDay
@@ -885,7 +936,7 @@ paths:
           required: true
           type: boolean
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -897,7 +948,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract updated</Message>
               </GeneralAcknowledgement>
-        '400':
+        "400":
           description: Bad request - invalid day
           examples:
             application/json:
@@ -936,7 +987,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/annual?monthDay=15&month=1&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/archive':
+  "/client/{clientCode}/contract/{contractId}/archive":
     post:
       produces:
         - application/json
@@ -955,7 +1006,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -967,7 +1018,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract archived</Message>
               </GeneralAcknowledgement>
-        '403':
+        "403":
           description: Forbidden - contract is protected
           examples:
             application/json:
@@ -977,7 +1028,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>API not enabled</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -1024,7 +1075,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/archive' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/cancel':
+  "/client/{clientCode}/contract/{contractId}/cancel":
     post:
       produces:
         - application/json
@@ -1043,7 +1094,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -1055,7 +1106,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract cancelled</Message>
               </GeneralAcknowledgement>
-        '403':
+        "403":
           description: Forbidden - contract is protected
           examples:
             application/json:
@@ -1065,7 +1116,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract cannot be accessed</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -1108,7 +1159,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/cancel' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/monthly':
+  "/client/{clientCode}/contract/{contractId}/monthly":
     patch:
       produces:
         - application/json
@@ -1145,34 +1196,34 @@ paths:
 
             collected*.
           enum:
-            - '1'
-            - '2'
-            - '3'
-            - '4'
-            - '5'
-            - '6'
-            - '7'
-            - '8'
-            - '9'
-            - '10'
-            - '11'
-            - '12'
-            - '13'
-            - '14'
-            - '15'
-            - '16'
-            - '17'
-            - '18'
-            - '19'
-            - '20'
-            - '21'
-            - '22'
-            - '23'
-            - '24'
-            - '25'
-            - '26'
-            - '27'
-            - '28'
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+            - "5"
+            - "6"
+            - "7"
+            - "8"
+            - "9"
+            - "10"
+            - "11"
+            - "12"
+            - "13"
+            - "14"
+            - "15"
+            - "16"
+            - "17"
+            - "18"
+            - "19"
+            - "20"
+            - "21"
+            - "22"
+            - "23"
+            - "24"
+            - "25"
+            - "26"
+            - "27"
+            - "28"
             - Last Day of the Month
           in: query
           name: monthDay
@@ -1205,7 +1256,7 @@ paths:
           required: true
           type: boolean
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -1217,7 +1268,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract updated</Message>
               </GeneralAcknowledgement>
-        '400':
+        "400":
           description: Bad request - invalid day
           examples:
             application/json:
@@ -1260,7 +1311,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/monthly?monthDay=15&comment=Change day&patchNextPayment=false' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/payment':
+  "/client/{clientCode}/contract/{contractId}/payment":
     get:
       produces:
         - application/json
@@ -1290,14 +1341,14 @@ paths:
           required: true
           type: integer
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Payments:
                 - Amount: 15.99
                   Comment: This is a test
-                  Date: '2017-05-15T00:00:00.000Z'
+                  Date: "2017-05-15T00:00:00.000Z"
                   Id: 36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b
                   IsAdhoc: true
                   IsCredit: false
@@ -1325,10 +1376,10 @@ paths:
             properties:
               Payments:
                 items:
-                  $ref: '#/definitions/Payment'
+                  $ref: "#/definitions/Payment"
                 type: array
             type: object
-        '403':
+        "403":
           description: Forbidden - contract is protected
           examples:
             application/json:
@@ -1338,7 +1389,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract cannot be accessed</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -1443,20 +1494,20 @@ paths:
           schema:
             example:
               Amount: 10.00
-              Comment: 'A comment.'
-              Date: '2019-08-01T00:00:00.000'
+              Comment: "A comment."
+              Date: "2019-08-01T00:00:00.000"
               IsCredit: false
             type: object
             xml:
-              name: 'PaymentRequest'
+              name: "PaymentRequest"
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Amount: 15.99
               Contract: b3c17b6f-9ad2-4fa3-9a33-8a8f6813ab1f
-              DueDate: '2017-05-15T00:00:00.000Z'
+              DueDate: "2017-05-15T00:00:00.000Z"
               Id: 1b2ac277-5f1f-424a-b55f-323d5bcef8f6
             application/xml: >
               <PaymentAcknowledgement
@@ -1485,7 +1536,7 @@ paths:
                 format: date-time
                 type: string
               Error:
-                description: 'If any error occurs, a message will appear here.'
+                description: "If any error occurs, a message will appear here."
                 type: string
               Id:
                 description: >
@@ -1509,7 +1560,7 @@ paths:
                   appear here (usually null).
                 type: string
             type: object
-        '400':
+        "400":
           description: Bad request - invalid payment amount
           examples:
             application/json:
@@ -1519,7 +1570,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Amount must be greater than zero</Message>
               </ErrorAcknowledgement>
-        '403':
+        "403":
           description: Forbidden - contract is protected
           examples:
             application/json:
@@ -1529,7 +1580,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract cannot be accessed</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -1570,7 +1621,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/payment?amount=10.00&date=2019-08-01&comment=A comment' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/payment/{paymentId}':
+  "/client/{clientCode}/contract/{contractId}/payment/{paymentId}":
     delete:
       produces:
         - application/json
@@ -1604,7 +1655,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -1616,7 +1667,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Payment deleted</Message>
               </GeneralAcknowledgement>
-        '400':
+        "400":
           description: Bad request - missing comment
           examples:
             application/json:
@@ -1626,7 +1677,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Comment must not be empty</Message>
               </ErrorAcknowledgement>
-        '403':
+        "403":
           description: Forbidden - payment contract is protected
           examples:
             application/json:
@@ -1636,7 +1687,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Payment cannot be accessed</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Payment not found
           examples:
             application/json:
@@ -1706,17 +1757,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Amount: 15.99
               Comment: This is a test
-              Date: '2017-05-15T00:00:00.000Z'
+              Date: "2017-05-15T00:00:00.000Z"
               Id: 36bb4f4f-9a7f-4ead-82dc-9295c6fb9e8b
               IsAdhoc: true
               IsCredit: false
-              ReasonCode: '0,'
+              ReasonCode: "0,"
               Status: Pending
               Type: BACS
             application/xml: |
@@ -1732,7 +1783,7 @@ paths:
                   <Comment>This is a test</Comment>
                   <Type>BACS</Type>
               </PaymentDetail>
-        '403':
+        "403":
           description: Forbidden - payment contract is protected
           examples:
             application/json:
@@ -1742,7 +1793,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Payment cannot be accessed</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Payment not found
           examples:
             application/json:
@@ -1830,7 +1881,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -1843,18 +1894,18 @@ paths:
                   <Message>Payment updated</Message>
               </GeneralAcknowledgement>
           schema:
-            $ref: '#/definitions/Payment'
-        '400':
+            $ref: "#/definitions/Payment"
+        "400":
           description: Bad request - invalid arguments
           examples:
             application/json:
-              Message: 'An amount, comment or date must be passed'
+              Message: "An amount, comment or date must be passed"
             application/xml: |
               <ErrorAcknowledgement xmlns:xsd="http://www.w3.org/2001/XMLSchema"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>An amount, comment or date must be passed</Message>
               </ErrorAcknowledgement>
-        '403':
+        "403":
           description: Forbidden - payment contract is protected
           examples:
             application/json:
@@ -1864,7 +1915,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Payment cannot be accessed</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Payment not found
           examples:
             application/json:
@@ -1910,7 +1961,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}?amount=10.00&date=2019-08-01&comment=Test comment' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/reactivate':
+  "/client/{clientCode}/contract/{contractId}/reactivate":
     post:
       produces:
         - application/json
@@ -1929,7 +1980,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -1941,7 +1992,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract reactivated</Message>
               </GeneralAcknowledgement>
-        '403':
+        "403":
           description: Forbidden - contract is protected
           examples:
             application/json:
@@ -1951,7 +2002,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract cannot be accessed</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -1989,7 +2040,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/reactivate' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/reference':
+  "/client/{clientCode}/contract/{contractId}/reference":
     patch:
       produces:
         - application/json
@@ -2023,7 +2074,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -2035,7 +2086,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract reference updated</Message>
               </GeneralAcknowledgement>
-        '403':
+        "403":
           description: Forbidden - account not authorised
           examples:
             application/json:
@@ -2045,7 +2096,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>API not enabled</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -2069,7 +2120,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/reference?newDDRef=TEST-MT012345' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/restart':
+  "/client/{clientCode}/contract/{contractId}/restart":
     post:
       produces:
         - application/json
@@ -2258,7 +2309,7 @@ paths:
           name: additionalReference
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -2270,7 +2321,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract restarted</Message>
               </GeneralAcknowledgement>
-        '400':
+        "400":
           description: Bad request - invalid restart date
           examples:
             application/json:
@@ -2281,7 +2332,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Start date must be greater than {minStartDate}</Message>
               </ErrorAcknowledgement>
-        '403':
+        "403":
           description: Forbidden - contract is protected
           examples:
             application/json:
@@ -2291,7 +2342,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract cannot be accessed</Message>
               </ErrorAcknowledgement>
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -2336,7 +2387,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/restart?terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/weekly':
+  "/client/{clientCode}/contract/{contractId}/weekly":
     patch:
       produces:
         - application/json
@@ -2407,7 +2458,7 @@ paths:
           required: true
           type: boolean
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -2419,7 +2470,7 @@ paths:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <Message>Contract updated</Message>
               </GeneralAcknowledgement>
-        '400':
+        "400":
           description: Bad request - invalid day
           examples:
             application/json:
@@ -2463,7 +2514,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/weekly?day=5&comment=Change to Friday&patchNextPayment=false' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/customer':
+  "/client/{clientCode}/customer":
     get:
       produces:
         - application/json
@@ -2570,7 +2621,7 @@ paths:
           maxLength: 8
           minLength: 8
           name: accountNumber
-          pattern: '[0-9]{8}'
+          pattern: "[0-9]{8}"
           type: string
         - description: >
             The customer's bank sort code.
@@ -2594,7 +2645,7 @@ paths:
           maxLength: 6
           minLength: 6
           name: bankSortCode
-          pattern: '[0-9]{6}'
+          pattern: "[0-9]{6}"
           type: string
         - description: >
             The name of the customer's bank account.
@@ -2612,7 +2663,7 @@ paths:
           in: query
           maxLength: 18
           name: accountHolderName
-          pattern: '[0-9a-zA-Z ]{0, 18}'
+          pattern: "[0-9a-zA-Z ]{0, 18}"
           type: string
         - description: The customer's home telephone number.
           in: query
@@ -2630,7 +2681,7 @@ paths:
           name: mobilePhoneNumber
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -2641,12 +2692,12 @@ paths:
                 PostCode: A1 1AA
               BankDetail:
                 AccountHolderName: Access Paysuite
-                AccountNumber: '01065285'
-                BankSortCode: '309906'
+                AccountNumber: "01065285"
+                BankSortCode: "309906"
               CompanyName: Access Paysuite
               CustomerRef: AE102890
-              DateAdded": '2017-04-12T13:22:48.800Z'
-              DateOfBirth: '2017-01-01T00:00:00.000Z'
+              DateAdded": "2017-04-12T13:22:48.800Z"
+              DateOfBirth: "2017-01-01T00:00:00.000Z"
               Email: spam@eazycollect.co.uk
               FirstName: Matthew
               HomePhoneNumber: 01234567890
@@ -2688,14 +2739,14 @@ paths:
                 description: Array of Customers matching the search criteria.
                 type: array
                 items:
-                  $ref: '#/definitions/Customer'
+                  $ref: "#/definitions/Customer"
               Metadata:
                 description: |
                   Object of metadata useful for clients using pagination.
                   Only included if `includePagingDetail=true`
                 type: object
-                $ref: '#/definitions/PagingMetadata'
-        '404':
+                $ref: "#/definitions/PagingMetadata"
+        "404":
           description: Customer not found
           examples:
             application/json:
@@ -2813,7 +2864,7 @@ paths:
           maxLength: 8
           minLength: 8
           name: accountNumber
-          pattern: '[0-9]{8}'
+          pattern: "[0-9]{8}"
           required: true
           type: string
         - description: >
@@ -2838,7 +2889,7 @@ paths:
           maxLength: 6
           minLength: 6
           name: bankSortCode
-          pattern: '[0-9]{6}'
+          pattern: "[0-9]{6}"
           required: true
           type: string
         - description: >
@@ -2857,7 +2908,7 @@ paths:
           in: query
           maxLength: 18
           name: accountHolderName
-          pattern: '[0-9a-zA-Z ]{0, 18}'
+          pattern: "[0-9a-zA-Z ]{0, 18}"
           required: true
           type: string
         - description: The customer's home telephone number.
@@ -2924,7 +2975,7 @@ paths:
               name: CustomerRequestDto
             type: object
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -2955,7 +3006,7 @@ paths:
                   system.
                 type: string
             type: object
-        '400':
+        "400":
           description: Bad request - email mandatory
           examples:
             application/json:
@@ -3035,7 +3086,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer?email=john.doe@test.com&title=Mr&customerRef=999999&firstName=John&surname=Doe&line1=1 Tebbit Mews&postCode=GL52 2NF&accountNumber=12345678&bankSortCode=123456&accountHolderName=Mr John Doe' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/customer/{customerId}':
+  "/client/{clientCode}/customer/{customerId}":
     get:
       produces:
         - application/json
@@ -3054,7 +3105,7 @@ paths:
           type: string
           format: guid
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -3065,12 +3116,12 @@ paths:
                 PostCode: A1 1AA
               BankDetail:
                 AccountHolderName: Access Paysuite
-                AccountNumber: '01065285'
-                BankSortCode: '309906'
+                AccountNumber: "01065285"
+                BankSortCode: "309906"
               CompanyName: Access Paysuite
               CustomerRef: AE102890
-              DateAdded": '2017-04-12T13:22:48.800Z'
-              DateOfBirth: '2017-01-01T00:00:00.000Z'
+              DateAdded": "2017-04-12T13:22:48.800Z"
+              DateOfBirth: "2017-01-01T00:00:00.000Z"
               Email: spam@eazycollect.co.uk
               FirstName: Matthew
               HomePhoneNumber: 01234567890
@@ -3107,8 +3158,8 @@ paths:
                   <Memos />
               </CustomerDetail>
           schema:
-            $ref: '#/definitions/Customer'
-        '404':
+            $ref: "#/definitions/Customer"
+        "404":
           description: Customer not found
           examples:
             application/json:
@@ -3224,7 +3275,7 @@ paths:
           maxLength: 8
           minLength: 8
           name: accountNumber
-          pattern: '[0-9]{8}'
+          pattern: "[0-9]{8}"
           required: false
           type: string
         - description: >
@@ -3249,7 +3300,7 @@ paths:
           maxLength: 6
           minLength: 6
           name: bankSortCode
-          pattern: '[0-9]{6}'
+          pattern: "[0-9]{6}"
           required: false
           type: string
         - description: >
@@ -3268,7 +3319,7 @@ paths:
           in: query
           maxLength: 18
           name: accountHolderName
-          pattern: '[0-9a-zA-Z ]{0, 18}'
+          pattern: "[0-9a-zA-Z ]{0, 18}"
           required: false
           type: string
         - description: The customer's home telephone number.
@@ -3316,7 +3367,7 @@ paths:
           name: initials
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -3383,7 +3434,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9?email=john.doe@test.com' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/question':
+  "/client/{clientCode}/question":
     post:
       produces:
         - application/json
@@ -3414,7 +3465,7 @@ paths:
           name: options
           required: false
           type: string
-          pattern: '[A-Za-z0-9,]+'
+          pattern: "[A-Za-z0-9,]+"
           maxLength: 800
         - description: A custom tag that can be assigned to this question. This tag does *not* need to be   unique.
           in: query
@@ -3434,10 +3485,10 @@ paths:
             example:
               label: Would you like us to send you offers by email?
               type: list
-              options: 'Yes,No'
+              options: "Yes,No"
               isMandatory: false
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -3455,7 +3506,7 @@ paths:
                   Success message.
                 type: string
             type: object
-        '400':
+        "400":
           description: Bad request - options not provided for `list` question
           examples:
             application/json:
@@ -3465,7 +3516,7 @@ paths:
       summary: Creates a new question.
       tags:
         - Customer Questions
-  '/client/{clientCode}/question/{questionId}':
+  "/client/{clientCode}/question/{questionId}":
     patch:
       produces:
         - application/json
@@ -3502,7 +3553,7 @@ paths:
           name: options
           required: false
           type: string
-          pattern: '[A-Za-z0-9,]+'
+          pattern: "[A-Za-z0-9,]+"
           maxLength: 800
         - description: Whether or not an answer is required for this question.
           in: query
@@ -3516,10 +3567,10 @@ paths:
             example:
               label: Would you like us to send you offers by email?
               type: list
-              options: 'Yes,No'
+              options: "Yes,No"
               isMandatory: false
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -3536,7 +3587,7 @@ paths:
                   Success message.
                 type: string
             type: object
-        '400':
+        "400":
           description: Bad request - options not provided for `list` question
           examples:
             application/json:
@@ -3546,7 +3597,7 @@ paths:
       summary: Updates an existing question.
       tags:
         - Customer Questions
-  '/client/{clientCode}/questions':
+  "/client/{clientCode}/questions":
     get:
       produces:
         - application/json
@@ -3558,7 +3609,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -3572,7 +3623,7 @@ paths:
                 - Id: "dec0153e-7e75-4666-9b90-08efb48cea0b"
                   Label: "Would you like us to send you offers by email?"
                   Type: List
-                  Options: [Yes,No]
+                  Options: [Yes, No]
                   Tags: null
                   IsMandatory: false
           schema:
@@ -3581,12 +3632,12 @@ paths:
                 description: Array of Questions.
                 type: array
                 items:
-                  $ref: '#/definitions/Question'
+                  $ref: "#/definitions/Question"
             type: object
       summary: Lists all questions created for the client.
       tags:
         - Customer Questions
-  '/client/{clientCode}/customer/{customerId}/question/{questionId}/answer':
+  "/client/{clientCode}/customer/{customerId}/question/{questionId}/answer":
     post:
       produces:
         - application/json
@@ -3616,12 +3667,12 @@ paths:
           type: string
           maxLength: 200
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Message: "Customer Answer added"
-        '400':
+        "400":
           description: Bad request - answer exists
           examples:
             application/json:
@@ -3660,19 +3711,19 @@ paths:
           type: string
           maxLength: 200
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Message: "Customer Answer updated"
-        '400':
+        "400":
           description: Bad request - answer not in Options
           examples:
             application/json:
               ErrorCode: 3
               Detail: "Please provide a valid response to this question.  Possible responses are Yes,No"
               Message: "Validation error"
-        '404':
+        "404":
           description: Answer not found
           examples:
             application/json:
@@ -3705,12 +3756,12 @@ paths:
           type: string
           format: guid
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Message: "Customer Answer deleted"
-        '404':
+        "404":
           description: Answer not found
           examples:
             application/json:
@@ -3743,10 +3794,10 @@ paths:
           type: string
           format: guid
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/Answer'
+            $ref: "#/definitions/Answer"
           examples:
             application/json:
               Id: 37c1def5-e9e5-4be4-bd6a-bc8fb5f0cbc2
@@ -3754,7 +3805,7 @@ paths:
               Customer: 66e88855-a07e-40d8-aff6-1fa7ace4dd1d
               CustomQuestion: ba8a6aef-756f-4945-b846-f8adaafb69df
               Answer: Yes
-        '404':
+        "404":
           description: Answer not found
           examples:
             application/json:
@@ -3764,7 +3815,7 @@ paths:
       summary: Gets the answer for a particular customer and question.
       tags:
         - Customer Questions
-  '/client/{clientCode}/paymentdate':
+  "/client/{clientCode}/paymentdate":
     get:
       produces:
         - application/json
@@ -3776,12 +3827,12 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
-              NextFirstPaymentDate: '2022-08-22T00:00:00+01:00'
-              NextSubsequentPaymentDate: '2022-08-19T00:00:00+01:00'
+              NextFirstPaymentDate: "2022-08-22T00:00:00+01:00"
+              NextSubsequentPaymentDate: "2022-08-19T00:00:00+01:00"
           schema:
             properties:
               NextFirstPaymentDate:
@@ -3800,7 +3851,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/paymentdate' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/futureSchedules':
+  "/client/{clientCode}/contract/{contractId}/futureSchedules":
     get:
       produces:
         - application/json
@@ -3818,7 +3869,7 @@ paths:
           type: string
           format: guid
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -3850,7 +3901,7 @@ paths:
                 description: Array of stream versions.
                 type: array
                 items:
-                  $ref: '#/definitions/StreamVersion'
+                  $ref: "#/definitions/StreamVersion"
               SearchInput:
                 description: Search input.
                 type: object
@@ -3858,7 +3909,7 @@ paths:
                 description: Total expected results.
                 type: integer
             type: object
-        '400':
+        "400":
           description: Bad Request
           examples:
             application/json:
@@ -3876,7 +3927,7 @@ paths:
               Detail:
                 description: Detail.
                 type: string
-        '500':
+        "500":
           description: Internal Server Error
           examples:
             application/json:
@@ -3901,7 +3952,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/futureSchedules' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/schedule':
+  "/client/{clientCode}/contract/{contractId}/schedule":
     get:
       produces:
         - application/json
@@ -3925,7 +3976,7 @@ paths:
           type: string
           format: guid
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -3954,7 +4005,7 @@ paths:
           schema:
             properties:
               StreamVersion:
-                $ref: '#/definitions/StreamVersion'
+                $ref: "#/definitions/StreamVersion"
               SearchInput:
                 description: Search input.
                 type: object
@@ -3962,7 +4013,7 @@ paths:
                 description: Total expected results.
                 type: integer
             type: object
-        '400':
+        "400":
           description: Bad Request
           examples:
             application/json:
@@ -3980,7 +4031,7 @@ paths:
               Detail:
                 description: Detail.
                 type: string
-        '500':
+        "500":
           description: Internal Server Error
           examples:
             application/json:
@@ -4005,7 +4056,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/schedule?versionId={versionId}' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/deleteSchedule/{futureScheduleId}':
+  "/client/{clientCode}/contract/{contractId}/deleteSchedule/{futureScheduleId}":
     delete:
       produces:
         - text
@@ -4029,12 +4080,11 @@ paths:
           type: string
           format: guid
       responses:
-        '200':
+        "200":
           description: OK
           examples:
-            text:
-              Schedule successfully deleted.
-        '400':
+            text: Schedule successfully deleted.
+        "400":
           description: Bad Request
           examples:
             application/json:
@@ -4052,7 +4102,7 @@ paths:
               Detail:
                 description: Detail.
                 type: string
-        '500':
+        "500":
           description: Internal Server Error
           examples:
             application/json:
@@ -4077,7 +4127,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X DELETE 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/deleteSchedule/{futureScheduleId}' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/editSchedule/{futureScheduleId}':
+  "/client/{clientCode}/contract/{contractId}/editSchedule/{futureScheduleId}":
     patch:
       produces:
         - application/json
@@ -4122,12 +4172,12 @@ paths:
           name: every
           required: false
           type: integer
-        - description:  >
+        - description: >
             If the schedule is for regular payments, then the day on which you
             wish
 
             the first payment should be passed with this parameter.
-            
+
             This field is only mandatory if the schedule is **not** an ad-hoc
             schedule.
 
@@ -4139,7 +4189,7 @@ paths:
               - **98**, which represents `Last working day of the Month`
               - **99**, which represents `Last day of the Month`
             equal with value 99.
-            
+
             *You may not* select days 29, 30 or 31 of the month; choosing 29, 30
             or 31 will result in payments being skipped in months that do not
             contain that date.
@@ -4324,7 +4374,7 @@ paths:
               NumberOfPayments: 12
               IsGiftAid: false
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -4335,7 +4385,7 @@ paths:
                 description: Message.
                 type: string
             type: object
-        '400':
+        "400":
           description: Bad Request
           examples:
             application/json:
@@ -4353,7 +4403,7 @@ paths:
               Detail:
                 description: Detail.
                 type: string
-        '500':
+        "500":
           description: Internal Server Error
           examples:
             application/json:
@@ -4378,7 +4428,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/editSchedule/{futureScheduleId}?startDate=2025-07-01T00:00:00Z&scheduleId=guid-value&scheduleName=string&every=1&paymentDayInMonth=1&paymentDayInWeek=1&paymentMonthInYear=1&initialDate=2025-07-01T00:00:00Z&initialAmount=100.0&extraInitialAmounts=string&amount=50.0&finalAmount=0.0&terminationType=string&terminationDate=2026-07-01T00:00:00Z&numberOfPayments=12&isGiftAid=false' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/newSchedule':
+  "/client/{clientCode}/contract/{contractId}/newSchedule":
     post:
       produces:
         - application/json
@@ -4429,7 +4479,7 @@ paths:
             wish
 
             the first payment should be passed with this parameter.
-            
+
             This field is only mandatory if the schedule is **not** an ad-hoc
             schedule.
 
@@ -4441,7 +4491,7 @@ paths:
               - **98**, which represents `Last working day of the Month`
               - **99**, which represents `Last day of the Month`
             equal with value 99.
-            
+
             *You may not* select days 29, 30 or 31 of the month; choosing 29, 30
             or 31 will result in payments being skipped in months that do not
             contain that date.
@@ -4659,7 +4709,7 @@ paths:
               NumberOfPayments: 12
               IsGiftAid: false
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -4671,7 +4721,7 @@ paths:
                 type: string
                 format: guid
             type: object
-        '400':
+        "400":
           description: Bad Request
           examples:
             application/json:
@@ -4689,7 +4739,7 @@ paths:
               Detail:
                 description: Detail.
                 type: string
-        '500':
+        "500":
           description: Internal Server Error
           examples:
             application/json:
@@ -4714,7 +4764,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/editSchedule/{futureScheduleId}?startDate=2025-07-01T00:00:00Z&scheduleId=guid-value&scheduleName=string&every=1&paymentDayInMonth=1&paymentDayInWeek=1&paymentMonthInYear=1&initialDate=2025-07-01T00:00:00Z&initialAmount=100.0&extraInitialAmounts=string&amount=50.0&finalAmount=0.0&terminationType=string&terminationDate=2026-07-01T00:00:00Z&numberOfPayments=12&isGiftAid=false' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/cancelSchedule':
+  "/client/{clientCode}/contract/{contractId}/cancelSchedule":
     post:
       produces:
         - application/json
@@ -4732,7 +4782,7 @@ paths:
           type: string
           format: guid
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -4743,7 +4793,7 @@ paths:
                 description: Message.
                 type: string
             type: object
-        '400':
+        "400":
           description: Bad Request
           examples:
             application/json:
@@ -4762,7 +4812,7 @@ paths:
                 description: Detail.
                 type: string
             type: object
-        '403':
+        "403":
           description: Forbidden
           examples:
             application/json:
@@ -4781,7 +4831,7 @@ paths:
                 description: Detail.
                 type: string
             type: object
-        '404':
+        "404":
           description: Not Found
           examples:
             application/json:
@@ -4796,7 +4846,7 @@ paths:
                 description: Error code.
                 type: integer
             type: object
-        '500':
+        "500":
           description: Internal Server Error
           examples:
             application/json:
@@ -4822,7 +4872,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/cancelSchedule' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/restartSchedule':
+  "/client/{clientCode}/contract/{contractId}/restartSchedule":
     post:
       produces:
         - application/json
@@ -4845,7 +4895,7 @@ paths:
           required: false
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -4856,7 +4906,7 @@ paths:
                 description: Message.
                 type: string
             type: object
-        '400':
+        "400":
           description: Bad Request
           examples:
             application/json:
@@ -4875,7 +4925,7 @@ paths:
                 description: Detail.
                 type: string
             type: object
-        '403':
+        "403":
           description: Forbidden
           examples:
             application/json:
@@ -4894,7 +4944,7 @@ paths:
                 description: Detail.
                 type: string
             type: object
-        '404':
+        "404":
           description: Not Found
           examples:
             application/json:
@@ -4909,7 +4959,7 @@ paths:
                 description: Error code.
                 type: integer
             type: object
-        '500':
+        "500":
           description: Internal Server Error
           examples:
             application/json:
@@ -4935,7 +4985,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/restartSchedule' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/customer/{customerId}/contract':
+  "/client/{clientCode}/customer/{customerId}/contract":
     get:
       produces:
         - application/json
@@ -4954,7 +5004,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -4966,15 +5016,15 @@ paths:
                     £1.00 on 15th of the month ending on 25th April 2017
                   DirectDebitReference: LUISCT-MT000325
                   Every: 1
-                  ExtraInitialAmounts: ''
+                  ExtraInitialAmounts: ""
                   Id: 7aa8cef6-ec95-47a7-9ced-4aa0938559ab
                   InitialAmount: 1
                   IsGiftAid: true
                   NumberOfDebits: 10
-                  PaymentDayInMonth: '15'
+                  PaymentDayInMonth: "15"
                   PaymentMonthInYear: 7
                   ScheduleName: DD Dates 1/15 - Fixed
-                  Start: '2016-07-15T00:00:00.000Z'
+                  Start: "2016-07-15T00:00:00.000Z"
                   Status: Active
                   StatusExplanation: N/A
                   TerminationType: Take certain number of debits
@@ -5011,17 +5061,17 @@ paths:
                   </Contracts>
               </ContractsResponse>
           schema:
-              properties:
-                Contracts:
-                  description: Array of contracts for the given customer.
-                  items:
-                    $ref: '#/definitions/Contract'
-                  type: array
-                CustomerId:
-                  description: Database GUID for the given customer.
-                  type: string
-                  format: guid
-              type: object
+            properties:
+              Contracts:
+                description: Array of contracts for the given customer.
+                items:
+                  $ref: "#/definitions/Contract"
+                type: array
+              CustomerId:
+                description: Database GUID for the given customer.
+                type: string
+                format: guid
+            type: object
       tags:
         - Contract Querying and Creation
       summary: Queries the database for a contract or set of contracts.
@@ -5212,7 +5262,7 @@ paths:
             wish
 
             the first payment should be passed with this parameter.
-            
+
             This field is only mandatory if the contract is **not** an ad-hoc
             contract.
 
@@ -5224,7 +5274,7 @@ paths:
               - **98**, which represents `Last working day of the Month`
               - **99**, which represents `Last day of the Month`
             equal with value 99.
-            
+
             *You may not* select days 29, 30 or 31 of the month; choosing 29, 30
             or 31 will result in payments being skipped in months that do not
             contain that date.
@@ -5373,7 +5423,7 @@ paths:
             xml:
               name: ContractRequestDto
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -5414,7 +5464,7 @@ paths:
                   guaranteed.
                 type: string
             type: object
-        '400':
+        "400":
           description: Bad request - invalid schedule name
           examples:
             application/json:
@@ -5536,7 +5586,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer/{customerId}/contract?scheduleName=adhoc_monthly_free&start=2019-08-01&isGiftAid=false&terminationType=Until further notice&atTheEnd=Switch to further notice' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/schedules':
+  "/client/{clientCode}/schedules":
     get:
       produces:
         - application/json
@@ -5549,14 +5599,14 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Services:
                 - RefPrefix: AN
                   RefProtocol: Auto-number
-                  RefTo: 'null,'
+                  RefTo: "null,"
                   Schedules:
                     - AllowDifferentFirstPayment: true
                       AllowDifferentLastPayment: false
@@ -5565,12 +5615,12 @@ paths:
                       AllowFreeWeekDaySelection: true
                       AtTheEnd: Switch to further notice
                       DayOfWeek: Free
-                      DaysOfMonth: '15,24'
+                      DaysOfMonth: "15,24"
                       Description: |
                         Annually > Every 1 year > 15th, 24th of any month
                         customer's choice) > First , then on a regular basis
                       Every: 1
-                      ExtraInitialPayments: ''
+                      ExtraInitialPayments: ""
                       Frequency: Annually
                       IsExpiryDateReached: false
                       IsNotScheduled: false
@@ -5688,7 +5738,7 @@ paths:
         - lang: cURL
           source: >
             curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/schedules' -H 'apiKey: {apiKey}'
-  '/client/{clientCode}/contract/{contractId}/patch/changeamount':
+  "/client/{clientCode}/contract/{contractId}/patch/changeamount":
     post:
       consumes:
         - application/json
@@ -5746,19 +5796,19 @@ paths:
             xml:
               name: PatchChangeAmountRequestDto
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Message: New Patch added to contract
-        '400':
+        "400":
           description: Bad Request - Overlapping patches
           examples:
             application/json:
               Detail: This Patch overlaps with an existing Patch for the same Contract. Please check dates.
               ErrorCode: 3
               Message: Validation error
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -5766,7 +5816,7 @@ paths:
       tags:
         - Patches
       summary: Adds a patch to change payment amount for a contract.
-  '/client/{clientCode}/contract/{contractId}/patch/skip':
+  "/client/{clientCode}/contract/{contractId}/patch/skip":
     post:
       consumes:
         - application/json
@@ -5817,19 +5867,19 @@ paths:
             xml:
               name: PatchCollectionRequestDto
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Message: New Patch added to contract
-        '400':
+        "400":
           description: Bad Request - Overlapping patches
           examples:
             application/json:
               Detail: This Patch overlaps with an existing Patch for the same Contract. Please check dates.
               ErrorCode: 3
               Message: Validation error
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -5837,7 +5887,7 @@ paths:
       tags:
         - Patches
       summary: Adds a patch to skip collections for a contract.
-  '/client/{clientCode}/contract/{contractId}/patch/freeze':
+  "/client/{clientCode}/contract/{contractId}/patch/freeze":
     post:
       consumes:
         - application/json
@@ -5888,19 +5938,19 @@ paths:
             xml:
               name: PatchCollectionRequestDto
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Message: New Patch added to contract
-        '400':
+        "400":
           description: Bad Request - Overlapping patches
           examples:
             application/json:
               Detail: This Patch overlaps with an existing Patch for the same Contract. Please check dates.
               ErrorCode: 3
               Message: Validation error
-        '404':
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -5908,7 +5958,7 @@ paths:
       tags:
         - Patches
       summary: Adds a patch to freeze collections for a contract.
-  '/client/{clientCode}/contract/{contractId}/patches':
+  "/client/{clientCode}/contract/{contractId}/patches":
     get:
       produces:
         - application/json
@@ -5927,7 +5977,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -5959,8 +6009,8 @@ paths:
                 description: Array of Patches applied to this contract.
                 type: array
                 items:
-                  $ref: '#/definitions/Patch'
-        '404':
+                  $ref: "#/definitions/Patch"
+        "404":
           description: Contract not found
           examples:
             application/json:
@@ -5968,7 +6018,7 @@ paths:
       tags:
         - Patches
       summary: Returns all patches applied to a given contract.
-  '/client/{clientCode}/contract/{contractId}/patch/{patchId}':
+  "/client/{clientCode}/contract/{contractId}/patch/{patchId}":
     get:
       produces:
         - application/json
@@ -5993,7 +6043,7 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
@@ -6005,8 +6055,8 @@ paths:
               Amount: 11
               Comment: Price increase
           schema:
-            $ref: '#/definitions/Patch'
-        '404':
+            $ref: "#/definitions/Patch"
+        "404":
           description: Contract/patch not found
           examples:
             application/json:
@@ -6065,19 +6115,19 @@ paths:
             xml:
               name: PatchUpdateRequestDto
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Message: Patch updated
-        '400':
+        "400":
           description: Bad Request - Invalid To date
           examples:
             application/json:
               ErrorCode: 3
               Detail: To date should be greater than From Date. Please check patch dates
               Message: Validation error
-        '404':
+        "404":
           description: Contract/patch not found
           examples:
             application/json:
@@ -6111,12 +6161,12 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           examples:
             application/json:
               Message: Patch deleted
-        '404':
+        "404":
           description: Contract/patch not found
           examples:
             application/json:
@@ -6126,7 +6176,7 @@ paths:
       tags:
         - Patches
       summary: Deletes a patch.
-  '/client/{clientCode}/ddcmsdirect/import':
+  "/client/{clientCode}/ddcmsdirect/import":
     post:
       consumes:
         - multipart/form-data
@@ -6195,7 +6245,7 @@ paths:
             application/json:
               status: success
               fileId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-              importedAt: '2024-01-20T15:30:00Z'
+              importedAt: "2024-01-20T15:30:00Z"
               message: File imported successfully
               fileStatus: Queued for validation
               nextSteps: >-
@@ -6519,7 +6569,7 @@ definitions:
         description: Array of payments to be inserted in bulk.
         type: array
         items:
-          $ref: '#/definitions/BulkPayment'
+          $ref: "#/definitions/BulkPayment"
   CallbackEntities:
     description: The entity for which to receive callback BACS messages.
     enum:
@@ -6529,6 +6579,73 @@ definitions:
       - payment
       - schedule
     type: string
+  ClientListPaymentsRequest:
+    description: Payload for the `/client/{clientCode}/payments` endpoint.
+    type: object
+    properties:
+      PageNumber:
+        description: Page number for the pagination.
+        type: number
+        default: 1
+      PageSize:
+        description: Number of payment records to return per page.
+        type: number
+        default: 100
+      ContractId:
+        description: Unique ID for a particular contract you want to list payments for.
+        type: string
+        format: uuid
+      CustomerId:
+        description: |
+          Unique ID for a particular customer you want to list payments for.
+          **Note:** this will be ignored if `ContractId` is also provided.
+        type: string
+        format: uuid
+      IsCredit:
+        description: |
+          Set to `true` to only return credit payments.
+          Set to `false` to only return debit payments.
+        type: boolean
+      IsScheduled:
+        description: |
+          Set to `true` to only return payments generated by DDCMS on a regular/fixed schedule. 
+          Set to `false` to only return ad-hoc payments.
+        type: boolean
+      Status:
+        description: Set to only return payments with a particular status.
+        type: string
+        enum:
+          - Indemnity Claimed
+          - Paid
+          - Pending
+          - Represented
+          - Unpaid
+          - withdrawn
+      Type:
+        description: Set to only return payments of a particular type.
+        type: string
+        enum:
+          - Credit
+          - Final
+          - First Time
+          - Regular
+          - Retry
+      CollectionDateFrom:
+        description: Earliest `Due` date to return payments for.
+        type: string
+        format: date-time
+      CollectionDateTo:
+        description: Latest `Due` date to return payments for.
+        type: string
+        format: date-time
+      CreatedAfter:
+        description: Earliest `DateAdded` date to return payments for.
+        type: string
+        format: date-time
+      CreatedBefore:
+        description: Latest `DateAdded` date to return payments for.
+        type: string
+        format: date-time
   Contract:
     properties:
       Amount:
@@ -6635,9 +6752,9 @@ definitions:
   Customer:
     properties:
       AddressDetail:
-        $ref: '#/definitions/AddressDetail'
+        $ref: "#/definitions/AddressDetail"
       BankDetail:
-        $ref: '#/definitions/BankDetail'
+        $ref: "#/definitions/BankDetail"
       CompanyName:
         description: The customer's registered company.
         type: string
@@ -6673,7 +6790,7 @@ definitions:
         description: Memos for this customer. When calling `GET /customer` with `includeMemos=false`, this will be `null`.
         type: array
         items:
-          $ref: '#/definitions/CustomerMemo'
+          $ref: "#/definitions/CustomerMemo"
       MobilePhoneNumber:
         description: The customer's mobile phone number.
         type: string
@@ -6933,7 +7050,7 @@ definitions:
       Tags:
         description: |
           A custom tag that was assigned to this question.
-          
+
           If the question was created from an eDD page, this will be populated with the end of the URL to the page. For example, if the question was added on `https://secure.edirectdebit.co.uk/Example/DD-Signups`, the Tags would be `DD-Signups`.
         type: string
       IsMandatory:
@@ -7031,7 +7148,7 @@ tags:
       | Entity | Payload | 
 
       | ------ | ------- |
-      
+
       | bulkpayment | Notification of success/failure to process a bulk payment request - see 'Bulk Adding Payments' section for more info.
 
       | customer | Notification of customer changes due to BACS notifications 
@@ -7039,7 +7156,7 @@ tags:
       | contract | Notification of contract changes due to BACS notifications  
 
       | payment | Notification of payment status (Unpaid/Indemnity Claimed) changes due to BACS notifications
-      
+
       | schedule | Notification of change, addition or deletion of a contract schedule
     name: Return Endpoints
   - description: Retrieve configuration info about your DDCMS client.
@@ -7072,11 +7189,11 @@ tags:
     name: Customer Questions
   - description: |
       Although our documentation advises in most cases to lodge ad-hoc collections at least <b>5</b> working days before collection, and new contracts at least <b>10</b> working days before first collection, DDCMS can handle collections with these periods reduced to 3 and 5 working days respectively - depending on your SUN.
-      
+
       If you're testing on our playpen server, please send an email to us if you wish to reduce the period dates on your test account.
-      
+
       If you're a live customer and wish to discuss the possibility of reducing your SUN delay periods, please raise a support case.
-      
+
     name: Payment Dates
   - description: |
       A contract record represents the Direct Debit associated with a customer
@@ -7156,13 +7273,13 @@ tags:
   - name: Patches
     description: >
       On regularly scheduled contracts, patches can be used to make temporary changes to the payments generated, or stop them from generated. Patches can **not** be applied to ad-hoc contracts.
-      
+
       We offer four different types of patches:
         - `Change amount`
         - `Freeze collect (leave contract as is)`
         - `Give notice (terminate contract)`
         - `Skip collection`
-      
+
       Please note that for `Give notice (terminate contract)` patches, we allow GET, PATCH and DELETE requests for, but we do not allow to be created via the API. To add a give notice patch, you must do this via the admin UI.
   - name: Adding/Querying Payments
   - description: >
@@ -7182,8 +7299,8 @@ tags:
       required. The default is JSON – if you need XML return information,
 
       please let us know.
-      
-      
+
+
       We also have the option for you to set custom headers that'll be sent for every notification from DDCMS to your endpoints - please raise a support case if this is something you require, telling us the header name and value to send.
 
       ### Object Change Return Information
@@ -7273,115 +7390,115 @@ tags:
 
       | Comment | If any comment was input by a user during a manual change, it
       will appear here.
-      
-      
+
+
       ### Object Change Report Codes
-      
-      
+
+
       The following is a list of all potential BACS Report codes we can send to your webhooks. For more information please see [our Guide to BACS Reporting and Transaction Codes](https://access-support.force.com/Support/s/article/Access-PaySuite-DDCMS-Guide-to-BACS-Reporting-and-Associated-Transaction-Codes)
-      
-      
+
+
       | **Source** | **Entity** | **ReportCode** | **ReportMessage**
-      
+
       | ---------- | ---------- | -------------- | -----------------
-      
+
       | AUDDIS | Contract | 1 | Instruction Cancelled by Payer
-      
+
       | AUDDIS | Contract | 2 | Payer Deceased
-      
+
       | AUDDIS | Contract | 3 | Account Transferred to a new Bank or Building Society
-      
+
       | AUDDIS | Contract | 5 | No Account
-      
+
       | AUDDIS | \- | 6 | No Instruction
-      
+
       | AUDDIS | Contract | B | Account Closed
-      
+
       | AUDDIS | Customer | C | Account Transferred to a Different Branch of Bank/Building Society
-      
+
       | AUDDIS | Contract | F | Invalid Account Type
-      
+
       | AUDDIS | Contract | G | Bank will not accept Direct Debits on Account
-      
+
       | AUDDIS | Contract | H | Instruction has Expired
-      
+
       | AUDDIS | Contract | I | Payer Reference is not Unique
-      
+
       | AUDDIS | Contract | K | Instruction Cancelled by Paying Back
-      
+
       | ADDACS | Contract | 0 | Instruction Cancelled - Refer to Payer
-      
+
       | ADDACS | Contract | 1 | Instruction Cancelled
-      
+
       | ADDACS | Contract | 2 | Payer Deceased
-      
+
       | ADDACS | Customer | 3 | Account transferred to new Bank or Building Society
-      
+
       | ADDACS | Contract | B | Account Closed
-      
+
       | ADDACS | Customer | C | Account transferred to a different branch of Bank or Building Society
-      
+
       | ADDACS | Contract | D | Advance Notice Disputed
-      
+
       | ADDACS | Customer | E | Instruction Amended
-      
+
       | ADDACS | Contract | R | Instruction Reinstated
-      
+
       | ARUDD | Payment | 0 | Refer to Payer
-      
+
       | ARUDD | Payment | 1 | Instruction Cancelled
-      
+
       | ARUDD | Payment | 2 | Payer Deceased
-      
+
       | ARUDD | Payment | 3 | Account Transferred
-      
+
       | ARUDD | Payment | 4 | Advance Notice Disputed
-      
+
       | ARUDD | Payment | 5 | No Account
-      
+
       | ARUDD | Payment | 6 | No Instruction
-      
+
       | ARUDD | Payment | 7 | Amount Differs
-      
+
       | ARUDD | Payment | 8 | Amount Not Yet Due
-      
+
       | ARUDD | Payment | 9 | Presentation Overdue
-      
+
       | ARUDD | Payment | A | Service User Differs
-      
+
       | ARUDD | Payment | B | Account Closed
-      
+
       | DDIC | Contract | 1 | The amount and/or date of the Direct Debit differs from the Advance Notice
-      
+
       | DDIC | Contract | 2 | No advance notice was received by the payer or the amount quoted is disputed by the payer
-      
+
       | DDIC | Contract | 3 | DDI cancellation by the paying bank
-      
+
       | DDIC | Contract | 4 | Payer has cancelled the DDI direct with the Service User
-      
+
       | DDIC | Contract | 5 | Payer disputes having given authority
-      
+
       | DDIC | Contract | 6 | Signature on DDI is fraudulent or not in accordance with the account authorised signature(s) held by the paying bank
-      
+
       | DDIC | Contract | 7 | An indemnity claim has been raised at the Service User's request
-      
+
       | DDIC | Contract | 8 | Payer does not recognise Service User collecting Direct Debit
-    
-      
+
+
       ### New Payment Generated Notification Information
-      
+
       This notification is submitted to your payments webhook whenever DDCMS generates
       a new payment on either a fixed or rolling regular schedule.
       This does *NOT* send information on payments submitted on an adhoc schedule.
-      
-      
+
+
       Currently the callback URL for these notifications cannot be changed via the API - if
       you wish to setup or amend the callback for New Payment Generated notifications, please raise a support case.
-      
+
       #### Example JSON Payload
-      
+
       ```json
-      
+
       {
         "CustomerId": "8e8880dc-d36a-500e-9757-dcdab7418f8a",
         "CustomerRef": null,
@@ -7399,22 +7516,22 @@ tags:
       }
 
       ```
-      
+
       ### New eDD Signup Notification Information
-      
+
       This notification is submitted when a contract is created from a payer completing
       registration on an Access Payments eDD page linked to your DDCMS client account.
-      
-      
+
+
       This does *NOT* send information on contracts added via the POST /contract endpoint,
       or added manually in the DDCMS portal. This is *ONLY* for contracts added via eDD.
-      
-      
+
+
       Currently the callback URL for these notifications cannot be changed via the API - if
       you wish to setup or amend the callback for New eDD Signups, please raise a support case.
-      
+
       ```json
-      
+
       {
         "CustomerId": "e4e9bdad-4370-4072-ad4f-77454a42d839",
         "AdditionalRef": "My Additional Ref",
@@ -7442,11 +7559,11 @@ tags:
         "CreateType": "API",
         "Source": null
       }
-      
+
       ```
 
       ### Bulk Payment Insert Return Information
-      
+
       This is what the API returns from a bulk payment insert - see the *Bulk Adding
       Payments* section for more info.
 
@@ -7466,7 +7583,7 @@ tags:
       </root>
 
       ```
-      
+
       #### Example XML Payload - Error
 
       ```xml
@@ -7500,9 +7617,9 @@ tags:
       }
 
       ```
-      
+
       #### Example JSON Payload - Error
-      
+
       ```json
 
       {
@@ -7533,22 +7650,22 @@ tags:
       | Id        | The payment GUID that you should keep a record of. If the request fails, this will be `00000000-0000-0000-0000-000000000000`
 
       | Error     | Any validation errors will appear here.
-      
+
       | Comment   | The custom comment passed in for this payment request.
-      
+
       | IsCredit  | Whether the payment is a credit (`True`) or debit (`False`) collection.
 
       | Message   | Any validation messages or warnings will appear here.
-      
-      
+
+
       ### Schedule Change Return Information
-      
+
       The payload is sent to the configured 'Schedule Change' callback URL when a schedule's settings are changed, a new schedule is created or a schedule is completely deleted.
-      
+
       #### Example JSON Payload
-      
+
       ```json
-      
+
       {
         "Entity": "schedule",
         "Id": "94821c14-8ba3-483f-a9db-02af004d9938",
@@ -7598,11 +7715,11 @@ tags:
         "OperationTypeVal": 1,
         "OperationType": "Create"
       }
-      
+
       ```
-      
+
       #### Output Parameters:
-      
+
       | Parameter | Description
 
       | --------- | -----------
@@ -7619,14 +7736,12 @@ tags:
       <br />**Id** - GUID of the client account.
       <br />**Name** - The client's name
       <br />**Client Prefix** - The client code used for API operations.
-      
+
       | Change Date       | Date-time for when the action took place.
 
       | Operation Type Val   | Integer value for the OperationType enum.
-      
+
       | Operation Type | Action performed on the schedule - can be **Create**, **Update** or **Delete**.
-      
-      
+
     name: Return endpoints
 x-components: {}
-
