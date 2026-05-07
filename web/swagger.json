@@ -2471,6 +2471,17 @@
                         "type": "string"
                     },
                     {
+                        "description": "Set the language of communications sent to this customer to English (`en-GB`) or Welsh (`cy-GB`).\nIf omitted, this defaults to English.\nIf Welsh support is not enabled for your organisation, submitting `cy-GB` returns a 400 error with the message: **\"Welsh language not enabled for this client\"**.",
+                        "in": "query",
+                        "maxLength": 5,
+                        "name": "customerLocale",
+                        "type": "string",
+                        "enum": [
+                            "en-GB",
+                            "cy-GB"
+                        ]
+                    },
+                    {
                         "description": "Example JSON/XML payload.",
                         "in": "body",
                         "name": "body",
@@ -2831,6 +2842,17 @@
                         "maxLength": 5,
                         "name": "initials",
                         "type": "string"
+                    },
+                    {
+                        "description": "Set the language of communications sent to this customer to English (`en-GB`) or Welsh (`cy-GB`).\nIf omitted, this defaults to English.\nIf Welsh support is not enabled for your organisation, submitting `cy-GB` returns a 400 error with the message: **\"Welsh language not enabled for this client\"**.",
+                        "in": "query",
+                        "maxLength": 5,
+                        "name": "customerLocale",
+                        "type": "string",
+                        "enum": [
+                            "en-GB",
+                            "cy-GB"
+                        ]
                     }
                 ],
                 "responses": {
