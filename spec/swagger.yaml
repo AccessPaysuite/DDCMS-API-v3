@@ -6477,6 +6477,134 @@ paths:
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+  "/client/{clientCode}/unpaidPaymentRetrySettings":
+    get:
+      produces:
+        - application/json
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/UnpaidPaymentRetrySettings"
+          examples:
+            application/json:
+              AllowRetryFailedPayments: true
+              RetryPaymentsDelayDays: 10
+              FailedPaymentRetries: 2
+      tags:
+        - Configurable Represents
+      summary: Returns the current retry configuration for your client.
+      description: Returns the current retry configuration for your client.
+      x-codeSamples:
+        - lang: cURL
+          source: >
+            curl -L -g -X GET 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/unpaidPaymentRetrySettings' -H 'apiKey: {apiKey}'
+    patch:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The updated retry settings for your client.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateUnpaidPaymentRetrySettingsRequest"
+      responses:
+        "200":
+          description: OK - Returns the updated retry settings.
+          schema:
+            $ref: "#/definitions/UnpaidPaymentRetrySettings"
+          examples:
+            application/json:
+              AllowRetryFailedPayments: true
+              RetryPaymentsDelayDays: 10
+              FailedPaymentRetries: 2
+      tags:
+        - Configurable Represents
+      summary: Updates the retry configuration for your client.
+      description: Updates the retry configuration for your client.
+      x-codeSamples:
+        - lang: cURL
+          source: >
+            curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/unpaidPaymentRetrySettings' -H 'apiKey: {apiKey}' -H 'Content-Type: application/json' --data-raw '{
+                "AllowRetryFailedPayments": true,
+                "RetryPaymentsDelayDays": 10,
+                "FailedPaymentRetries": 2
+              }'
+  "/client/{clientCode}/contract/{contractId}/payment/{paymentId}/retry":
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: The client code provided in your welcome email.
+          in: path
+          maxLength: 6
+          name: clientCode
+          required: true
+          type: string
+        - description: The contract ID for the payment.
+          format: guid
+          in: path
+          name: contractId
+          required: true
+          type: string
+        - description: The payment ID to represent.
+          format: guid
+          in: path
+          name: paymentId
+          required: true
+          type: string
+        - description: The date the re-presented payment should be collected.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/ManuallyRepresentPaymentRequest"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: >-
+            Bad Request - payment not eligible, processing date is not a
+            valid working day, date exceeds Bacs limit, or required fields
+            are missing.
+        "401":
+          description: Unauthorised - invalid or missing API key.
+        "403":
+          description: Forbidden - the payment belongs to a different client.
+        "404":
+          description: Not Found - payment or contract not found.
+      tags:
+        - Configurable Represents
+      summary: Triggers a re-presentation for a specific failed payment.
+      description: >
+        Triggers a re-presentation for a specific failed payment. The payment
+        must be eligible: within 1 calendar month of the original payment
+        date, the Direct Debit Instruction must be active, and the payment
+        must not already be in a Pending or Paid status.
+      x-codeSamples:
+        - lang: cURL
+          source: >
+            curl -L -g -X POST 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/contract/{contractId}/payment/{paymentId}/retry' -H 'apiKey: {apiKey}' -H 'Content-Type: application/json' --data-raw '{
+                "ProcessingDate": "2026-06-21T00:00:00.000Z"
+              }'
 definitions:
   AddressDetail:
     description: Address of the customer.
@@ -6845,6 +6973,18 @@ definitions:
       ContractRef:
         description: Direct Debit reference for the contract the memo was assigned to.
         type: string
+  ManuallyRepresentPaymentRequest:
+    description: Request body for manually triggering a re-presentation for a specific failed payment.
+    type: object
+    required:
+      - ProcessingDate
+    properties:
+      ProcessingDate:
+        description: >-
+          The date the re-presented payment should be collected. Must be a
+          working day within 1 calendar month of the original payment date.
+        type: string
+        format: date-time
   PagingMetadata:
     description: Object providing useful metadata for clients calling an endpoint with pagination.
     type: object
@@ -7149,6 +7289,39 @@ definitions:
       NumberOfDebits:
         description: Number of debits.
         type: integer
+  UnpaidPaymentRetrySettings:
+    description: Retry configuration for unpaid (failed) payments for a client.
+    type: object
+    properties:
+      AllowRetryFailedPayments:
+        description: Whether Configurable Represents is enabled for your organisation.
+        type: boolean
+      RetryPaymentsDelayDays:
+        description: Number of working days configured between a failed payment and its re-presentation.
+        type: integer
+      FailedPaymentRetries:
+        description: Maximum number of retry attempts configured (1-3).
+        type: integer
+  UpdateUnpaidPaymentRetrySettingsRequest:
+    description: Request body for updating the retry configuration for a client.
+    type: object
+    required:
+      - AllowRetryFailedPayments
+    properties:
+      AllowRetryFailedPayments:
+        description: Set to `true` to enable Configurable Represents, `false` to disable.
+        type: boolean
+      RetryPaymentsDelayDays:
+        description: >-
+          Working days between a failed payment and re-presentation. Minimum
+          = your look-forward days setting; maximum = 20. Required when
+          `AllowRetryFailedPayments` is `true`.
+        type: integer
+      FailedPaymentRetries:
+        description: >-
+          Maximum retry attempts. Range: 1-3. Required when
+          `AllowRetryFailedPayments` is `true`.
+        type: integer
 securityDefinitions:
   ApiKeyAuth:
     in: header
@@ -7317,6 +7490,16 @@ tags:
       Import BACS payment files via the API for processing through DDCMS Direct.
       The client must have the DDCMS Direct feature enabled.
     name: DDCMS Direct File Import
+  - description: >
+      Configurable Represents lets you control how failed Direct Debit
+      payments are automatically retried, and lets you manually trigger a
+      re-presentation for a specific failed payment.
+
+
+      These three endpoints allow you to retrieve and update your retry
+      settings, and to trigger a re-presentation for a specific payment
+      programmatically.
+    name: Configurable Represents
   - description: >
       If you have provided us with a return endpoint using the `Return
 
