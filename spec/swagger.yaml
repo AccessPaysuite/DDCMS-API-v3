@@ -5512,20 +5512,13 @@ paths:
 
         ### Contract Statuses
 
-        Upon creation, a Contract Status will read ”Inactive” and it will remain
-        in this state until approximately 8-9 working days before either (a) the
-        start date provided in the create contract call when creating an ad-hoc
-        contract call or (b) the first payment date in the case of
-        scheduled/recurring payments.
-
-        When in this state, it is inadvisable to attempt to make changes to the
-        contract or to push ad-hoc payments to the contract as payments may be
-        missed or marked unpaid without an attempt to collect being made.
-
-        We recommend waiting for the contract status to change to “Active”
-        (usually 8-9 working days before collection or the start date stated in
-        the create contract call) before making changes to the contract or
-        pushing payments ad-hoc payments into the system.
+        Upon creation, a Contract Status will read "Active". While a newly
+        created contract is awaiting its first collection, it is inadvisable
+        to attempt to make changes to the contract or to push ad-hoc payments
+        to the contract as payments may be missed or marked unpaid without
+        an attempt to collect being made. We recommend allowing the lead
+        times that apply to your configuration to elapse before making
+        changes to the contract or pushing ad-hoc payments into the system.
 
         A contract can be manifested in one of two ways:
 
@@ -5538,46 +5531,37 @@ paths:
         payments if it is a scheduled contract, or able to accept ad-hoc
         payments if it is an ad-hoc contract.
 
-        | **Inactive** | The contract is inactive and cannot produce or accept
-        payments, scheduled or otherwise.
+        | **Inactive** | The contract has been cancelled and is no longer
+        active. It cannot produce or accept payments, scheduled or otherwise.
 
 
-        For more information on why a contract may become “Inactive”, the
-        `StatusExplaination` field can provide a more detailed explanation. This
-        field is free text and we recommend that it is stored and displayed to
-        the end user as necessary.
+        For more information on a contract's status, the `StatusExplanation`
+        field can provide a more detailed explanation. This field is free
+        text and we recommend that it is stored and displayed to the end
+        user as necessary.
 
         ### Timeframes
 
-        You should also be aware that you must allow a **minimum** of 10 clear
+        You should also be aware that you must allow a minimum number of
+        clear working days between setting up a contract and collecting the
+        first payment, and a minimum number of clear working days between
+        pushing a second or subsequent ad-hoc payment and its collection
+        date on an active contract. The number of days required is configured
+        per client and is not the same for all clients, so you should refer
+        to the lead times that apply to your own configuration.
 
-        working days between setting up a contract and collecting the first
-
-        payment and 5 clear working days between pushing a second or subsequent
-
-        ad-hoc payment and its collection date on an active contract.
-
-        A working day means a banking day in the United Kingdom which is Mondays
-
-        to Fridays and excludes public and bank holidays. A list of public and
-
-        bank holidays can be found here: <https://www.gov.uk/bank-holidays>. A
-
-        date checker is also provided on our website:
-
-        <https://www.accesspaysuite.com/date>.
+        A working day means a banking day in the United Kingdom which is
+        Mondays to Fridays and excludes public and bank holidays. A list of
+        public and bank holidays can be found here:
+        <https://www.gov.uk/bank-holidays>. A date checker is also provided
+        on our website: <https://www.accesspaysuite.com/date>.
 
         While the above timeframes are the minimum required, we strongly
-
         recommend building yourself a day or two of contingency into your
-
         processes so that you have time to rectify any problems that may be
-
-        encountered. We are unable *under any circumstances* to accept
-
-        instructions for payments or new contracts after the appropriate cut off
-
-        dates.
+        encountered. We are unable under any circumstances to accept
+        instructions for payments or new contracts after the appropriate
+        cut off dates.
       summary: Creates a contract in the database.
       x-codeSamples:
         - lang: C#
