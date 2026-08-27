@@ -2902,6 +2902,72 @@
                 ]
             }
         },
+        "/client/{clientCode}/customer/{customerId}/edit": {
+            "patch": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "description": "The client code provided in your welcome email.",
+                        "in": "path",
+                        "maxLength": 6,
+                        "name": "clientCode",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "The GUID of the customer.",
+                        "format": "guid",
+                        "in": "path",
+                        "name": "customerId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "The customer fields to update. Send only the fields you want to change.",
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UpdateCustomerJsonRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": {
+                                "Message": "Customer updated"
+                            }
+                        },
+                        "schema": {
+                            "properties": {
+                                "Message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "tags": [
+                    "Customer Manipulation"
+                ],
+                "description": "Updates, or partially updates, an existing customer record by sending a JSON body. Send only the fields you want to change.",
+                "summary": "Updates an existing customer using a JSON request body.",
+                "x-codeSamples": [
+                    {
+                        "lang": "cURL",
+                        "source": "curl -L -g -X PATCH 'https://ddcms.accesspaysuite.com/api/v3/client/{clientCode}/customer/dfca6da1-2490-4607-a256-c5799d2584e9/edit' -H 'Content-Type: application/json' -H 'apiKey: {apiKey}' -d '{\"Email\":\"john.doe@test.com\",\"FirstName\":\"John\",\"Surname\":\"Doe\"}'\n"
+                    }
+                ]
+            }
+        },
         "/client/{clientCode}/question": {
             "post": {
                 "produces": [
@@ -7000,6 +7066,121 @@
                 "FailedPaymentRetries": {
                     "description": "Maximum number of retry attempts configured (1-3).",
                     "type": "integer"
+                }
+            }
+        },
+        "UpdateCustomerJsonRequest": {
+            "description": "Request body for updating (or partially updating) an existing customer via JSON. Send only the fields you want to change.",
+            "type": "object",
+            "properties": {
+                "Email": {
+                    "description": "The customer's contact email address.",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "Title": {
+                    "description": "The customer's title (Mr/Mrs/Ms/Miss/Mx etc).",
+                    "type": "string",
+                    "maxLength": 10
+                },
+                "DateOfBirth": {
+                    "description": "The customer's date of birth.\n**Format: `YYYY-MM-DDT00:00:00.000`**\n",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "CustomerRef": {
+                    "description": "A unique reference number allocated by the client for this customer.",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "FirstName": {
+                    "description": "The customer's first name.",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "Surname": {
+                    "description": "The customer's surname.",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "CompanyName": {
+                    "description": "The company name of the customer (if applicable).",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "PostCode": {
+                    "description": "The customer's Post Code.",
+                    "type": "string",
+                    "maxLength": 8
+                },
+                "AccountNumber": {
+                    "description": "The customer's bank account number.\nThis must be eight numerical characters with all leading zeros left intact.\nExamples include: `01065284`, `00000000`, `26280464`.\nAny non-numerical characters **must be removed** before passing the data to the API.\n",
+                    "type": "string",
+                    "maxLength": 8,
+                    "minLength": 8,
+                    "pattern": "[0-9]{8}"
+                },
+                "BankSortCode": {
+                    "description": "The customer's bank sort code.\nThis must be six numerical characters with all leading zeros left intact.\nExamples include: `089286` `100000` `600000`, `230580`.\nIn the United Kingdom it is sometimes customary to insert dashes/hyphens\nbetween groups of two characters (e.g. `08-92-86`, `23-05-80`). Any hyphens,\ndashes or non-numerical characters **must be removed** before being passed\nto the API.\n",
+                    "type": "string",
+                    "maxLength": 6,
+                    "minLength": 6,
+                    "pattern": "[0-9]{6}"
+                },
+                "AccountHolderName": {
+                    "description": "The name of the customer's bank account.\nThis must be a maximum of eighteen alphanumeric characters `[0-9a-zA-Z ]`.\nA space is also allowed. Any special characters or punctuation such as ampersands,\napostrophes, hyphens, slashes, backslashes, commas, full stops etc. **must be\nremoved** before passing to the API.\n",
+                    "type": "string",
+                    "maxLength": 18,
+                    "pattern": "[0-9a-zA-Z ]{0, 18}"
+                },
+                "HomePhoneNumber": {
+                    "description": "The customer's home telephone number.",
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "WorkPhoneNumber": {
+                    "description": "The customer's work telephone number.",
+                    "type": "string",
+                    "maxLength": 18
+                },
+                "MobilePhoneNumber": {
+                    "description": "The customer's mobile telephone number.",
+                    "type": "string",
+                    "maxLength": 18
+                },
+                "Line1": {
+                    "description": "Line one of the customer's postal address.",
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "Line2": {
+                    "description": "Line two of the customer's postal address.",
+                    "type": "string",
+                    "maxLength": 30
+                },
+                "Line3": {
+                    "description": "Line three of the customer's postal address.",
+                    "type": "string",
+                    "maxLength": 30
+                },
+                "Line4": {
+                    "description": "Line four of the customer's postal address.",
+                    "type": "string",
+                    "maxLength": 30
+                },
+                "Initials": {
+                    "description": "If the customer has provided any middle initials, they can be added in this field.",
+                    "type": "string",
+                    "maxLength": 5
+                },
+                "CustomerLocale": {
+                    "description": "Set the language of communications sent to this customer to English (`en-GB`) or Welsh (`cy-GB`).\nIf omitted, this defaults to English.\nIf Welsh support is not enabled for your organisation, submitting `cy-GB` returns a 400 error with the message: **\"Welsh language not enabled for this client\"**.",
+                    "type": "string",
+                    "maxLength": 5,
+                    "enum": [
+                        "en-GB",
+                        "cy-GB"
+                    ]
                 }
             }
         },
