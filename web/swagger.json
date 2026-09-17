@@ -1161,7 +1161,7 @@
                     {
                         "description": "A comment relating to the payment (which can be recalled using the GET\nmethod).\n",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "comment",
                         "type": "string"
                     },
@@ -1324,7 +1324,7 @@
                     {
                         "description": "A comment that can be returned when querying the payment.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "comment",
                         "required": true,
                         "type": "string"
@@ -1521,7 +1521,7 @@
                     {
                         "description": "A comment that can be returned when querying the payment.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "comment",
                         "required": true,
                         "type": "string"
@@ -2103,14 +2103,14 @@
                     {
                         "description": "The customer’s contact email address.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "email",
                         "type": "string"
                     },
                     {
                         "description": "The customer’s title (Mr/Mrs/Ms/Miss/Mx etc).",
                         "in": "query",
-                        "maxLength": 10,
+                        "maxLength": 200,
                         "name": "title",
                         "type": "string"
                     },
@@ -2138,35 +2138,35 @@
                     {
                         "description": "A **unique** reference number allocated by the client for this customer.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "customerRef",
                         "type": "string"
                     },
                     {
                         "description": "The customer's first name.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "firstName",
                         "type": "string"
                     },
                     {
                         "description": "The customer's surname.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "surname",
                         "type": "string"
                     },
                     {
                         "description": "The company name of the customer (if applicable).",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "companyName",
                         "type": "string"
                     },
                     {
                         "description": "The customer's Post Code.",
                         "in": "query",
-                        "maxLength": 8,
+                        "maxLength": 10,
                         "name": "postCode",
                         "type": "string"
                     },
@@ -2199,21 +2199,21 @@
                     {
                         "description": "The customer's home telephone number.",
                         "in": "query",
-                        "maxLength": 20,
+                        "maxLength": 200,
                         "name": "homePhoneNumber",
                         "type": "string"
                     },
                     {
                         "description": "The customer's work telephone number.",
                         "in": "query",
-                        "maxLength": 18,
+                        "maxLength": 200,
                         "name": "workPhoneNumber",
                         "type": "string"
                     },
                     {
                         "description": "The customer's mobile telephone number.",
                         "in": "query",
-                        "maxLength": 18,
+                        "maxLength": 200,
                         "name": "mobilePhoneNumber",
                         "type": "string"
                     }
@@ -2324,7 +2324,7 @@
                     {
                         "description": "The customer’s contact email address.\nBy default this field is required, but this can be disabled at your request.\nThe `CustomerEmailMandatory` field in the Client Info response shows whether this field\nis mandatory.\n",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "email",
                         "required": false,
                         "type": "string"
@@ -2332,7 +2332,7 @@
                     {
                         "description": "The customer’s title (Mr/Mrs/Ms/Miss/Mx etc).",
                         "in": "query",
-                        "maxLength": 10,
+                        "maxLength": 200,
                         "name": "title",
                         "required": true,
                         "type": "string"
@@ -2347,7 +2347,7 @@
                     {
                         "description": "A **unique** reference number allocated by the client for this customer.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "customerRef",
                         "required": true,
                         "type": "string"
@@ -2355,7 +2355,7 @@
                     {
                         "description": "The customer's first name.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "firstName",
                         "required": false,
                         "type": "string"
@@ -2363,7 +2363,7 @@
                     {
                         "description": "The customer's surname.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "surname",
                         "required": true,
                         "type": "string"
@@ -2371,14 +2371,14 @@
                     {
                         "description": "The company name of the customer (if applicable).",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "companyName",
                         "type": "string"
                     },
                     {
                         "description": "The customer's Post Code.",
                         "in": "query",
-                        "maxLength": 8,
+                        "maxLength": 10,
                         "name": "postCode",
                         "required": true,
                         "type": "string"
@@ -2415,28 +2415,28 @@
                     {
                         "description": "The customer's home telephone number.",
                         "in": "query",
-                        "maxLength": 20,
+                        "maxLength": 200,
                         "name": "homePhoneNumber",
                         "type": "string"
                     },
                     {
                         "description": "The customer's work telephone number.",
                         "in": "query",
-                        "maxLength": 18,
+                        "maxLength": 200,
                         "name": "workPhoneNumber",
                         "type": "string"
                     },
                     {
                         "description": "The customer's mobile telephone number.",
                         "in": "query",
-                        "maxLength": 18,
+                        "maxLength": 200,
                         "name": "mobilePhoneNumber",
                         "type": "string"
                     },
                     {
                         "description": "Line one of the customer's postal address.",
                         "in": "query",
-                        "maxLength": 50,
+                        "maxLength": 200,
                         "name": "line1",
                         "required": true,
                         "type": "string"
@@ -2444,7 +2444,7 @@
                     {
                         "description": "Line two of the customer's postal address.",
                         "in": "query",
-                        "maxLength": 30,
+                        "maxLength": 200,
                         "name": "line2",
                         "required": true,
                         "type": "string"
@@ -2452,21 +2452,21 @@
                     {
                         "description": "Line three of the customer's postal address.",
                         "in": "query",
-                        "maxLength": 30,
+                        "maxLength": 200,
                         "name": "line3",
                         "type": "string"
                     },
                     {
                         "description": "Line four of the customer's postal address.",
                         "in": "query",
-                        "maxLength": 30,
+                        "maxLength": 200,
                         "name": "line4",
                         "type": "string"
                     },
                     {
                         "description": "If the customer has provided any middle initials, they can be added in this field.",
                         "in": "query",
-                        "maxLength": 5,
+                        "maxLength": 200,
                         "name": "initials",
                         "type": "string"
                     },
@@ -2697,7 +2697,7 @@
                     {
                         "description": "The customer’s contact email address.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "email",
                         "required": false,
                         "type": "string"
@@ -2705,7 +2705,7 @@
                     {
                         "description": "The customer’s title (Mr/Mrs/Ms/Miss/Mx etc).",
                         "in": "query",
-                        "maxLength": 10,
+                        "maxLength": 200,
                         "name": "title",
                         "required": false,
                         "type": "string"
@@ -2720,7 +2720,7 @@
                     {
                         "description": "A **unique** reference number allocated by the client for this customer.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "customerRef",
                         "required": false,
                         "type": "string"
@@ -2728,7 +2728,7 @@
                     {
                         "description": "The customer's first name.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "firstName",
                         "required": false,
                         "type": "string"
@@ -2736,7 +2736,7 @@
                     {
                         "description": "The customer's surname.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "surname",
                         "required": false,
                         "type": "string"
@@ -2744,14 +2744,14 @@
                     {
                         "description": "The company name of the customer (if applicable).",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "companyName",
                         "type": "string"
                     },
                     {
                         "description": "The customer's Post Code.",
                         "in": "query",
-                        "maxLength": 8,
+                        "maxLength": 10,
                         "name": "postCode",
                         "required": false,
                         "type": "string"
@@ -2788,28 +2788,28 @@
                     {
                         "description": "The customer's home telephone number.",
                         "in": "query",
-                        "maxLength": 20,
+                        "maxLength": 200,
                         "name": "homePhoneNumber",
                         "type": "string"
                     },
                     {
                         "description": "The customer's work telephone number.",
                         "in": "query",
-                        "maxLength": 18,
+                        "maxLength": 200,
                         "name": "workPhoneNumber",
                         "type": "string"
                     },
                     {
                         "description": "The customer's mobile telephone number.",
                         "in": "query",
-                        "maxLength": 18,
+                        "maxLength": 200,
                         "name": "mobilePhoneNumber",
                         "type": "string"
                     },
                     {
                         "description": "Line one of the customer's postal address.",
                         "in": "query",
-                        "maxLength": 50,
+                        "maxLength": 200,
                         "name": "line1",
                         "required": false,
                         "type": "string"
@@ -2817,7 +2817,7 @@
                     {
                         "description": "Line two of the customer's postal address.",
                         "in": "query",
-                        "maxLength": 30,
+                        "maxLength": 200,
                         "name": "line2",
                         "required": false,
                         "type": "string"
@@ -2825,21 +2825,21 @@
                     {
                         "description": "Line three of the customer's postal address.",
                         "in": "query",
-                        "maxLength": 30,
+                        "maxLength": 200,
                         "name": "line3",
                         "type": "string"
                     },
                     {
                         "description": "Line four of the customer's postal address.",
                         "in": "query",
-                        "maxLength": 30,
+                        "maxLength": 200,
                         "name": "line4",
                         "type": "string"
                     },
                     {
                         "description": "If the customer has provided any middle initials, they can be added in this field.",
                         "in": "query",
-                        "maxLength": 5,
+                        "maxLength": 200,
                         "name": "initials",
                         "type": "string"
                     },
@@ -2985,7 +2985,7 @@
                     {
                         "description": "Label for the question.",
                         "in": "query",
-                        "maxLength": 200,
+                        "maxLength": 500,
                         "name": "label",
                         "required": true,
                         "type": "string"
@@ -3105,7 +3105,7 @@
                     {
                         "description": "Label for the question.",
                         "in": "query",
-                        "maxLength": 200,
+                        "maxLength": 500,
                         "name": "label",
                         "required": false,
                         "type": "string"
@@ -3292,7 +3292,7 @@
                         "required": true,
                         "name": "value",
                         "type": "string",
-                        "maxLength": 200
+                        "maxLength": 500
                     }
                 ],
                 "responses": {
@@ -3355,7 +3355,7 @@
                         "required": true,
                         "name": "value",
                         "type": "string",
-                        "maxLength": 200
+                        "maxLength": 500
                     }
                 ],
                 "responses": {
@@ -4953,7 +4953,7 @@
                     {
                         "description": "The name of the schedule to be used when creating a contract. You must include either this or the `scheduleId` parameter.",
                         "in": "query",
-                        "maxLength": 255,
+                        "maxLength": 200,
                         "name": "scheduleName",
                         "required": true,
                         "type": "string"
@@ -6433,7 +6433,7 @@
                 },
                 "comment": {
                     "description": "A comment relating to the payment (which can be recalled using\nthe GET method).\n",
-                    "maxLength": 255,
+                    "maxLength": 200,
                     "type": "string"
                 },
                 "contract": {
@@ -7076,12 +7076,12 @@
                 "Email": {
                     "description": "The customer's contact email address.",
                     "type": "string",
-                    "maxLength": 255
+                    "maxLength": 200
                 },
                 "Title": {
                     "description": "The customer's title (Mr/Mrs/Ms/Miss/Mx etc).",
                     "type": "string",
-                    "maxLength": 10
+                    "maxLength": 200
                 },
                 "DateOfBirth": {
                     "description": "The customer's date of birth.\n**Format: `YYYY-MM-DDT00:00:00.000`**\n",
@@ -7091,27 +7091,27 @@
                 "CustomerRef": {
                     "description": "A unique reference number allocated by the client for this customer.",
                     "type": "string",
-                    "maxLength": 255
+                    "maxLength": 200
                 },
                 "FirstName": {
                     "description": "The customer's first name.",
                     "type": "string",
-                    "maxLength": 255
+                    "maxLength": 200
                 },
                 "Surname": {
                     "description": "The customer's surname.",
                     "type": "string",
-                    "maxLength": 255
+                    "maxLength": 200
                 },
                 "CompanyName": {
                     "description": "The company name of the customer (if applicable).",
                     "type": "string",
-                    "maxLength": 255
+                    "maxLength": 200
                 },
                 "PostCode": {
                     "description": "The customer's Post Code.",
                     "type": "string",
-                    "maxLength": 8
+                    "maxLength": 10
                 },
                 "AccountNumber": {
                     "description": "The customer's bank account number.\nThis must be eight numerical characters with all leading zeros left intact.\nExamples include: `01065284`, `00000000`, `26280464`.\nAny non-numerical characters **must be removed** before passing the data to the API.\n",
@@ -7136,42 +7136,42 @@
                 "HomePhoneNumber": {
                     "description": "The customer's home telephone number.",
                     "type": "string",
-                    "maxLength": 20
+                    "maxLength": 200
                 },
                 "WorkPhoneNumber": {
                     "description": "The customer's work telephone number.",
                     "type": "string",
-                    "maxLength": 18
+                    "maxLength": 200
                 },
                 "MobilePhoneNumber": {
                     "description": "The customer's mobile telephone number.",
                     "type": "string",
-                    "maxLength": 18
+                    "maxLength": 200
                 },
                 "Line1": {
                     "description": "Line one of the customer's postal address.",
                     "type": "string",
-                    "maxLength": 50
+                    "maxLength": 200
                 },
                 "Line2": {
                     "description": "Line two of the customer's postal address.",
                     "type": "string",
-                    "maxLength": 30
+                    "maxLength": 200
                 },
                 "Line3": {
                     "description": "Line three of the customer's postal address.",
                     "type": "string",
-                    "maxLength": 30
+                    "maxLength": 200
                 },
                 "Line4": {
                     "description": "Line four of the customer's postal address.",
                     "type": "string",
-                    "maxLength": 30
+                    "maxLength": 200
                 },
                 "Initials": {
                     "description": "If the customer has provided any middle initials, they can be added in this field.",
                     "type": "string",
-                    "maxLength": 5
+                    "maxLength": 200
                 },
                 "CustomerLocale": {
                     "description": "Set the language of communications sent to this customer to English (`en-GB`) or Welsh (`cy-GB`).\nIf omitted, this defaults to English.\nIf Welsh support is not enabled for your organisation, submitting `cy-GB` returns a 400 error with the message: **\"Welsh language not enabled for this client\"**.",
